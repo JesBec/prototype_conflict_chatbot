@@ -47,7 +47,7 @@ class ActionDatabaseConnection(Action):
         requirements = [
             ('the user should login with a registered email address and password','security,login,account,email,password','login window'),
             ('the user should be transferred from the login page to the landing page when the login is successful','usability,guide','login window,landing page'),
-            ('the system should inform the user if the email address is not registered when the user is trying to login','usability,error','login window')
+            ('the system should inform the user if the email address is not registered when the user is trying to login','usability,error','login window'),
             ('the system should inform the user if the email address is incorrect when the user is trying to login','usability,error','login window'),
             ('the system should give the user the option to register a new account if the user tries to login and is not registered','security,login,account,error','login window'),
             ('the system should inform the user if the password is wrong when the user is trying to login','usability,error','login window'),
