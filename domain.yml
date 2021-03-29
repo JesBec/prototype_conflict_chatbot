@@ -1,34 +1,71 @@
-version: "2.0"
-
-intents:
-  - greet
-  - goodbye
-  - affirm
-  - deny
-  - mood_great
-  - mood_unhappy
-  - bot_challenge
-
-responses:
-  utter_greet:
-  - text: "Hey! How are you?"
-
-  utter_cheer_up:
-  - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
-
-  utter_did_that_help:
-  - text: "Did that help you?"
-
-  utter_happy:
-  - text: "Great, carry on!"
-
-  utter_goodbye:
-  - text: "Bye"
-
-  utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
-
+version: '2.0'
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
+intents:
+- part_of_system
+- account_security
+- request_requirement_submission
+- greet
+- goodbye
+- affirm
+- deny
+- mood_great
+- mood_unhappy
+- bot_challenge
+- security
+- login_security
+- email_security
+- password_security
+- error_security
+- usability
+- guide_usability
+- error_usability
+- availability
+- access_availability
+slots:
+  part_of_system:
+    type: text
+    auto_fill: false
+    influence_conversation: false
+  account_security:
+    type: text
+    auto_fill: false
+    influence_conversation: false
+responses:
+  utter_greet:
+  - text: Hey! How are you?
+  utter_cheer_up:
+  - text: 'Here is something to cheer you up:'
+    image: https://i.imgur.com/nGF1K8f.jpg
+  utter_did_that_help:
+  - text: Did that help you?
+  utter_happy:
+  - text: Great, carry on!
+  utter_goodbye:
+  - text: Bye
+  utter_iamabot:
+  - text: I am a bot, powered by Rasa.
+  utter_ask_requirement:
+  - text: Would you like to suggest a requirement?
+  utter_ask_part_of_system:
+  - text: What part of the system will be affected by your requirement?
+  utter_ask_account_security:
+  - text: What is your requirement?
+  utter_slots_values:
+  - text: |-
+      This is what was collected: - Part of the system: {part_of_system}
+       - Intent account security: {account_security}
+
+actions:
+- action_database_connection
+- action_hello_world
+- utter_slots_values
+- validate_category_form
+
+forms:
+  category_form:
+    part_of_system:
+    - type: from_text
+    account_security:
+    - type: from_text

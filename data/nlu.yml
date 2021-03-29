@@ -1,5 +1,4 @@
 version: "2.0"
-
 nlu:
 - intent: greet
   examples: |
@@ -16,7 +15,6 @@ nlu:
     - goodmorning
     - goodevening
     - good afternoon
-
 - intent: goodbye
   examples: |
     - good afternoon
@@ -30,7 +28,6 @@ nlu:
     - see you around
     - bye bye
     - see you later
-
 - intent: affirm
   examples: |
     - yes
@@ -39,7 +36,6 @@ nlu:
     - of course
     - that sounds good
     - correct
-
 - intent: deny
   examples: |
     - no
@@ -49,7 +45,6 @@ nlu:
     - don't like that
     - no way
     - not really
-
 - intent: mood_great
   examples: |
     - perfect
@@ -66,7 +61,7 @@ nlu:
     - so so perfect
     - so good
     - so perfect
-
+    - good
 - intent: mood_unhappy
   examples: |
     - my day was horrible
@@ -83,10 +78,78 @@ nlu:
     - extremly sad
     - so saad
     - so sad
-
 - intent: bot_challenge
   examples: |
     - are you a bot?
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
+- intent: part_of_system
+  examples: |
+    - login window
+    - login
+    - registration window
+    - registration
+    - registry
+    - data
+- intent: security
+  examples: |
+    - security
+    - safety
+- intent: login_security
+  examples: |
+    - login
+    - log in
+    - logging in
+- intent: account_security
+  examples: |
+    - account
+    - registered
+    - register
+    - email address and password
+    - email address
+    - password
+    - the user should login with a registered email address and password
+- intent: email_security
+  examples: |
+    - email
+    - mail
+    - email-address
+    - email address
+- intent: password_security
+  examples: |
+    - password
+    - pw
+- intent: error_security
+  examples: |
+    - try
+    - not registered
+- intent: usability
+  examples: |
+    - transfer
+    - inform
+- intent: guide_usability
+  examples: |
+    - transeferred to
+    - transfer
+- intent: error_usability
+  examples: |
+    - inform
+    - trying
+    - not
+    - incorrect
+    - wrong
+- intent: availability
+  examples: |
+    - available
+    - reachable
+- intent: access_availability
+  examples: |
+    - always
+    - accessable
+- intent: request_requirement_submission
+  examples: |
+    - i would like to submit a requirement
+    - i have a new requirement
+    - can i submit a new requirement
+    - new requirement

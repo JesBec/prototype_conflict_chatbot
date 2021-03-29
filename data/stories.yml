@@ -7,7 +7,16 @@ stories:
   - intent: greet
   - action: utter_greet
   - intent: mood_great
-  - action: utter_happy
+  #- action: utter_ask_requirement
+  #- intent: affirm
+  #- action: category_form
+  #- active_loop: category_form
+  #- action: utter_ask_part_of_system
+  #- action: utter_ask_account_security
+  #- action: action_hello_world
+  #- active_loop: null
+  #- intent: mood_great
+  #- action: utter_happy
 
 - story: sad path 1
   steps:
@@ -28,3 +37,21 @@ stories:
   - action: utter_did_that_help
   - intent: deny
   - action: utter_goodbye
+
+- story: interactive_story_1
+  steps:
+  - intent: request_requirement_submission
+  - action: category_form
+  - active_loop: category_form
+  - slot_was_set:
+    - requested_slot: part_of_system
+  - slot_was_set:
+    - part_of_system: login window
+  - slot_was_set:
+    - requested_slot: account_security
+  - slot_was_set:
+    - account_security: the user should login with a registered email address and password
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_slots_values
