@@ -48,10 +48,16 @@ stories:
   - slot_was_set:
     - part_of_system: login window
   - slot_was_set:
-    - requested_slot: account_security
+    - requested_slot: new_requirement
   - slot_was_set:
-    - account_security: the user should login with a registered email address and password
+    - new_requirement: the user should login with a registered email address and password
   - slot_was_set:
     - requested_slot: null
   - active_loop: null
+  - action: action_database
   - action: utter_slots_values
+  - slot_was_set:
+    - conflicting_requirements: the system should
+  - action: utter_ask_more_information
+  - intent: affirm
+

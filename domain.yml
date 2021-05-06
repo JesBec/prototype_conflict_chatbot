@@ -3,7 +3,6 @@ session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
 intents:
-- part_of_system
 - account_security
 - request_requirement_submission
 - greet
@@ -23,12 +22,29 @@ intents:
 - error_usability
 - availability
 - access_availability
+- account_security+login_security
+- password_security+encryption_security
+- registration_security+password_security
+- account_security+login_security+email_security+password_security
+- account_security+email_security
+- login_security+access_security+error_security
+- registration_window
+- login_window
+- data
 slots:
   part_of_system:
     type: text
     auto_fill: false
     influence_conversation: false
-  account_security:
+  new_requirement:
+    type: text
+    auto_fill: false
+    influence_conversation: false
+  intent_new_requirement:
+    type: text
+    auto_fill: false
+    influence_conversation: false
+  conflicting_requirements:
     type: text
     auto_fill: false
     influence_conversation: false
@@ -50,15 +66,27 @@ responses:
   - text: Would you like to suggest a requirement?
   utter_ask_part_of_system:
   - text: What part of the system will be affected by your requirement?
-  utter_ask_account_security:
+    buttons:
+    - title: "Registration window"
+      payload: "/registration_window"
+    - title: "Login window"
+      payload: "/login_window"
+    - title: "Data"
+      payload: "/data"
+  utter_ask_new_requirement:
   - text: What is your requirement?
   utter_slots_values:
   - text: |-
-      This is what was collected: - Part of the system: {part_of_system}
-       - Intent account security: {account_security}
+      This is what was collected: 
+      - Part of the system: {part_of_system}
+      - Category of new requirement: {intent_new_requirement}
+      - New requirement: {new_requirement}
+      - Conflicting requirements: {conflicting_requirements}
+  utter_ask_more_information:
+  - text: There was a conflict detected. Would you like to give us additional information to resolve the conflict?
 
 actions:
-- action_database_connection
+- action_database
 - action_hello_world
 - utter_slots_values
 - validate_category_form
@@ -67,5 +95,5 @@ forms:
   category_form:
     part_of_system:
     - type: from_text
-    account_security:
+    new_requirement:
     - type: from_text
