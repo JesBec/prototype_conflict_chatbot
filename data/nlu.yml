@@ -1,5 +1,4 @@
 version: "2.0"
-
 nlu:
 - intent: greet
   examples: |
@@ -16,7 +15,6 @@ nlu:
     - goodmorning
     - goodevening
     - good afternoon
-
 - intent: goodbye
   examples: |
     - good afternoon
@@ -30,7 +28,6 @@ nlu:
     - see you around
     - bye bye
     - see you later
-
 - intent: affirm
   examples: |
     - yes
@@ -39,7 +36,10 @@ nlu:
     - of course
     - that sounds good
     - correct
-
+    - sure
+    - ok
+    - okay
+    - i will
 - intent: deny
   examples: |
     - no
@@ -49,7 +49,7 @@ nlu:
     - don't like that
     - no way
     - not really
-
+    - stop
 - intent: mood_great
   examples: |
     - perfect
@@ -66,7 +66,7 @@ nlu:
     - so so perfect
     - so good
     - so perfect
-
+    - good
 - intent: mood_unhappy
   examples: |
     - my day was horrible
@@ -83,10 +83,128 @@ nlu:
     - extremly sad
     - so saad
     - so sad
-
 - intent: bot_challenge
   examples: |
     - are you a bot?
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
+- intent: security
+  examples: |
+    - security
+    - safety
+- intent: login_security
+  examples: |
+    - login with
+    - login
+    - log in
+    - logging in
+    - logged in
+- intent: account_security
+  examples: |
+    - account
+    - registered email address and password
+    - registered account
+    - with registered account
+    - register new account
+    - create account
+- intent: email_security
+  examples: |
+    - registered email
+    - not registered mail
+    - same email address
+    - valid email-address
+- intent: password_security
+  examples: |
+    - valid password
+    - pw
+    - registered password
+    - new password
+    - change password
+    - update pw
+    - safe password
+    - encrypted password
+    - create password with
+- intent: error_security
+  examples: |
+    - tries to register
+    - fails to login
+    - not registered
+    - login attempts fail
+- intent: access_security
+  examples: |
+    - 
+- intent: password_security+encryption_security
+  examples: |
+    - the system should store the password encrypted
+    - encrypted
+    - encryption
+- intent: registration_security+password_security
+  examples: |
+    - password with at least 8 characters, a number, symbol, capital letter and lower-case letter
+    - registration with a safe password
+    - strong password to register
+    - no weak password registration
+    - register a new account by adding a new email address and password
+- intent: account_security+login_security
+  examples: |
+    - the option to register a new account if the user tries to login and is not registered
+    - only user with registered account can login
+    - account is required to login
+- intent: account_security+login_security+email_security+password_security
+  examples: |
+    - the user should login with a registered email address and password
+    - to login user needs to enter email address and password
+- intent: account_security+email_security
+  examples: |
+    - the system should not create a new account if another account already uses the same email address
+    - new account with unregistered email
+- intent: login_security+access_security+error_security
+  examples: |
+    - the system should disable login if 3 attempts to login have failed
+    - login should be in timeout if too many unsuccessful login tries have failed
+- intent: usability
+  examples: |
+    - transfer
+    - inform
+- intent: guide_usability
+  examples: |
+    - transferred to landing page
+    - transfer to login page if email is registered
+    - the user should be transferred from the login page to the landing page when the login is successful
+    - the system should transfer the user to the login page if the entered email address is already registered
+- intent: error_usability
+  examples: |
+    - inform if email is not registered
+    - inform if password is wrong
+    - user forgot login data 
+    - the system should inform the user if the email address is not registered when the user is trying to login
+    - the system should inform the user if the email address is incorrect when the user is trying to login
+    - the system should inform the user if the password is wrong when the user is trying to login
+    - the user should be able to reset the password if the user does not remember it
+- intent: availability
+  examples: |
+    - available
+    - reachable
+- intent: access_availability
+  examples: |
+    - always
+    - accessable
+- intent: request_requirement_submission
+  examples: |
+    - i would like to submit a requirement
+    - i have a new requirement
+    - can i submit a new requirement
+    - new requirement
+- intent: registration_window
+  examples: |
+    - registration window
+    - window with registration
+- intent: login_window
+  examples: |
+    - login window
+    - window with login
+- intent: data
+  examples: |
+    - data
+    - concerning data
