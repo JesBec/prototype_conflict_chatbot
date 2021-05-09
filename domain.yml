@@ -3,7 +3,6 @@ session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
 intents:
-- account_security
 - request_requirement_submission
 - greet
 - goodbye
@@ -12,25 +11,30 @@ intents:
 - mood_great
 - mood_unhappy
 - bot_challenge
-- security
-- login_security
-- email_security
-- password_security
-- error_security
-- usability
-- guide_usability
-- error_usability
-- availability
-- access_availability
-- account_security+login_security
-- password_security+encryption_security
-- registration_security+password_security
-- account_security+login_security+email_security+password_security
-- account_security+email_security
-- login_security+access_security+error_security
-- registration_window
-- login_window
-- data
+- link
+- meeting_window
+- device
+- webpage
+- meeting+joining
+- meeting+joining+installation
+- meeting+joining+video
+- meeting+joining+audio
+- configuration+audio
+- configuration+video
+- configuration+testing+audio
+- configuration+testing+video
+- meeting+control
+- meeting+control+creation
+- meeting+control+start
+- meeting+control+participants
+- meeting+sharing+screen
+- meeting+sharing+screen+option
+- meeting+sharing+sound
+- meeting+control+record
+- meeting+record
+- meeting+record+storing
+- schedule
+- meeting+create+option
 slots:
   part_of_system:
     type: text
@@ -67,12 +71,14 @@ responses:
   utter_ask_part_of_system:
   - text: What part of the system will be affected by your requirement?
     buttons:
-    - title: "Registration window"
-      payload: "/registration_window"
-    - title: "Login window"
-      payload: "/login_window"
-    - title: "Data"
-      payload: "/data"
+    - title: "Link"
+      payload: "/link"
+    - title: "Meeting window"
+      payload: "/meeting_window"
+    - title: "Webpage"
+      payload: "/webpage"
+    - title: "Device"
+      payload: "/device"
   utter_ask_new_requirement:
   - text: What is your requirement?
   utter_slots_values:

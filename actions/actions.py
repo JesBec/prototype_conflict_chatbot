@@ -20,9 +20,9 @@ class ValidateCategoryForm(FormValidationAction):
         domain: DomainDict,
     ) -> Dict[Text, Any]:
         """Validate `part_of_system` value."""
-        dispatcher.utter_message(text=f"That is the slot value: {slot_value}")
+        #dispatcher.utter_message(text=f"That is the slot value: {slot_value}")
 
-        system_parts = ["login window","registration window","data"]
+        system_parts = ["link","meeting window","webpage","device"]
         slot_value_string = ""
         slot_value_string = slot_value
 
@@ -69,14 +69,14 @@ class ActionDatabase(Action):
 
         intent_new_requirement = tracker.get_slot("intent_new_requirement")
         #dispatcher.utter_message(text=f"Extracted intent: {intent_new_requirement}")
-        collected_intents = intent_new_requirement.split('+')
-        all_conflicting_categories = HandleDatabase.get_conflicting_categories(collected_intents)
+        #collected_intents = intent_new_requirement.split('+')
+        all_conflicting_categories = HandleDatabase.get_conflicting_categories(intent_new_requirement)
         #dispatcher.utter_message(text=f"Conflicting catgeories: {all_conflicting_categories}")
 
         part_of_system = tracker.get_slot("part_of_system")
         conflicting_requirements_formatted = ""
         conflicting_requirements = HandleDatabase.get_conflicting_requirements(all_conflicting_categories, part_of_system)
-        dispatcher.utter_message(text=f"Conflicting requirements: {conflicting_requirements}")
+        #dispatcher.utter_message(text=f"Conflicting requirements: {conflicting_requirements}")
         
         for requirement in conflicting_requirements:
             conflicting_requirements_formatted = conflicting_requirements_formatted + " " + requirement + "\n"
@@ -90,19 +90,25 @@ class HandleDatabase:
     #dispatcher.utter_message(text=f"Conflicting categories before method: {all_conflicting_categories}")
 
     def get_conflicting_categories(categories):
-        all_conflicting_categories = []
-        all_conflicting_categories.clear()
+        conflicts = []
+        conflicts.clear()
         conn = sqlite3.connect('./database/PrototypeDB.db')
         cur = conn.cursor()
-        for category in categories:
-           cur.execute('SELECT ' + category + ' from conflictingcategories')
-           conflicts = cur.fetchone()
-           conflicts = conflicts[0].split("+")
-           for conflict in conflicts:
-               all_conflicting_categories.append(conflict)
+        #print(categories)
+        categories = categories.replace('+','_')
+        cur.execute('SELECT ' + categories + ' from conflictingcategories')
+        conflicts = cur.fetchone()
+
+        #for category in categories:
+           #category = category.replace('+','_')
+           #cur.execute('SELECT ' + meeting+control + ' from conflictingcategories')
+           #conflicts = cur.fetchone()
+           #conflicts = conflicts[0].split("+")
+           #for conflict in conflicts:
+               #all_conflicting_categories.append(conflict)
         conn.close()
-        print(f"Conflicting categories method: {all_conflicting_categories}")
-        return all_conflicting_categories
+        print(f"Conflicting categories method: {conflicts}")
+        return conflicts
 
     #ToDo just checking position 0 could lead to false results
     def get_conflicting_requirements(all_conflicting_categories, part_of_system):
@@ -110,7 +116,7 @@ class HandleDatabase:
         conn = sqlite3.connect('./database/PrototypeDB.db')
         cur = conn.cursor()
         HandleDatabase.conflicting_requirements.clear()
-        
+        all_conflicting_categories = all_conflicting_categories[0].split(';')
         if all_conflicting_categories[0] != "no conflict":
             for conflict in all_conflicting_categories:
                 part_of_system = '%' + part_of_system + '%'
@@ -124,7 +130,7 @@ class HandleDatabase:
              conflict_detected = False
 
         conn.close()
-        print(f"Conflicting detected: {conflict_detected}")
+        #print(f"Conflicting detected: {conflict_detected}")
         #dispatcher.utter_message(text=f"Conflicting detected: {conflict_detected}")
         return HandleDatabase.conflicting_requirements
 

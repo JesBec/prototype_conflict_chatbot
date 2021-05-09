@@ -89,122 +89,108 @@ nlu:
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
-- intent: security
+- intent: link
   examples: |
-    - security
-    - safety
-- intent: login_security
+    - link 
+    - linking to 
+    - to be linked
+- intent: meeting_window
   examples: |
-    - login with
-    - login
-    - log in
-    - logging in
-    - logged in
-- intent: account_security
+    - meeting window
+    - meeting platform
+- intent: webpage
   examples: |
-    - account
-    - registered email address and password
-    - registered account
-    - with registered account
-    - register new account
-    - create account
-- intent: email_security
+    - webpage
+    - configuration page
+- intent: device
   examples: |
-    - registered email
-    - not registered mail
-    - same email address
-    - valid email-address
-- intent: password_security
+    - device
+    - platform
+- intent: meeting+joining
   examples: |
-    - valid password
-    - pw
-    - registered password
-    - new password
-    - change password
-    - update pw
-    - safe password
-    - encrypted password
-    - create password with
-- intent: error_security
+    - the user can join a meeting by clicking the invitation link
+    - the user can only join a meeting when the host started the meeting
+- intent: meeting+joining+installation
   examples: |
-    - tries to register
-    - fails to login
-    - not registered
-    - login attempts fail
-- intent: access_security
+    - the user will be prompted to install the application when clicking the invitation link if the application is not already installed
+    - to be able to join a meeting the application has to be installed
+- intent: meeting+joining+video
   examples: |
-    - 
-- intent: password_security+encryption_security
+    - the user will be asked if the user wants to join the meeting with his video
+    - the user can join the meeting with video from his computer or phone
+- intent: meeting+joining+audio
   examples: |
-    - the system should store the password encrypted
-    - encrypted
-    - encryption
-- intent: registration_security+password_security
+    - the user will be asked if the user wants to join the meeting with his audio
+    - the user can join the meeting with audio from his computer or phone
+- intent: configuration+audio
   examples: |
-    - password with at least 8 characters, a number, symbol, capital letter and lower-case letter
-    - registration with a safe password
-    - strong password to register
-    - no weak password registration
-    - register a new account by adding a new email address and password
-- intent: account_security+login_security
+    - the user can activate or deactivate audio by clicking the audio icon
+    - the user can choose the audio source by right clicking the audio icon
+- intent: configuration+video
   examples: |
-    - the option to register a new account if the user tries to login and is not registered
-    - only user with registered account can login
-    - account is required to login
-- intent: account_security+login_security+email_security+password_security
+    - the user can activate or deactivate video by clicking the video icon
+    - the user can choose the camera source by right clicking the video icon
+    - the user can change the background of the user's video by right clicking the video icon
+- intent: configuration+testing+audio
   examples: |
-    - the user should login with a registered email address and password
-    - to login user needs to enter email address and password
-- intent: account_security+email_security
+    - the user can test the audio by right clicking the audio icon
+    - the audio can be configured and tested by right clicking the audio icon
+- intent: configuration+testing+video
   examples: |
-    - the system should not create a new account if another account already uses the same email address
-    - new account with unregistered email
-- intent: login_security+access_security+error_security
+    - the user can test the video by right clicking the video icon
+    - the video can be configured and tested by right clicking the audio icon
+- intent: meeting+control
   examples: |
-    - the system should disable login if 3 attempts to login have failed
-    - login should be in timeout if too many unsuccessful login tries have failed
-- intent: usability
+    - the host is controlling the meeting
+    - the host can handover the control to participants by right clicking the participant
+- intent: meeting+control+creation
   examples: |
-    - transfer
-    - inform
-- intent: guide_usability
+    - the host can create a meeting on the webpage
+    - the host is inviting participants by sending a link of the generated meeting
+- intent: meeting+control+start
   examples: |
-    - transferred to landing page
-    - transfer to login page if email is registered
-    - the user should be transferred from the login page to the landing page when the login is successful
-    - the system should transfer the user to the login page if the entered email address is already registered
-- intent: error_usability
+    - the host is starting the meeting by joining the meeting
+    - to start a meeting the host has to be joined
+- intent: meeting+control+participants
   examples: |
-    - inform if email is not registered
-    - inform if password is wrong
-    - user forgot login data 
-    - the system should inform the user if the email address is not registered when the user is trying to login
-    - the system should inform the user if the email address is incorrect when the user is trying to login
-    - the system should inform the user if the password is wrong when the user is trying to login
-    - the user should be able to reset the password if the user does not remember it
-- intent: availability
+    - the host can rename participants by right clicking the participant
+    - the host can remove participants by right clicking the participant
+    - the host can unmute all participant by clicking the icon
+    - the host can mute a participant by right clicking the participant
+- intent: meeting+sharing+screen
   examples: |
-    - available
-    - reachable
-- intent: access_availability
+    - the user can share his screen by clicking the share icon
+    - the user can stop sharing his screen by selecting the stop icon
+- intent: meeting+sharing+screen+option
   examples: |
-    - always
-    - accessable
+    - the user can share the full desktop
+    - the use can share one of his application
+    - the user can share a drawing board
+- intent: meeting+sharing+sound
+  examples: |
+    - the user has the option to share his sound
+    - when sharing the screen during a meeting the sound can be shared
+- intent: meeting+control+record
+  examples: |
+    - the host can record a meeting by clicking the record icon
+    - the participant can record a meeting by clicking the record icon if the host has shared the right to record to the participant
+- intent: meeting+record
+  examples: |
+    - the participant can stop recording a meeting by clicking the stop icon when the participant has started the recording
+    - the host can stop recording a meeting by clicking the stop icon
+- intent: meeting+record+storing
+  examples: |
+    - the system can store the recorded meeting locally on the computer
+    - the system can store the recorded meeting in the cloud
+- intent: schedule
+  examples: |
+    - the host can schedule a new meeting by clicking the button new meeting on the webpage
+    - the host has the option to create a meeting that is recurring
+- intent: meeting+create+option
+  examples: |
+    - the host can choose the title of the meeting he wants to schedule
+    - the host can select the date of the meeting he is scheduling
 - intent: request_requirement_submission
   examples: |
-    - i would like to submit a requirement
     - i have a new requirement
-    - can i submit a new requirement
-    - new requirement
-- intent: registration_window
-  examples: |
-    - registration window
-    - window with registration
-- intent: login_window
-  examples: |
-    - login window
-    - window with login
-- intent: data
-  examples: |
-    - data
-    - concerning data
+    - i want to submit a feature

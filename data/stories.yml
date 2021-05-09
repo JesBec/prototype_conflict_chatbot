@@ -38,7 +38,7 @@ stories:
   - intent: deny
   - action: utter_goodbye
 
-- story: interactive_story_1
+- story: simple_path_story_happy
   steps:
   - intent: request_requirement_submission
   - action: category_form
@@ -58,6 +58,4 @@ stories:
   - action: utter_slots_values
   - slot_was_set:
     - conflicting_requirements: the system should
-  - action: utter_ask_more_information
-  - intent: affirm
 
