@@ -40,6 +40,9 @@ nlu:
     - ok
     - okay
     - i will
+    - 25
+    - university
+    - student
 - intent: deny
   examples: |
     - no
@@ -91,8 +94,8 @@ nlu:
     - am I talking to a human?
 - intent: link
   examples: |
-    - link 
-    - linking to 
+    - link
+    - linking to
     - to be linked
 - intent: meeting_window
   examples: |
@@ -157,6 +160,7 @@ nlu:
     - the host can remove participants by right clicking the participant
     - the host can unmute all participant by clicking the icon
     - the host can mute a participant by right clicking the participant
+    - the host can handover the control to participants by right clicking the participant
 - intent: meeting+sharing+screen
   examples: |
     - the user can share his screen by clicking the share icon
@@ -194,3 +198,36 @@ nlu:
   examples: |
     - i have a new requirement
     - i want to submit a feature
+    - i got an idea for a new requirement
+- intent: more_information_about_categories
+  examples: |
+    - i need more information about the categories
+    - what are those categories
+    - i do not get the categories
+- intent: information_requirement
+  examples: |
+    - what is a requirement
+    - how can i formulate a requirement
+    - what should a requirement look like?
+    - what do i need to consider to formulate a requirement?
+- intent: finished_checking_categories
+  examples: |
+    - i am finished
+    - we can continue
+    - continue
+    - done
+    - i am ready
+    - move on
+- intent: agrees_conflict_management
+  examples: |
+    - i would like to give some information
+    - i would do that
+    - i would like to
+    - kay
+- intent: stop
+  examples: |
+    - stop
+    - i don't want to continue
+    - no more questions
+    - I don't want to answer
+    - cancel
