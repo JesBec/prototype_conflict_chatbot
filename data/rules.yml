@@ -12,6 +12,51 @@ rules:
   - intent: bot_challenge
   - action: utter_iamabot
 
+- rule: Help user to figure out what a requirement is
+  steps: 
+  - intent: information_requirement
+  - action: utter_requirement_information
+
+  
+
+- rule: activate user_information form
+  steps:
+    #- intent: agrees_conflict_management   # intent that triggers form activation
+    - action: user_information_form      # run the form
+    - active_loop: user_information_form # this form is active
+
+- rule: submit user_information form
+  condition:
+  - active_loop: user_information_form   # this form must be active
+  steps:
+    - action: user_information_form      # run the form
+    - active_loop: null            # the form is no longer active because it has been filled
+    #- action: utter_submit         # action to take after the form is complete
+    - slot_was_set:
+      - requested_slot: null
+    - action: action_save_information
+    - action: utter_thanks_for_info   # action to take after the form is complete
+  wait_for_user_input: false
+
+- rule: activate manage_conflict form
+  steps:
+    #- intent: agrees_conflict_management   # intent that triggers form activation
+    - action: manage_conflict_form      # run the form
+    - active_loop: manage_conflict_form # this form is active
+
+- rule: submit manage_conflict form
+  condition:
+  - active_loop: manage_conflict_form   # this form must be active
+  steps:
+    - action: manage_conflict_form      # run the form
+    - active_loop: null            # the form is no longer active because it has been filled
+    #- action: utter_submit         # action to take after the form is complete
+    - slot_was_set:
+      - requested_slot: null
+    #- action: user_information_form
+  wait_for_user_input: false
+    #- action: action_save_information
+    #- action: utter_thanks_for_info   # action to take after the form is complete
 
 - rule: activate category form
   steps:
@@ -28,4 +73,4 @@ rules:
     #- action: utter_submit         # action to take after the form is complete
     - slot_was_set:
       - requested_slot: null
-    - action: utter_slots_values   # action to take after the form is complete
+    - action: action_database   # action to take after the form is complete
