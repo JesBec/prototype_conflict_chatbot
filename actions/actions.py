@@ -18,18 +18,21 @@ class ValidateCategoryForm(FormValidationAction):
     ) -> Optional[List[Text]]:
         
         agreement = tracker.slots.get("agreement_on_categorization")
-        #dispatcher.utter_message(text=f"Slot agreement_on_categorization: {agreement}")
-        if agreement == "/deny":
+        intent = tracker.get_intent_of_latest_message()
+        dispatcher.utter_message(text=f"Slot agreement_on_categorization: {intent}")
+        if agreement == "/deny" and intent != "stop":
             additional_slots = ["agreement_on_categorization"]
             #dispatcher.utter_message(text=f"Agreement deny in required_slots")
             additional_slots.append("categorization_requirement_user")
                 #dispatcher.utter_message(template="utter_select_categories_rasa")
             return additional_slots + slots_mapped_in_domain
-        elif agreement == "/more_information_about_categories":
+        elif agreement == "/more_information_about_categories" and intent != "stop":
             additional_slots = ["agreement_on_categorization"]
             #dispatcher.utter_message(text=f"Agreement more info in required_slots")
             additional_slots.append("more_information_categories_needed")
             return additional_slots + slots_mapped_in_domain
+        #elif tracker.get_intent_of_latest_message() == "stop" or tracker.get_intent_of_latest_message() == "deny":
+        #    return {"action_deactivate_loop"}
         return slots_mapped_in_domain
         
 
@@ -83,7 +86,6 @@ class ValidateCategoryForm(FormValidationAction):
         part_of_system = slot_value_string.replace('_',' ')
         part_of_system = part_of_system.replace('/','')
         
-        #print(f"First name given = {slot_value} length = {len(slot_value)}")
         if part_of_system not in system_parts:
             dispatcher.utter_message(text=f"This part does not exist in the system {part_of_system}.")
             return {"part_of_system": None}
@@ -192,14 +194,14 @@ class ValidateManageConflictForm(FormValidationAction):
         self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
     ) -> Dict[Text, Any]:
         message = tracker.latest_message.get("text")
-        dispatcher.utter_message("in extract preference: {message}")
+        #dispatcher.utter_message("in extract preference: {message}")
         preference = None
         if tracker.get_slot("preference"):
-            dispatcher.utter_message("slot preference exists")
+            #dispatcher.utter_message("slot preference exists")
             preference = tracker.get_slot("preference")
 
         if "first" in message:
-            dispatcher.utter_message("in extract preference: first")
+            #dispatcher.utter_message("in extract preference: first")
             preference = "first"
         elif "last" in message:
             preference = "last"
@@ -221,7 +223,7 @@ class ValidateManageConflictForm(FormValidationAction):
        
 class ValidateUserInformationForm(FormValidationAction):
     def name(self) -> Text:
-        return "user_information_form"
+        return "validate_user_information_form"
     
     def validate_does_participate_user(
         self,
@@ -232,7 +234,7 @@ class ValidateUserInformationForm(FormValidationAction):
     ) -> Dict[Text, Any]: 
         slot_value = None
         agrees = True
-        dispatcher.utter_message("in does participate_user")
+        #dispatcher.utter_message("in does participate_user")
         if tracker.get_intent_of_latest_message() == "deny":
             agrees = False
             slot_value = "not stated"
@@ -282,7 +284,9 @@ class ActionDatabase(Action):
         selected_conflict = HandleConflictManagement.select_conflict(tracker.get_slot("intent_new_requirement"),
                                                                      tracker.get_slot("new_requirement"),
                                                                      tracker.get_slot("part_of_system"))
-        message_conflict = selected_conflict[0][1] + "with the category: " + selected_conflict[0][2] + " and " + selected_conflict[1][1] + " with the category: " + selected_conflict[1][2] 
+        message_conflict = "No conflict."
+        if selected_conflict is not None:
+            message_conflict = selected_conflict[0][1] + "with the category: " + selected_conflict[0][2] + " and " + selected_conflict[1][1] + " with the category: " + selected_conflict[1][2] 
         return [SlotSet("conflicting_requirements", message_conflict)]
 
 class ActionSaveInformation(Action):
@@ -352,8 +356,6 @@ class HandleConflictManagement:
 
         if not HandleConflictManagement.conflicting_requirements:
             HandleConflictManagement.conflicting_requirements = HandleDatabase.conflicting_requirements_and_ids
-        print("Length of the conflicting requirements beginning of method")
-        print(len(HandleConflictManagement.conflicting_requirements))
 
         #if agreement_on_categorization == "/affirm":
         #    all_conflicting_categories = HandleDatabase.get_conflicting_categories(categories_by_bot)  
@@ -364,7 +366,7 @@ class HandleConflictManagement:
         #chosen_conflict_1 = []
         conflicts =[]
         if HandleDatabase.conflict_detected == True:
-            print("HandleDatabase.conflict_detected == True")
+            
             chosen_conflict_1 = [None, new_requirement, category_new_requirement]
 
             chosen_conflict_2 = []
@@ -383,13 +385,11 @@ class HandleConflictManagement:
                 chosen_conflict_2 = [chosen_conflict[0], chosen_conflict[1], chosen_conflict[2]]
         
             HandleConflictManagement.conflicting_requirements.pop(index)
-            print("Length of the conflicting requirements after pop")
-            print(len(HandleConflictManagement.conflicting_requirements))
+            
             conflicts.append(chosen_conflict_1)
             conflicts.append(chosen_conflict_2)
 
         elif HandleDatabase.conflict_detected == False:
-            print("HandleDatabase.conflict_detected == False")
             if HandleConflictManagement.conflicts_from_db is None:
                 HandleConflictManagement.conflicts_from_db = HandleConflictManagement.select_conflicts_to_resolve(part_of_system)
             if HandleConflictManagement.conflicts_from_db and len(HandleConflictManagement.conflicts_from_db) >= 1:
@@ -498,7 +498,7 @@ class HandleDatabase:
         conflicts.clear()
         conn = sqlite3.connect('./database/PrototypeDB.db')
         cur = conn.cursor()
-        print(categories)
+      
         if categories:
             categories = categories.replace('+','_')
         else:
@@ -507,9 +507,7 @@ class HandleDatabase:
         cur.execute('SELECT categories_in_conflict FROM categories WHERE name = ?', (categories,))
         conflicts = cur.fetchall()
         if conflicts and conflicts[0][0].find(";"):
-            #print(conflicts)
             conflicts = conflicts[0][0].split(';')
-            #print(conflicts)
         else:
             conflicts = None
 
