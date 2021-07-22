@@ -52,7 +52,7 @@ nlu:
     - don't like that
     - no way
     - not really
-    - stop
+    #- stop
 - intent: mood_great
   examples: |
     - perfect
@@ -231,3 +231,15 @@ nlu:
     - no more questions
     - I don't want to answer
     - cancel
+- intent: explain
+  examples: |
+    - why do you need that?
+    - explain why you need that
+    - why is this needed
+    - is this necessary
+    - explain
+- intent: chitchat
+  examples: |
+    - tell me a joke
+    - how is the weather 
+    - how are you doing

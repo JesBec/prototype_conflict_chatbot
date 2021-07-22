@@ -3,11 +3,12 @@ session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
 intents:
-- meeting+control+participants
+- request_requirement_submission
+- stop
 - affirm
+- meeting+control+participants
 - meeting_window
 - deny
-- request_requirement_submission
 - greet
 - goodbye
 - mood_great
@@ -39,82 +40,105 @@ intents:
 - more_information_about_categories
 - finished_checking_categories
 - agrees_conflict_management
-- stop
+- explain
+- chitchat
 slots:
   part_of_system:
     type: text
     auto_fill: false
-    influence_conversation: false
+    influence_conversation: true
   new_requirement:
     type: text
     auto_fill: false
-    influence_conversation: false
+    influence_conversation: true
   intent_new_requirement:
     type: text
     auto_fill: false
-    influence_conversation: false
+    influence_conversation: true
   conflicting_requirements:
     type: text
     auto_fill: false
-    influence_conversation: false
+    influence_conversation: true
   agreement_on_categorization:
     type: text
     auto_fill: false
-    influence_conversation: false
+    influence_conversation: true
   categorization_requirement_user:
     type: text
     auto_fill: false
-    influence_conversation: false
+    influence_conversation: true
   more_information_categories_needed:
     type: bool
     auto_fill: false
-    influence_conversation: false
+    influence_conversation: true
   does_participate:
     type: bool
     auto_fill: false
-    influence_conversation: false
+    influence_conversation: true
   agrees_with_conflict:
     type: bool
     auto_fill: false
-    influence_conversation: false
+    influence_conversation: true
   explanation_conflict:
     type: text
     auto_fill: false
-    influence_conversation: false
+    influence_conversation: true
   preference:
     type: text
     auto_fill: false
-    influence_conversation: false
+    influence_conversation: true
   explanation_preference:
     type: text
     auto_fill: false
-    influence_conversation: false
+    influence_conversation: true
   when_discovered:
     type: text
     auto_fill: false
-    influence_conversation: false
+    influence_conversation: true
   does_participate_user:
     type: bool
     auto_fill: false
-    influence_conversation: false
+    influence_conversation: true
   age:
     type: text
     auto_fill: false
-    influence_conversation: false
+    influence_conversation: true
   main_use:
     type: text
     auto_fill: false
-    influence_conversation: false
+    influence_conversation: true
   user_group:
     type: text
     auto_fill: false
-    influence_conversation: false
+    influence_conversation: true
+  requested_slot:
+    type: categorical
+    values: 
+    - part_of_system
+    - new_requirement
+    - intent_new_requirement
+    - conflicting_requirements
+    - agreement_on_categorization
+    - categorization_requirement_user
+    - more_information_categories_needed
+    - does_participate
+    - agrees_with_conflict
+    - explanation_conflict
+    - preference
+    - explanation_preference
+    - when_discovered
+    - does_participate_user
+    - age
+    - main_use
+    - user_group
+    #- stop
+    influence_conversation: true
 responses:
   utter_greet:
   - text: Hey! How are you? I can help you to submit a new requirement.
   utter_cheer_up:
-  - text: 'Here is something to cheer you up:'
-    image: https://i.imgur.com/nGF1K8f.jpg
+  - image: https://i.imgur.com/nGF1K8f.jpg
+    text: 'Here is something to cheer you up:'
   utter_did_that_help:
   - text: Did that help you?
   utter_happy:
@@ -128,157 +152,157 @@ responses:
   utter_ask_should_we_continue:
   - text: Should we continue?
   utter_ask_part_of_system:
-  - text: What part of the system will be affected by your requirement?
-    buttons:
-    - title: Link
-      payload: /link
-    - title: Meeting window
-      payload: /meeting_window
-    - title: Webpage
-      payload: /webpage
-    - title: Device
-      payload: /device
+  - buttons:
+    - payload: /link
+      title: Link
+    - payload: /meeting_window
+      title: Meeting window
+    - payload: /webpage
+      title: Webpage
+    - payload: /device
+      title: Device
+    text: What part of the system will be affected by your requirement?
   utter_ask_new_requirement:
   - text: What is your requirement?
   utter_ask_agreement_on_categorization:
-  - text: Your requirement was categorized as {intent_new_requirement}. Do you agree with the categorization of your new requirement?
-    buttons:
-    - title: They seem right.
-      payload: /affirm
-    - title: I disagree.
-      payload: /deny
-    - title: I need more information about the categories.
-      payload: /more_information_about_categories
+  - buttons:
+    - payload: /affirm
+      title: They seem right.
+    - payload: /deny
+      title: I disagree.
+    - payload: /more_information_about_categories
+      title: I need more information about the categories.
+    text: Your requirement was categorized as {intent_new_requirement}. Do you agree with the categorization of your new requirement?
   utter_ask_categorization_requirement_user:
-  - text: Which of these categories do you think would fit your requirement?
-    buttons:
-    - title: meeting and joining
-      payload: /meeting+joining
-    - title: meeting, joining and installation
-      payload: /meeting+joining+installation
-    - title: meeting, joining and video
-      payload: /meeting+joining+video
-    - title: meeting, joining and audio
-      payload: /meeting+joining+audio
-    - title: configuration and video
-      payload: /configuration+video
-    - title: configuration, testing and audio
-      payload: /configuration+testing+audio
-    - title: configuration, testing and video
-      payload: /configuration+testing+video
-    - title: meeting and control
-      payload: /meeting+control
-    - title: meeting, control and creation
-      payload: /meeting+control+creation
-    - title: meeting, control and start
-      payload: /meeting+control+start
-    - title: meeting, control and participants
-      payload: /meeting+control+participants
-    - title: meeting, sharing and screen
-      payload: /meeting+sharing+screen
-    - title: meeting, sharing, screen and option
-      payload: /meeting+sharing+screen+option
-    - title: meeting, sharing and sound
-      payload: /meeting+sharing+sound
-    - title: meeting, control and record
-      payload: /meeting+control+record
-    - title: meeting and record
-      payload: /meeting+record
-    - title: meeting, record and storing
-      payload: /meeting+record+storing
-    - title: schedule
-      payload: /schedule
-    - title: meeting, create and option
-      payload: /meeting+create+option
+  - buttons:
+    - payload: /meeting+joining
+      title: meeting and joining
+    - payload: /meeting+joining+installation
+      title: meeting, joining and installation
+    - payload: /meeting+joining+video
+      title: meeting, joining and video
+    - payload: /meeting+joining+audio
+      title: meeting, joining and audio
+    - payload: /configuration+video
+      title: configuration and video
+    - payload: /configuration+testing+audio
+      title: configuration, testing and audio
+    - payload: /configuration+testing+video
+      title: configuration, testing and video
+    - payload: /meeting+control
+      title: meeting and control
+    - payload: /meeting+control+creation
+      title: meeting, control and creation
+    - payload: /meeting+control+start
+      title: meeting, control and start
+    - payload: /meeting+control+participants
+      title: meeting, control and participants
+    - payload: /meeting+sharing+screen
+      title: meeting, sharing and screen
+    - payload: /meeting+sharing+screen+option
+      title: meeting, sharing, screen and option
+    - payload: /meeting+sharing+sound
+      title: meeting, sharing and sound
+    - payload: /meeting+control+record
+      title: meeting, control and record
+    - payload: /meeting+record
+      title: meeting and record
+    - payload: /meeting+record+storing
+      title: meeting, record and storing
+    - payload: /schedule
+      title: schedule
+    - payload: /meeting+create+option
+      title: meeting, create and option
+    text: Which of these categories do you think would fit your requirement?
   utter_ask_more_information_categories_needed:
   - text: It is necessary to categorize your requirement to check if it is conflicting with other existing requirement. Here are all the categories with information about them. Let me know when you are finished checking the categories.
   utter_select_categories_slack:
   - custom:
       blocks:
-      - type: section
-        block_id: section678
-        text:
-          type: mrkdwn
-          text: Hello
-        accessory:
+      - accessory:
           action_id: selectcategories
-          type: multi_static_select
-          placeholder:
-            type: plain_text
-            text: Select categories
           options:
           - text:
-              type: plain_text
               text: '*meeting*'
+              type: plain_text
             value: value-0
           - text:
-              type: plain_text
               text: '*joining*'
+              type: plain_text
             value: value-1
           - text:
-              type: plain_text
               text: '*installation*'
+              type: plain_text
             value: value-2
           - text:
-              type: plain_text
               text: '*video*'
+              type: plain_text
             value: value-3
           - text:
-              type: plain_text
               text: '*audio*'
+              type: plain_text
             value: value-4
           - text:
-              type: plain_text
               text: '*configuration*'
+              type: plain_text
             value: value-5
           - text:
-              type: plain_text
               text: '*testing*'
+              type: plain_text
             value: value-6
           - text:
-              type: plain_text
               text: '*control*'
+              type: plain_text
             value: value-7
           - text:
-              type: plain_text
               text: '*creation*'
+              type: plain_text
             value: value-8
           - text:
-              type: plain_text
               text: '*start*'
+              type: plain_text
             value: value-9
           - text:
-              type: plain_text
               text: '*participants*'
+              type: plain_text
             value: value-10
           - text:
-              type: plain_text
               text: '*sharing*'
+              type: plain_text
             value: value-11
           - text:
-              type: plain_text
               text: '*option*'
+              type: plain_text
             value: value-12
           - text:
-              type: plain_text
               text: '*sound*'
+              type: plain_text
             value: value-13
           - text:
-              type: plain_text
               text: '*record*'
+              type: plain_text
             value: value-14
           - text:
-              type: plain_text
               text: '*storing*'
+              type: plain_text
             value: value-15
           - text:
-              type: plain_text
               text: '*schedule*'
+              type: plain_text
             value: value-16
           - text:
-              type: plain_text
               text: '*create*'
+              type: plain_text
             value: value-17
+          placeholder:
+            text: Select categories
+            type: plain_text
+          type: multi_static_select
+        block_id: section678
+        text:
+          text: Hello
+          type: mrkdwn
+        type: section
   utter_ask_more_information:
   - text: Would you like to give us additional information to help resolve the conflict? This would help us since we can only implement requirements when conflicts are resolved.
   utter_requirement_information:
@@ -298,7 +322,7 @@ responses:
   utter_ask_when_discovered:
   - text: When did you discover your new requirement? Have you been using, e.g., a scecific feature of the system?
   utter_ask_continue:
-  - text: Do you want to continue or do you want to stop?
+  - text: Do you want to stop submitting information?
   utter_ask_age:
   - text: May I ask you how old are you?
   utter_ask_main_use:
@@ -307,30 +331,46 @@ responses:
   - text: One last question. I promise. To what type of user do you see yourself belonging? Student, worker, developer ... ?
   utter_ask_does_participate_user:
   - text: Would you like to give us some information about yourself?
+  utter_explain_requirement:
+  - text: Requirements explain how the system interact with the user in a specific context. We need this information to see what expect of our system and to see if it is conflicting with other features.
+  utter_chitchat:
+  - text: This is not the purpose I am intented for. We will continue with asking for relevant information
 actions:
 - action_database
 - action_save_information
-- utter_thanks_for_info
+#- catgeory_form
+#- utter_ask_continue
+#- utter_chitchat
+#- utter_thanks_for_info
 - validate_category_form
 - validate_manage_conflict_form
-- user_information_form
+- validate_user_information_form
 forms:
   category_form:
-    part_of_system:
-    - type: from_text
-    new_requirement:
-    - type: from_text
-    agreement_on_categorization:
-    - type: from_text
+    ignored_intents:
+    - stop
+    - chitchat
+    required_slots:
+      new_requirement:
+      - type: from_text
+        #intent: request_requirement_submission
+      part_of_system:
+      #- type: from_text
+      - not_intent: stop
+        type: from_text
+      agreement_on_categorization:
+      - type: from_text
   manage_conflict_form:
-    does_participate:
-    - type: from_text
+    required_slots:
+      does_participate:
+      - type: from_text
   user_information_form:
-    does_participate_user:
-    - type: from_text
-    age:
-    - type: from_text
-    main_use:
-    - type: from_text
-    user_group:
-    - type: from_text
+    required_slots:
+      does_participate_user:
+      - type: from_text
+      age:
+      - type: from_text
+      main_use:
+      - type: from_text
+      user_group:
+      - type: from_text

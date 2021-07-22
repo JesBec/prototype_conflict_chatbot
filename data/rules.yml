@@ -17,60 +17,73 @@ rules:
   - intent: information_requirement
   - action: utter_requirement_information
 
-  
-
 - rule: activate user_information form
   steps:
-    #- intent: agrees_conflict_management   # intent that triggers form activation
-    - action: user_information_form      # run the form
-    - active_loop: user_information_form # this form is active
+    - action: user_information_form      
+    - active_loop: user_information_form 
+  wait_for_user_input: false
 
 - rule: submit user_information form
   condition:
-  - active_loop: user_information_form   # this form must be active
+  - active_loop: user_information_form   
   steps:
-    - action: user_information_form      # run the form
-    - active_loop: null            # the form is no longer active because it has been filled
-    #- action: utter_submit         # action to take after the form is complete
+    - action: user_information_form      
+    - active_loop: null            
     - slot_was_set:
       - requested_slot: null
     - action: action_save_information
-    - action: utter_thanks_for_info   # action to take after the form is complete
+    - action: utter_thanks_for_info   
   wait_for_user_input: false
 
 - rule: activate manage_conflict form
   steps:
-    #- intent: agrees_conflict_management   # intent that triggers form activation
-    - action: manage_conflict_form      # run the form
-    - active_loop: manage_conflict_form # this form is active
+    - action: manage_conflict_form      
+    - active_loop: manage_conflict_form 
+  wait_for_user_input: false
 
 - rule: submit manage_conflict form
   condition:
-  - active_loop: manage_conflict_form   # this form must be active
+  - active_loop: manage_conflict_form   
   steps:
-    - action: manage_conflict_form      # run the form
-    - active_loop: null            # the form is no longer active because it has been filled
-    #- action: utter_submit         # action to take after the form is complete
+    - action: manage_conflict_form      
+    - active_loop: null            
     - slot_was_set:
       - requested_slot: null
-    #- action: user_information_form
   wait_for_user_input: false
-    #- action: action_save_information
-    #- action: utter_thanks_for_info   # action to take after the form is complete
-
+    
 - rule: activate category form
   steps:
-    - intent: request_requirement_submission   # intent that triggers form activation
-    - action: category_form      # run the form
-    - active_loop: category_form # this form is active
+    - intent: request_requirement_submission   
+    - action: category_form      
+    - active_loop: category_form 
 
 - rule: submit catgeory form
   condition:
-  - active_loop: category_form   # this form must be active
+  - active_loop: category_form   
   steps:
-    - action: catgeory_form      # run the form
-    - active_loop: null            # the form is no longer active because it has been filled
-    #- action: utter_submit         # action to take after the form is complete
+    - action: catgeory_form      
+    - active_loop: null            
     - slot_was_set:
       - requested_slot: null
-    - action: action_database   # action to take after the form is complete
+    - action: action_database  
+
+- rule: stop category form
+  condition:
+  - active_loop: category_form
+  steps:
+    - intent: stop
+    - action: utter_ask_continue
+
+   
+
+- rule: Example of an unhappy path
+  condition:
+  # Condition that form is active.
+  - active_loop: category_form
+  steps:
+  # This unhappy path handles the case of an intent `chitchat`.
+  - intent: chitchat
+  - action: utter_chitchat
+  # Return to form after handling the `chitchat` intent
+  - action: category_form
+  - active_loop: category_form
