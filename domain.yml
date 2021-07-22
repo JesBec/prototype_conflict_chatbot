@@ -41,6 +41,7 @@ intents:
 - finished_checking_categories
 - agrees_conflict_management
 - explain
+- chitchat
 slots:
   part_of_system:
     type: text
@@ -332,23 +333,31 @@ responses:
   - text: Would you like to give us some information about yourself?
   utter_explain_requirement:
   - text: Requirements explain how the system interact with the user in a specific context. We need this information to see what expect of our system and to see if it is conflicting with other features.
+  utter_chitchat:
+  - text: This is not the purpose I am intented for. We will continue with asking for relevant information
 actions:
 - action_database
 - action_save_information
-- catgeory_form
-- utter_ask_continue
-- utter_thanks_for_info
+#- catgeory_form
+#- utter_ask_continue
+#- utter_chitchat
+#- utter_thanks_for_info
 - validate_category_form
 - validate_manage_conflict_form
 - validate_user_information_form
 forms:
   category_form:
+    ignored_intents:
+    - stop
+    - chitchat
     required_slots:
       new_requirement:
       - type: from_text
         #intent: request_requirement_submission
       part_of_system:
-      - type: from_text
+      #- type: from_text
+      - not_intent: stop
+        type: from_text
       agreement_on_categorization:
       - type: from_text
   manage_conflict_form:
