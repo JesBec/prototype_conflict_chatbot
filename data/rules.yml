@@ -56,6 +56,7 @@ rules:
     - intent: request_requirement_submission   
     - action: category_form      
     - active_loop: category_form 
+  wait_for_user_input: false
 
 - rule: submit catgeory form
   condition:
@@ -66,6 +67,7 @@ rules:
     - slot_was_set:
       - requested_slot: null
     - action: action_database  
+  wait_for_user_input: false
 
 - rule: stop category form
   condition:
