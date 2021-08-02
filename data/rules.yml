@@ -17,8 +17,30 @@ rules:
   - intent: information_requirement
   - action: utter_requirement_information
 
+- rule: activate another_conflict_form form
+  steps:
+    #- action: action_database
+    - action: another_conflict_form      
+    - active_loop: another_conflict_form 
+  wait_for_user_input: false
+
+- rule: submit another_conflict_form form
+  condition:
+  - active_loop: another_conflict_form   
+  steps:
+    - action: another_conflict_form      
+    - active_loop: null            
+    - slot_was_set:
+      - requested_slot: null
+    - action: action_save_information
+    - action: utter_thanks_for_info 
+    #- action: action_save_first_conflict
+    #- action: user_information_form   
+  wait_for_user_input: false
+
 - rule: activate user_information form
   steps:
+    - action: action_save_first_conflict
     - action: user_information_form      
     - active_loop: user_information_form 
   wait_for_user_input: false
@@ -31,12 +53,13 @@ rules:
     - active_loop: null            
     - slot_was_set:
       - requested_slot: null
-    - action: action_save_information
-    - action: utter_thanks_for_info   
+    #- action: action_database
+    - action: another_conflict_form
   wait_for_user_input: false
 
 - rule: activate manage_conflict form
   steps:
+    - action: action_database
     - action: manage_conflict_form      
     - active_loop: manage_conflict_form 
   wait_for_user_input: false
@@ -49,6 +72,9 @@ rules:
     - active_loop: null            
     - slot_was_set:
       - requested_slot: null
+    #- action: action_save_information
+    - action: action_save_first_conflict
+    #- action: user_information_form   
   wait_for_user_input: false
     
 - rule: activate category form
@@ -56,6 +82,7 @@ rules:
     - intent: request_requirement_submission   
     - action: category_form      
     - active_loop: category_form 
+  wait_for_user_input: false
 
 - rule: submit catgeory form
   condition:
@@ -65,15 +92,36 @@ rules:
     - active_loop: null            
     - slot_was_set:
       - requested_slot: null
-    - action: action_database  
+    - action: action_database
+  wait_for_user_input: false
 
-- rule: stop category form
-  condition:
-  - active_loop: category_form
-  steps:
-    - intent: stop
-    - action: utter_ask_continue
+#- rule: save information
+#  condition:
+  #- active_loop: null
+#  - slot_was_set:
+#    - interruption: ready save
+#  steps:
+#    - action: action_save_information
+#    - action: utter_thanks_for_info 
 
+#- rule: stop category form
+#  condition:
+#  - active_loop: category_form
+#  steps:
+#    - intent: stop
+#    - action: utter_ask_continue
+
+#- rule: stop category form
+  #steps:
+   # - intent: stop
+    #- action: utter_ask_continue
+
+#- rule: save_information
+#  steps:
+#    - slot_was_set:
+#      - requested_slot: None
+#    
+#    #- action: utter_thanks_for_info 
    
 
 - rule: Example of an unhappy path
@@ -87,3 +135,8 @@ rules:
   # Return to form after handling the `chitchat` intent
   - action: category_form
   - active_loop: category_form
+
+- rule: chitchat
+  steps:
+  - intent: chitchat
+  - action: utter_chitchat

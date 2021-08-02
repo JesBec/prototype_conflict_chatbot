@@ -40,9 +40,6 @@ nlu:
     - ok
     - okay
     - i will
-    - 25
-    - university
-    - student
 - intent: deny
   examples: |
     - no
@@ -52,7 +49,6 @@ nlu:
     - don't like that
     - no way
     - not really
-    #- stop
 - intent: mood_great
   examples: |
     - perfect
@@ -92,108 +88,6 @@ nlu:
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
-- intent: link
-  examples: |
-    - link
-    - linking to
-    - to be linked
-- intent: meeting_window
-  examples: |
-    - meeting window
-    - meeting platform
-- intent: webpage
-  examples: |
-    - webpage
-    - configuration page
-- intent: device
-  examples: |
-    - device
-    - platform
-- intent: meeting+joining
-  examples: |
-    - the user can join a meeting by clicking the invitation link
-    - the user can only join a meeting when the host started the meeting
-- intent: meeting+joining+installation
-  examples: |
-    - the user will be prompted to install the application when clicking the invitation link if the application is not already installed
-    - to be able to join a meeting the application has to be installed
-- intent: meeting+joining+video
-  examples: |
-    - the user will be asked if the user wants to join the meeting with his video
-    - the user can join the meeting with video from his computer or phone
-- intent: meeting+joining+audio
-  examples: |
-    - the user will be asked if the user wants to join the meeting with his audio
-    - the user can join the meeting with audio from his computer or phone
-- intent: configuration+audio
-  examples: |
-    - the user can activate or deactivate audio by clicking the audio icon
-    - the user can choose the audio source by right clicking the audio icon
-- intent: configuration+video
-  examples: |
-    - the user can activate or deactivate video by clicking the video icon
-    - the user can choose the camera source by right clicking the video icon
-    - the user can change the background of the user's video by right clicking the video icon
-- intent: configuration+testing+audio
-  examples: |
-    - the user can test the audio by right clicking the audio icon
-    - the audio can be configured and tested by right clicking the audio icon
-- intent: configuration+testing+video
-  examples: |
-    - the user can test the video by right clicking the video icon
-    - the video can be configured and tested by right clicking the audio icon
-- intent: meeting+control
-  examples: |
-    - the host is controlling the meeting
-    - the host can handover the control to participants by right clicking the participant
-- intent: meeting+control+creation
-  examples: |
-    - the host can create a meeting on the webpage
-    - the host is inviting participants by sending a link of the generated meeting
-- intent: meeting+control+start
-  examples: |
-    - the host is starting the meeting by joining the meeting
-    - to start a meeting the host has to be joined
-- intent: meeting+control+participants
-  examples: |
-    - the host can rename participants by right clicking the participant
-    - the host can remove participants by right clicking the participant
-    - the host can unmute all participant by clicking the icon
-    - the host can mute a participant by right clicking the participant
-    - the host can handover the control to participants by right clicking the participant
-- intent: meeting+sharing+screen
-  examples: |
-    - the user can share his screen by clicking the share icon
-    - the user can stop sharing his screen by selecting the stop icon
-- intent: meeting+sharing+screen+option
-  examples: |
-    - the user can share the full desktop
-    - the use can share one of his application
-    - the user can share a drawing board
-- intent: meeting+sharing+sound
-  examples: |
-    - the user has the option to share his sound
-    - when sharing the screen during a meeting the sound can be shared
-- intent: meeting+control+record
-  examples: |
-    - the host can record a meeting by clicking the record icon
-    - the participant can record a meeting by clicking the record icon if the host has shared the right to record to the participant
-- intent: meeting+record
-  examples: |
-    - the participant can stop recording a meeting by clicking the stop icon when the participant has started the recording
-    - the host can stop recording a meeting by clicking the stop icon
-- intent: meeting+record+storing
-  examples: |
-    - the system can store the recorded meeting locally on the computer
-    - the system can store the recorded meeting in the cloud
-- intent: schedule
-  examples: |
-    - the host can schedule a new meeting by clicking the button new meeting on the webpage
-    - the host has the option to create a meeting that is recurring
-- intent: meeting+create+option
-  examples: |
-    - the host can choose the title of the meeting he wants to schedule
-    - the host can select the date of the meeting he is scheduling
 - intent: request_requirement_submission
   examples: |
     - i have a new requirement
@@ -231,6 +125,7 @@ nlu:
     - no more questions
     - I don't want to answer
     - cancel
+    - no more answers
 - intent: explain
   examples: |
     - why do you need that?
@@ -238,8 +133,316 @@ nlu:
     - why is this needed
     - is this necessary
     - explain
+    - why do you wanna know
+    - what is the purpose of this
+- intent: explain_how_to_requirement
+  examples: |
+    - what is a requirement?
+    - how to formulate
+    - i need help
+    - i have no idea 
+    - where can i find requirements
+    - i have non
 - intent: chitchat
   examples: |
     - tell me a joke
-    - how is the weather 
+    - how is the weather
     - how are you doing
+- intent: audio
+  examples: |
+    - The user can share audio.
+    - audio
+    - audio can be shared
+- intent: audio+option+microphone
+  examples: |
+    - computer as a microphone option
+    - another way of connecting audio is from webcam
+    - the user can use a camera for audio
+    - a source for audio should be a tablet
+    - connect smartphone to desktop as a microphone
+- intent: audio+option+screen
+  examples: |
+    - audio from an application should be shared
+    - i want to share audio from my desktop
+    - play audio from video
+    - start audio from webpages
+- intent: audio+restriction
+  examples: |
+    - The host can disable the user to share audio.
+    - sharing audio needs to be enabled by the host
+    - users need to be allowed to share audio
+- intent: audio+microphone+howto+start
+  examples: |
+    - The user can start to share microphone audio by clicking the microphone icon/button.
+    - click to turn on microphone
+    - start microphone
+    - enable microphone by pressing button
+    - unmute microphone when clicking
+    - turn on microphone
+- intent: audio+microphone+howto+stop
+  examples: |
+    - The user can stop to share their microphone audio by clicking the microphone icon/button.
+    - turn microphone of with clicking
+    - stop microphone by pressing
+    - diable microphone
+- intent: audio+screen+howto+start
+  examples: |
+    - The user can start to share audio from screen by clicking the share screen button.
+    - share computer audio with pressing share screen icon
+    - turn on application audio by
+    - share video sound from
+    - get sound of
+- intent: audio+screen+howto+stop
+  examples: |
+    - The user can stop to share audio from screen by clicking the stop button.
+    - finish desktop audio sharing with
+    - mute audio of application by
+    - end sound of
+- intent: audio+default
+  examples: |
+    - The audio is turned off by default
+    - at the start of the meeting microphone is turned off
+    - microphone is turned off by default
+    - no audio is activated when the meetings starts
+    - at the beginning of the meeting audio is disabled
+- intent: video
+  examples: |
+    - The user can share video.
+    - video can be shared
+    - video
+- intent: video+option+camera
+  examples: |
+    - users can share video themselves webcam, phone, camera
+    - users have the option to show via webcam
+    - option to use phone for video
+    - camera can be added to have video
+- intent: video+option+screen
+  examples: |
+    - Sharing option video from screen desktop, application
+    - desktop video is an option to share screen
+    - only an application with video can be shared via screen
+    - option to share video on screen
+- intent: video+screen+restriction
+  examples: |
+    - This host can disables users to share a video from screen.
+    - sharing screen needs to be enabled by host to show video
+    - user can show video when screen sharing is allowed by host
+- intent: video+screen+howto+stop
+  examples: |
+    - The user can stop sharing the screen through clicking the stop icon.
+    - end application sharing by pressing stop icon
+    - finish video sharing by
+    - stop desktop sharing with
+- intent: video+screen+howto+start
+  examples: |
+    - The user can share their screen by clicking the share screen button/icon.
+    - start application sharing through pressing screen sharing icon
+    - show desktop with
+    - sharing video via
+- intent: video+camera+howto+stop
+  examples: |
+    - The user can stop sharing their camera by clicking the video button
+    - end video showing of myself when pressing video icon
+    - disable webcam through
+- intent: video+camera+howto+start
+  examples: |
+    - The user can start to share their camera by clicking the video button.
+    - enable webcam by pressing
+    - show video of me when
+- intent: video+default
+  examples: |
+    - The video is turned off by default
+    - at the start of the meeting the video is
+    - when entering the meeting the camera
+- intent: video+configuration
+  examples: |
+    - The camera can be configured by right clicking the audio icon
+    - change video settings trough clickig the menu button
+    - change options for video via
+- intent: screensharing+option
+  examples: |
+    - These options to share screen exist desktop, application, whiteboard.
+    - desktop can be used via screen sharing
+    - through screen sharing a whiteboard can be shared
+    - screen shaing should allow applications to be shown
+- intent: screensharing+restriction+start
+  examples: |
+    - The screen sharing option can be disabled by the host.
+    - users can only share their screen when it is allowed
+    - sharing screen requires users to be enabled
+- intent: screensharing+howto+stop
+  examples: |
+    - The user can stop sharing their screen by clicking the stop icon.
+    - end screen share via button
+    - finish applicaion showing through
+- intent: screensharing+howto+start
+  examples: |
+    - The user can share their screen by clicking the share screen button.
+    - start desktop sharing through
+    - show application via
+- intent: screensharing+default
+  examples: |
+    - The screen is not shared by default.
+    - meeting start screen is not shared
+    - when entering meeting desktop not shown
+- intent: screensharing+restriction+windows
+  examples: |
+    - Only one user can share the screen at a time.
+    - screen sharing allows single application
+    - not multiple applications at once
+    - only one window
+    - not several windows
+- intent: screensharing+restriction+stop
+  examples: |
+    - The user can only stop sharing their own screen.
+    - user cannot end desktop sharing from other user
+- intent: recording
+  examples: |
+    - The meeting can be recorded.
+    - Record meeting screen
+    - save meeting
+- intent: recording+restriction
+  examples: |
+    - Only the host can record meetings.
+    - No users can record the meeting
+    - host are allowed to record meetings
+- intent: recording+howto+start
+  examples: |
+    - Start recording by clicking the record icon.
+    - Press record button to record
+    - record meeting through
+    - via selecting the meeting is recorded
+- intent: recording+howto+stop
+  examples: |
+    - Stop recording by clicking the record icon.
+    - Click record icon to stop recording
+    - end recording through
+- intent: recording+option
+  examples: |
+    - Theses options to save a recorded meeting exist locally, cloud.
+    - another option to save a record is the cloud
+    - the recorded meeting should be saved on
+- intent: recording+default
+  examples: |
+    - The meeting is not recorded when the meeting starts.
+    - by default nothing is recorded
+- intent: reaction
+  examples: |
+    - The user can show a reaction with an emoji on their video window.
+    - react to presenter with emoji
+- intent: reaction+howto+start
+  examples: |
+    - Click the reaction button and choose an icon.
+    - via pressing reaction button a reaction can be started
+    - show reaction through
+- intent: reaction+howto+stop
+  examples: |
+    - The icon will show up for 5 seconds.
+    - The icon vanishes for second
+    - reaction stops after
+    - reaction is seen
+- intent: reaction+default
+  examples: |
+    - There is no reaction or when the meeting is started.
+    - no reaction is shown by default
+- intent: polling
+  examples: |
+    - A poll can be executed.
+    - perform a poll
+- intent: polling+restriction
+  examples: |
+    - The host has to start the poll.
+    - polls cannot be started by users
+- intent: polling+howto+start
+  examples: |
+    - Start the poll by clicking the poll icon.
+    - show poll through
+    - click poll icon to start
+    - via selecting the poll button
+- intent: polling+howto+stop
+  examples: |
+    - Stop the poll by clicking the poll icon.
+    - Click poll button to end it
+    - through poll is finished
+    - by poll is closed
+- intent: polling+duration
+  examples: |
+    - The poll lasts until the host is clicking the stop icon.
+    - there is no set duration for a poll
+- intent: livetranscript
+  examples: |
+    - A live transcript can be created.
+    - A feature to automatically create transcripts exists.
+- intent: livetranscript+restriction
+  examples: |
+    - Only the host can activate the live transcript.
+    - Users are not allowed to start live transcripts
+- intent: livetranscript+howto+start
+  examples: |
+    - Start live transcript by clicking the live transcript icon.
+    - through pressing the live transcript button start
+    - choose to create live transcript via
+- intent: livetranscript+howto+stop
+  examples: |
+    - Stop live transcript by clicking the live transcript icon.
+    - end transcript through
+    - by pressing live transcript stops
+- intent: livetranscript+default
+  examples: |
+    - Live transcript is not activated by default
+    - when meeting is started live transcript
+- intent: chat
+  examples: |
+    - A chat can be opened.
+    - Users can chat.
+- intent: chat+howto+start
+  examples: |
+    - The chat can be opened by clicking the chat button.
+    - to start chat press chat button
+- intent: chat+howto+stop
+  examples: |
+    - The chat can be closed by clicking the chat icon.
+    - end chat window by
+    - click button to stop chat
+- intent: chat+default
+  examples: |
+    - The chat is closed by default.
+    - when meeting is started chat is not open
+    - open chat by default
+    - chat on by default
+- intent: first
+  examples: |
+    - first 
+    - one 
+    - 1 
+    - 1st
+    - number one
+    - no 1
+- intent: last
+  examples: |
+    - last 
+    - second one
+    - 2nd
+    - 2 
+    - number 2
+    - no 2 
+- intent: both
+  examples: |
+    - i find both important
+    - i cant choose
+    - both 
+- intent: no_answer
+  examples: |
+    - i don't want to answer
+    - no answer
+    - i am not telling you this
+    - i will not anwser
+    - i want to skip this question
+    - what a rude question
+    - this is rude
+    - how rude
+- intent: no_idea
+  examples: | 
+    - i have no idea
+    - not sure 
+    - dont know 

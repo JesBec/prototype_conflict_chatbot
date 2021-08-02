@@ -96,67 +96,7 @@ stories:
   - intent: request_requirement_submission
   - action: category_form
 
-- story: start requirement submission
-  steps:
-  - action: category_form
-  - active_loop: category_form
-  - slot_was_set:
-    - requested_slot: new_requirement
-  - slot_was_set:
-    - new_requirement: the host can handover the control to participants by right clicking the participant
-  - slot_was_set:
-    - requested_slot: part_of_system
-  - slot_was_set:
-    - part_of_system: meeting window
-  - slot_was_set:
-    - intent_new_requirement: meeting+control+participants
-  - slot_was_set:
-    - requested_slot: agreement_on_categorization
-  - slot_was_set:
-    - agreement_on_categorization: /affirm
-  - slot_was_set:
-    - requested_slot: null
-  - active_loop: null
-  - action: action_database
-  - action: manage_conflict_form
-
-- story: manage conflict 
-  steps:
-  - action: manage_conflict_form
-  - active_loop: manage_conflict_form
-  - slot_was_set:
-    - requested_slot: does_participate
-  - slot_was_set:
-    - does_participate: false
-  - slot_was_set:
-    - requested_slot: null
-  - active_loop: null
-  - action: user_information_form
-#- story: collect user information
-#  steps: 
-  #- action: user_information_form
-  - active_loop: user_information_form
-  - slot_was_set:
-    - requested_slot: does_participate_user
-  - slot_was_set:
-    - does_participate_user: yes
-  - slot_was_set:
-    - requested_slot: age
-  - slot_was_set:
-    - age: '25'
-  - slot_was_set:
-    - requested_slot: main_use
-  - slot_was_set:
-    - main_use: university
-  - slot_was_set:
-    - requested_slot: user_group
-  - slot_was_set:
-    - user_group: student
-  - slot_was_set:
-    - requested_slot: null
-  - active_loop: null
-  - action: action_save_information
-  - action: utter_thanks_for_info 
+ 
 
 - story: collect user information unhappy
   steps: 
@@ -188,3 +128,96 @@ stories:
   - slot_was_set:
     - requested_slot: null
   - action: utter_thanks_for_info
+
+- story: interactive_story_1
+  steps:
+  - intent: request_requirement_submission
+  - action: category_form
+
+- story: interactive_story_2
+  steps:
+  - intent: request_requirement_submission
+  - action: category_form
+  - active_loop: category_form
+  - slot_was_set:
+    - agreement_on_categorization: null
+  - slot_was_set:
+    - requested_slot: new_requirement
+  - slot_was_set:
+    - agreement_on_categorization: null
+  - intent: stop
+  - action: utter_ask_continue
+  - intent: affirm
+  - action: action_deactivate_loop
+  - active_loop: null
+
+- story: interactive_story_3
+  steps:
+  - intent: request_requirement_submission
+  - action: category_form
+  - active_loop: category_form
+  - slot_was_set:
+    - agreement_on_categorization: null
+  - slot_was_set:
+    - requested_slot: new_requirement
+  - slot_was_set:
+    - agreement_on_categorization: null
+  - slot_was_set:
+    - new_requirement: chat on by default
+  - slot_was_set:
+    - intent_new_requirement: chat+default
+  - slot_was_set:
+    - requested_slot: agreement_on_categorization
+  - slot_was_set:
+    - agreement_on_categorization: /affirm
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_database
+  - action: manage_conflict_form
+  - active_loop: manage_conflict_form
+  - slot_was_set:
+    - requested_slot: does_participate
+  - slot_was_set:
+    - does_participate: false
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  #- action: action_save_information
+  - action: action_save_first_conflict
+  - action: user_information_form
+  - active_loop: user_information_form
+  - slot_was_set:
+    - requested_slot: does_participate_user
+  - slot_was_set:
+    - does_participate_user: yes
+  - slot_was_set:
+    - requested_slot: age
+  - slot_was_set:
+    - age: '25'
+  - slot_was_set:
+    - requested_slot: main_use
+  - slot_was_set:
+    - main_use: university
+  - slot_was_set:
+    - requested_slot: user_group
+  - slot_was_set:
+    - user_group: student
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  #- action: utter_thanks_for_info
+  - action: another_conflict_form
+  - active_loop: another_conflict_form
+  - slot_was_set:
+    - requested_slot: does_participate
+  - slot_was_set:
+    - does_participate: false
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  #- slot_was_set:
+  #  - interruption: ready save
+  #- action: action_save_first_conflict
+  - action: action_save_information
+  - action: utter_thanks_for_info 

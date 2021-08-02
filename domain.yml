@@ -4,9 +4,10 @@ session_config:
   carry_over_slots_to_new_session: true
 intents:
 - request_requirement_submission
-- stop
+- chat+default
 - affirm
-- meeting+control+participants
+- information_requirement
+- stop
 - meeting_window
 - deny
 - greet
@@ -14,39 +15,68 @@ intents:
 - mood_great
 - mood_unhappy
 - bot_challenge
-- link
-- device
-- webpage
-- meeting+joining
-- meeting+joining+installation
-- meeting+joining+video
-- meeting+joining+audio
-- configuration+audio
-- configuration+video
-- configuration+testing+audio
-- configuration+testing+video
-- meeting+control
-- meeting+control+creation
-- meeting+control+start
-- meeting+sharing+screen
-- meeting+sharing+screen+option
-- meeting+sharing+sound
-- meeting+control+record
-- meeting+record
-- meeting+record+storing
-- schedule
-- meeting+create+option
-- information_requirement
 - more_information_about_categories
 - finished_checking_categories
 - agrees_conflict_management
 - explain
+- explain_how_to_requirement
 - chitchat
+- audio
+- audio+option+microphone
+- audio+option+screen
+- audio+restriction
+- audio+microphone+howto+start
+- audio+microphone+howto+stop
+- audio+screen+howto+start
+- audio+screen+howto+stop
+- audio+default
+- audio+configation+option
+- video
+- video+option+camera
+- video+option+screen
+- video+screen+restriction
+- video+screen+howto+stop
+- video+screen+howto+start
+- video+camera+howto+stop
+- video+camera+howto+start
+- video+default
+- video+configuration
+- screensharing+option
+- screensharing+restriction+start
+- screensharing+howto+stop
+- screensharing+howto+start
+- screensharing+default
+- screensharing+restriction+windows
+- screensharing+restriction+stop
+- recording
+- recording+restriction
+- recording+howto+start
+- recording+howto+stop
+- recording+option
+- recording+default
+- reaction
+- reaction+howto+start
+- reaction+howto+stop
+- reaction+default
+- polling
+- polling+restriction
+- polling+howto+start
+- polling+howto+stop
+- polling+duration
+- livetranscript
+- livetranscript+restriction
+- livetranscript+howto+start
+- livetranscript+howto+stop
+- livetranscript+default
+- chat
+- chat+howto+start
+- chat+howto+stop
+- first
+- last
+- no_answer
+- no_idea
+- both
 slots:
-  part_of_system:
-    type: text
-    auto_fill: false
-    influence_conversation: true
   new_requirement:
     type: text
     auto_fill: false
@@ -67,11 +97,47 @@ slots:
     type: text
     auto_fill: false
     influence_conversation: true
+  sub_category_audio:
+    type: text
+    auto_fill: false
+    influence_conversation: true
+  sub_category_video:
+    type: text
+    auto_fill: false
+    influence_conversation: true
+  sub_category_screensharing:
+    type: text
+    auto_fill: false
+    influence_conversation: true
+  sub_category_recording:
+    type: text
+    auto_fill: false
+    influence_conversation: true
+  sub_category_reaction:
+    type: text
+    auto_fill: false
+    influence_conversation: true
+  sub_category_polling:
+    type: text
+    auto_fill: false
+    influence_conversation: true
+  sub_category_livescript:
+    type: text
+    auto_fill: false
+    influence_conversation: true
+  sub_category_chat:
+    type: text
+    auto_fill: false
+    influence_conversation: true
   more_information_categories_needed:
     type: bool
     auto_fill: false
     influence_conversation: true
   does_participate:
+    type: bool
+    auto_fill: false
+    influence_conversation: true
+  ask_another_conflict:
     type: bool
     auto_fill: false
     influence_conversation: true
@@ -100,7 +166,7 @@ slots:
     auto_fill: false
     influence_conversation: true
   age:
-    type: text
+    type: float
     auto_fill: false
     influence_conversation: true
   main_use:
@@ -111,10 +177,14 @@ slots:
     type: text
     auto_fill: false
     influence_conversation: true
+  interruption:
+    type: text
+    auto_fill: false
+    influence_conversation: true
   requested_slot:
     type: categorical
-    values: 
-    - part_of_system
+    influence_conversation: true
+    values:
     - new_requirement
     - intent_new_requirement
     - conflicting_requirements
@@ -131,11 +201,18 @@ slots:
     - age
     - main_use
     - user_group
-    #- stop
-    influence_conversation: true
+    - sub_category_audio
+    - sub_category_video
+    - sub_category_screensharing
+    - sub_category_recording
+    - sub_category_reaction
+    - sub_category_polling
+    - sub_category_livescript
+    - sub_category_chat
+    - interruption
 responses:
   utter_greet:
-  - text: Hey! How are you? I can help you to submit a new requirement.
+  - text: Hey! How are you? I can help you to submit a new requirement. Let me know when you have a new requirement.
   utter_cheer_up:
   - image: https://i.imgur.com/nGF1K8f.jpg
     text: 'Here is something to cheer you up:'
@@ -146,22 +223,11 @@ responses:
   utter_goodbye:
   - text: Bye
   utter_iamabot:
-  - text: I am a bot, powered by Rasa.
+  - text: I am a bot. I can help you to submit a new requirement and you can help me to deal with the conflicts between requirements.
   utter_ask_requirement:
   - text: Would you like to suggest a requirement?
   utter_ask_should_we_continue:
   - text: Should we continue?
-  utter_ask_part_of_system:
-  - buttons:
-    - payload: /link
-      title: Link
-    - payload: /meeting_window
-      title: Meeting window
-    - payload: /webpage
-      title: Webpage
-    - payload: /device
-      title: Device
-    text: What part of the system will be affected by your requirement?
   utter_ask_new_requirement:
   - text: What is your requirement?
   utter_ask_agreement_on_categorization:
@@ -172,50 +238,148 @@ responses:
       title: I disagree.
     - payload: /more_information_about_categories
       title: I need more information about the categories.
-    text: Your requirement was categorized as {intent_new_requirement}. Do you agree with the categorization of your new requirement?
+    text: Your requirement was categorized as "{intent_new_requirement}". Do you agree with the categorization of your new requirement?
   utter_ask_categorization_requirement_user:
   - buttons:
-    - payload: /meeting+joining
-      title: meeting and joining
-    - payload: /meeting+joining+installation
-      title: meeting, joining and installation
-    - payload: /meeting+joining+video
-      title: meeting, joining and video
-    - payload: /meeting+joining+audio
-      title: meeting, joining and audio
-    - payload: /configuration+video
-      title: configuration and video
-    - payload: /configuration+testing+audio
-      title: configuration, testing and audio
-    - payload: /configuration+testing+video
-      title: configuration, testing and video
-    - payload: /meeting+control
-      title: meeting and control
-    - payload: /meeting+control+creation
-      title: meeting, control and creation
-    - payload: /meeting+control+start
-      title: meeting, control and start
-    - payload: /meeting+control+participants
-      title: meeting, control and participants
-    - payload: /meeting+sharing+screen
-      title: meeting, sharing and screen
-    - payload: /meeting+sharing+screen+option
-      title: meeting, sharing, screen and option
-    - payload: /meeting+sharing+sound
-      title: meeting, sharing and sound
-    - payload: /meeting+control+record
-      title: meeting, control and record
-    - payload: /meeting+record
-      title: meeting and record
-    - payload: /meeting+record+storing
-      title: meeting, record and storing
-    - payload: /schedule
-      title: schedule
-    - payload: /meeting+create+option
-      title: meeting, create and option
-    text: Which of these categories do you think would fit your requirement?
+    - payload: /audio
+      title: audio
+    - payload: /video
+      title: video
+    - payload: /screensharing
+      title: screen sharing
+    - payload: /recording
+      title: recording
+    - payload: /reaction
+      title: reaction
+    - payload: /polling
+      title: polling
+    - payload: /livetranscript
+      title: live transcript
+    - payload: /chat
+      title: chat
+    text: Which of these main categories do you think would fit your requirement?
+  utter_ask_sub_category_audio:
+  - buttons:
+    - payload: /audio+option+microphone
+      title: audio, option and microphone
+    - payload: /audio+restriction
+      title: audio and restriction
+    - payload: /audio+microphone+howto+start
+      title: audio, microphone, how to and start
+    - payload: /audio+microphone+howto+stop
+      title: audio, microphone, how to and stop
+    - payload: /audio+screen+howto+start
+      title: audio, screen, how to and start
+    - payload: /audio+screen+howto+stop
+      title: audio, screen, how to and stop
+    - payload: /audio+default
+      title: audio and default
+    - payload: /audio+configation+option
+      title: audio, configation and option
+    text: Which of these sub categories is right for your requirement?
+  utter_ask_sub_category_video:
+  - buttons:
+    - payload: /video+option+camera
+      title: video, option and camera
+    - payload: /video+option+screen
+      title: video, option and screen
+    - payload: /video+screen+restriction
+      title: video, screen and restriction
+    - payload: /video+screen+howto+stop
+      title: video, screen, how to and stop
+    - payload: /video+screen+howto+start
+      title: video, screen, how to and start
+    - payload: /video+camera+howto+stop
+      title: video, camera, how to and stop
+    - payload: /video+camera+howto+start
+      title: video, camera, how to and start
+    - payload: /video+default
+      title: video and default
+    - payload: /video+configuration
+      title: video and configuration
+    text: Which of these sub categories is right for your requirement?
+  utter_ask_sub_category_screensharing:
+  - buttons:
+    - payload: /screensharing+option
+      title: screensharing and option
+    - payload: /screensharing+restriction+start
+      title: screen sharing, restriction and start
+    - payload: /screensharing+howto+stop
+      title: screensharing, how to and stop
+    - payload: /screensharing+howto+start
+      title: screensharing, how to and start
+    - payload: /screensharing+default
+      title: screensharing and default
+    - payload: /screensharing+restriction+windows
+      title: screensharing, restriction and windows
+    - payload: /screensharing+restriction+stop
+      title: screensharing, restriction and stop
+    text: Which of these sub categories is right for your requirement?
+  utter_ask_sub_category_recording:
+  - buttons:
+    - payload: /recording+restriction
+      title: recording and restriction
+    - payload: /recording+howto+start
+      title: recording, how to and start
+    - payload: /recording+howto+stop
+      title: recording, how to and stop
+    - payload: /recording+option
+      title: recording and option
+    - payload: /recording+default
+      title: recording and default
+    text: Which of these sub categories is right for your requirement?
+  utter_ask_sub_category_reaction:
+  - buttons:
+    - payload: /reaction+howto+start
+      title: reaction, how to and start
+    - payload: /reaction+howto+stop
+      title: reaction, how to and stop
+    - payload: /reaction+default
+      title: reaction and default
+    text: Which of these sub categories is right for your requirement?
+  utter_ask_sub_category_polling:
+  - buttons:
+    - payload: /polling+restriction
+      title: polling and restriction
+    - payload: /polling+howto+start
+      title: polling, how to and start
+    - payload: /polling+howto+stop
+      title: polling, how to and stop
+    - payload: /polling+duration
+      title: polling and duration
+    text: Which of these sub categories is right for your requirement?
+  utter_ask_sub_category_livescript:
+  - buttons:
+    - payload: /livetranscript+restriction
+      title: live transcript and restriction
+    - payload: /livetranscript+howto+start
+      title: live transcript, how to and start
+    - payload: /livetranscript+howto+stop
+      title: livetranscript, how to and stop
+    - payload: /livetranscript+default
+      title: livetranscript and default
+    text: Which of these sub categories is right for your requirement?
+  utter_ask_sub_category_chat:
+  - buttons:
+    - payload: /chat+howto+start
+      title: chat, how to and start
+    - payload: /chat+howto+stop
+      title: chat, how to and stop
+    - payload: /chat+default
+      title: chat and default
+    text: Which of these sub categories is right for your requirement?
   utter_ask_more_information_categories_needed:
-  - text: It is necessary to categorize your requirement to check if it is conflicting with other existing requirement. Here are all the categories with information about them. Let me know when you are finished checking the categories.
+  - text: "It is necessary to categorize your requirement to check if it is conflicting with other requirement. Some requirements show the functionality of the system whereas others represent constraints. Otherwise, requirements in conflict cannot be implemented in the same system. 
+  Here are all the categories with information about them: 
+  Audio:
+  Video:
+  Screen sharing:
+  Recording: 
+  Reaction:
+  Polling:
+  Live transcript:
+  Chat: . 
+  Let me know when you are finished checking the categories."
   utter_select_categories_slack:
   - custom:
       blocks:
@@ -306,11 +470,17 @@ responses:
   utter_ask_more_information:
   - text: Would you like to give us additional information to help resolve the conflict? This would help us since we can only implement requirements when conflicts are resolved.
   utter_requirement_information:
-  - text: Great you are asking. The better your requirement is formulated, the better it can be considered and even actually implemented.
+  - text: Great that you are asking. The better your requirement is formulated, the better it can be considered and even actually implemented.
   utter_thanks_for_info:
   - text: Thank you for your information.
   utter_ask_does_participate:
-  - text: Could you give us some information to help resolve the conflict. We are only able to implement requirements with resolved conflicts.
+  - condition:
+      - type: slot
+        name: ask_another_conflict
+        value: true
+    text: Would you like to help solve another conflict?
+
+  - text: Could you give us some information to help resolve the conflict? We are only able to implement requirements with resolved conflicts.
   utter_ask_agrees_with_conflict:
   - text: Do you agree with the conflict between {conflicting_requirements}?
   utter_ask_explanation_conflict:
@@ -320,47 +490,41 @@ responses:
   utter_ask_explanation_preference:
   - text: Could you explain why you prefer one over the other?
   utter_ask_when_discovered:
-  - text: When did you discover your new requirement? Have you been using, e.g., a scecific feature of the system?
+  - text: When did you discover your new requirement? Have you been using, e.g., a specific feature of the system?
   utter_ask_continue:
   - text: Do you want to stop submitting information?
   utter_ask_age:
-  - text: May I ask you how old are you?
+  - text: May I ask you how old you are?
   utter_ask_main_use:
-  - text: For what do you use the system mainly? For example, do you use it for work, school or with friends?
+  - text: For what purpose do you use the system mainly? For example, do you use it for work, school or with friends?
   utter_ask_user_group:
   - text: One last question. I promise. To what type of user do you see yourself belonging? Student, worker, developer ... ?
   utter_ask_does_participate_user:
   - text: Would you like to give us some information about yourself?
   utter_explain_requirement:
-  - text: Requirements explain how the system interact with the user in a specific context. We need this information to see what expect of our system and to see if it is conflicting with other features.
+  - text: Requirements explain how the system should interact with the user in a specific context. We need this information to see what you expect of our system. We will check if your requirement is in conflict with other requirements.
   utter_chitchat:
-  - text: This is not the purpose I am intented for. We will continue with asking for relevant information
+  - text: This is not the purpose I am intented for. I can only help you with submitting requirements.
 actions:
 - action_database
+- action_save_first_conflict
 - action_save_information
-#- catgeory_form
-#- utter_ask_continue
-#- utter_chitchat
-#- utter_thanks_for_info
 - validate_category_form
 - validate_manage_conflict_form
+- validate_another_conflict_form
 - validate_user_information_form
 forms:
   category_form:
-    ignored_intents:
-    - stop
-    - chitchat
     required_slots:
       new_requirement:
       - type: from_text
-        #intent: request_requirement_submission
-      part_of_system:
-      #- type: from_text
-      - not_intent: stop
-        type: from_text
       agreement_on_categorization:
       - type: from_text
   manage_conflict_form:
+    required_slots:
+      does_participate:
+      - type: from_text
+  another_conflict_form:
     required_slots:
       does_participate:
       - type: from_text
