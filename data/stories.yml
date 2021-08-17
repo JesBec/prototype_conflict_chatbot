@@ -7,15 +7,9 @@ stories:
   - intent: greet
   - action: utter_greet
   - intent: mood_great
-  #- action: utter_ask_requirement
-  #- intent: affirm
-  #- action: category_form
-  #- active_loop: category_form
-  #- action: utter_ask_part_of_system
-  #- action: utter_ask_account_security
-  #- active_loop: null
-  #- intent: mood_great
-  #- action: utter_happy
+
+
+
 
 - story: sad path 1
   steps:
@@ -37,6 +31,7 @@ stories:
   - intent: deny
   - action: utter_goodbye
 
+
 #- story: User interrupts the form and doesn't want to continue
 #  steps:
   #- intent: request_requirement_submission
@@ -47,49 +42,39 @@ stories:
 #  - intent: affirm
 #  - action: action_deactivate_loop
 #  - active_loop: null
-- story: User interrupts the form and doesn't want to continue
-  steps:
+
+#- story: User interrupts the form and doesn't want to continue
+#  steps:
   #- intent: request_requirement_submission
   #- action: category_form
-  - active_loop: category_form
-  - intent: stop
-  - action: utter_ask_continue
-  - intent: affirm
-  - action: action_deactivate_loop
-  - active_loop: null
+#  - active_loop: manage_conflict_form
+#  - intent: stop
+#  - action: utter_ask_continue
+#  - intent: affirm
+#  - action: action_deactivate_loop
+ # - active_loop: null
 
-- story: User interrupts the form and doesn't want to continue
-  steps:
+#- story: User interrupts the form and doesn't want to continue
+#  steps:
   #- intent: request_requirement_submission
   #- action: category_form
-  - active_loop: manage_conflict_form
-  - intent: stop
-  - action: utter_ask_continue
-  - intent: affirm
-  - action: action_deactivate_loop
-  - active_loop: null
+ # - active_loop: user_information_form
+ # - intent: stop
+ # - action: utter_ask_continue
+ # - intent: affirm
+ # - action: action_deactivate_loop
+ # - active_loop: null
 
-- story: User interrupts the form and doesn't want to continue
-  steps:
+#- story: get explanation requirement
+#  steps:
   #- intent: request_requirement_submission
-  #- action: category_form
-  - active_loop: user_information_form
-  - intent: stop
-  - action: utter_ask_continue
-  - intent: affirm
-  - action: action_deactivate_loop
-  - active_loop: null
-
-- story: get explanation requirement
-  steps:
-  #- intent: request_requirement_submission
-  - action: category_form
-  - active_loop: category_form
-  - slot_was_set:
-    - requested_slot: new_requirement
-  - intent: explain
-  - action: utter_explain_requirement
-  - action: category_form
+#  - action: category_form
+#  - active_loop: category_form
+#  - slot_was_set:
+#    - requested_slot: new_requirement
+#  - intent: explain
+#  - action: utter_explain_requirement
+#  - action: category_form
 
 - story: start requirement submission
   steps:
@@ -98,60 +83,60 @@ stories:
 
  
 
-- story: collect user information unhappy
-  steps: 
-  - action: user_information_form
-  - active_loop: user_information_form
-  - slot_was_set:
-    - requested_slot: does_participate_user
-  - intent: stop 
-  - action: utter_ask_continue
-  - intent: affirm
-  - action: action_deactivate_loop
-  - active_loop: null
+#- story: collect user information unhappy
+#  steps:
+#  - action: user_information_form
+#  - active_loop: user_information_form
+#  - slot_was_set:
+#    - requested_slot: does_participate_user
+#  - intent: stop
+#  - action: utter_ask_continue
+#  - intent: affirm
+#  - action: action_deactivate_loop
+#  - active_loop: null
   
 
-- story: interactive_story_1
-  steps:
-  - intent: request_requirement_submission
-  - action: category_form
-  - active_loop: category_form
+#- story: interactive_story_1
+#  steps:
+#  - intent: request_requirement_submission
+#  - action: category_form
+#  - active_loop: category_form
   #- slot_was_set:
   #  - agreement_on_categorization: null
-  - slot_was_set:
-    - requested_slot: new_requirement
-  - intent: stop
-  - action: utter_ask_continue
-  - intent: affirm
-  - action: action_deactivate_loop
-  - active_loop: null
-  - slot_was_set:
-    - requested_slot: null
-  - action: utter_thanks_for_info
+#  - slot_was_set:
+#    - requested_slot: new_requirement
+#  - intent: stop
+#  - action: utter_ask_continue
+#  - intent: affirm
+#  - action: action_deactivate_loop
+#  - active_loop: null
+ #  - slot_was_set:
+ #   - requested_slot: null
+ # - action: utter_thanks_for_info
 
 - story: interactive_story_1
   steps:
   - intent: request_requirement_submission
   - action: category_form
 
-- story: interactive_story_2
-  steps:
-  - intent: request_requirement_submission
-  - action: category_form
-  - active_loop: category_form
-  - slot_was_set:
-    - agreement_on_categorization: null
-  - slot_was_set:
-    - requested_slot: new_requirement
-  - slot_was_set:
-    - agreement_on_categorization: null
-  - intent: stop
-  - action: utter_ask_continue
-  - intent: affirm
-  - action: action_deactivate_loop
-  - active_loop: null
+#- story: interactive_story_2
+#  steps:
+#  - intent: request_requirement_submission
+#  - action: category_form
+#  - active_loop: category_form
+#  - slot_was_set:
+#    - agreement_on_categorization: null
+#  - slot_was_set:
+#    - requested_slot: new_requirement
+#  - slot_was_set:
+#    - agreement_on_categorization: null
+#  - intent: stop
+#  - action: utter_ask_continue
+#  - intent: affirm
+#  - action: action_deactivate_loop
+#  - active_loop: null
 
-- story: interactive_story_3
+- story: requirement and management happy path
   steps:
   - intent: request_requirement_submission
   - action: category_form
@@ -221,3 +206,98 @@ stories:
   #- action: action_save_first_conflict
   - action: action_save_information
   - action: utter_thanks_for_info 
+- story: interactive_story_1
+  steps:
+  - intent: request_requirement_submission
+  - action: category_form
+  - active_loop: category_form
+  - slot_was_set:
+    - agreement_on_categorization: null
+  - slot_was_set:
+    - requested_slot: new_requirement
+  - slot_was_set:
+    - agreement_on_categorization: null
+  - slot_was_set:
+    - new_requirement: camera should be turned on by default
+  - slot_was_set:
+    - intent_new_requirement: video+default
+  - slot_was_set:
+    - requested_slot: agreement_on_categorization
+  - slot_was_set:
+    - agreement_on_categorization: /deny
+  - slot_was_set:
+    - categorization_requirement_user: null
+  - slot_was_set:
+    - requested_slot: categorization_requirement_user
+  - slot_was_set:
+    - agreement_on_categorization: /deny
+  - slot_was_set:
+    - categorization_requirement_user: video
+  - slot_was_set:
+    - requested_slot: sub_category_video
+  - slot_was_set:
+    - agreement_on_categorization: /deny
+  - slot_was_set:
+    - sub_category_video: video+default
+  - slot_was_set:
+    - categorization_requirement_user: video
+  - slot_was_set:
+    - requested_slot: null
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_database
+  - slot_was_set:
+    - conflicting_requirements: '" camera should be turned on by default" (video+default) and "the camera should be turned on the minute the meeting is starting" (video+default)'
+  - action: manage_conflict_form
+  - active_loop: manage_conflict_form
+  - slot_was_set:
+    - requested_slot: does_participate
+  - slot_was_set:
+    - does_participate: true
+  - slot_was_set:
+    - requested_slot: agrees_with_conflict
+  - slot_was_set:
+    - agrees_with_conflict: true
+  - slot_was_set:
+    - requested_slot: explanation_conflict
+
+- story: interactive_story_1
+  steps:
+  - intent: request_requirement_submission
+  - action: category_form
+  - active_loop: category_form
+  - slot_was_set:
+    - agreement_on_categorization: null
+  - slot_was_set:
+    - requested_slot: new_requirement
+  - slot_was_set:
+    - agreement_on_categorization: null
+  - slot_was_set:
+    - new_requirement: the camera should already be on when the meeting ist starting
+  - slot_was_set:
+    - intent_new_requirement: video+default
+  - slot_was_set:
+    - categorization_info: The chat could be open when the meeting starts.. default settings for chat
+  - slot_was_set:
+    - requested_slot: agreement_on_categorization
+  - slot_was_set:
+    - agreement_on_categorization: /affirm
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_database
+  - action: manage_conflict_form
+  - active_loop: manage_conflict_form
+  - slot_was_set:
+    - requested_slot: does_participate
+  - slot_was_set:
+    - does_participate: true
+  - slot_was_set:
+    - requested_slot: agrees_with_conflict
+  - slot_was_set:
+    - agrees_with_conflict: false
+  - slot_was_set:
+    - requested_slot: explanation_conflict
+  - slot_was_set:
+      - explanation_conflict: this is my reasoning

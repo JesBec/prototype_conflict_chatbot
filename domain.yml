@@ -1,188 +1,309 @@
 version: '2.0'
+config:
+  store_entities_as_slots: true
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
 intents:
-- request_requirement_submission
-- chat+default
-- affirm
-- information_requirement
-- stop
-- meeting_window
-- deny
-- greet
-- goodbye
-- mood_great
-- mood_unhappy
-- bot_challenge
-- more_information_about_categories
-- finished_checking_categories
-- agrees_conflict_management
-- explain
-- explain_how_to_requirement
-- chitchat
-- audio
-- audio+option+microphone
-- audio+option+screen
-- audio+restriction
-- audio+microphone+howto+start
-- audio+microphone+howto+stop
-- audio+screen+howto+start
-- audio+screen+howto+stop
-- audio+default
-- audio+configation+option
-- video
-- video+option+camera
-- video+option+screen
-- video+screen+restriction
-- video+screen+howto+stop
-- video+screen+howto+start
-- video+camera+howto+stop
-- video+camera+howto+start
-- video+default
-- video+configuration
-- screensharing+option
-- screensharing+restriction+start
-- screensharing+howto+stop
-- screensharing+howto+start
-- screensharing+default
-- screensharing+restriction+windows
-- screensharing+restriction+stop
-- recording
-- recording+restriction
-- recording+howto+start
-- recording+howto+stop
-- recording+option
-- recording+default
-- reaction
-- reaction+howto+start
-- reaction+howto+stop
-- reaction+default
-- polling
-- polling+restriction
-- polling+howto+start
-- polling+howto+stop
-- polling+duration
-- livetranscript
-- livetranscript+restriction
-- livetranscript+howto+start
-- livetranscript+howto+stop
-- livetranscript+default
-- chat
-- chat+howto+start
-- chat+howto+stop
-- first
-- last
-- no_answer
-- no_idea
-- both
+- screensharing+restriction+stop:
+    use_entities: true
+- deny:
+    use_entities: true
+- affirm:
+    use_entities: true
+- explain:
+    use_entities: true
+- request_requirement_submission:
+    use_entities: true
+- video+default:
+    use_entities: true
+- video:
+    use_entities: true
+- chat+default:
+    use_entities: true
+- stop:
+    use_entities: true
+- meeting_window:
+    use_entities: true
+- greet:
+    use_entities: true
+- goodbye:
+    use_entities: true
+- mood_great:
+    use_entities: true
+- mood_unhappy:
+    use_entities: true
+- bot_challenge:
+    use_entities: true
+- more_information_about_categories:
+    use_entities: true
+- finished_checking_categories:
+    use_entities: true
+- explain_how_to_requirement:
+    use_entities: true
+- chitchat:
+    use_entities: true
+- audio:
+    use_entities: true
+- audio+option+microphone:
+    use_entities: true
+- audio+option+screen:
+    use_entities: true
+- audio+restriction:
+    use_entities: true
+- audio+microphone+howto+start:
+    use_entities: true
+- audio+microphone+howto+stop:
+    use_entities: true
+- audio+screen+howto+start:
+    use_entities: true
+- audio+screen+howto+stop:
+    use_entities: true
+- audio+default:
+    use_entities: true
+- audio+configation+option:
+    use_entities: true
+- video+option+camera:
+    use_entities: true
+- video+option+screen:
+    use_entities: true
+- video+screen+restriction:
+    use_entities: true
+- video+screen+howto+stop:
+    use_entities: true
+- video+screen+howto+start:
+    use_entities: true
+- video+camera+howto+stop:
+    use_entities: true
+- video+camera+howto+start:
+    use_entities: true
+- video+configuration:
+    use_entities: true
+- screensharing+option:
+    use_entities: true
+- screensharing+restriction+start:
+    use_entities: true
+- screensharing+howto+stop:
+    use_entities: true
+- screensharing+howto+start:
+    use_entities: true
+- screensharing+default:
+    use_entities: true
+- screensharing+restriction+windows:
+    use_entities: true
+- recording:
+    use_entities: true
+- recording+restriction:
+    use_entities: true
+- recording+howto+start:
+    use_entities: true
+- recording+howto+stop:
+    use_entities: true
+- recording+option:
+    use_entities: true
+- recording+default:
+    use_entities: true
+- reaction:
+    use_entities: true
+- reaction+howto+start:
+    use_entities: true
+- reaction+howto+stop:
+    use_entities: true
+- reaction+default:
+    use_entities: true
+- polling:
+    use_entities: true
+- polling+restriction:
+    use_entities: true
+- polling+howto+start:
+    use_entities: true
+- polling+howto+stop:
+    use_entities: true
+- polling+duration:
+    use_entities: true
+- livetranscript:
+    use_entities: true
+- livetranscript+restriction:
+    use_entities: true
+- livetranscript+howto+start:
+    use_entities: true
+- livetranscript+howto+stop:
+    use_entities: true
+- livetranscript+default:
+    use_entities: true
+- chat:
+    use_entities: true
+- chat+howto+start:
+    use_entities: true
+- chat+howto+stop:
+    use_entities: true
+- first:
+    use_entities: true
+- last:
+    use_entities: true
+- no_answer:
+    use_entities: true
+- no_idea:
+    use_entities: true
+- both:
+    use_entities: true
+- they_do_the_same:
+    use_entities: true
+- option:
+    use_entities: true
+- restriction:
+    use_entities: true
+- howto+start:
+    use_entities: true
+- howto+stop:
+    use_entities: true
+- default:
+    use_entities: true
+- changereq:
+    use_entities: true
+- nlu_fallback:
+    use_entities: true
+entities: []
 slots:
   new_requirement:
-    type: text
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
     auto_fill: false
     influence_conversation: true
   intent_new_requirement:
-    type: text
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: false
+    influence_conversation: true
+  categorization_info:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
     auto_fill: false
     influence_conversation: true
   conflicting_requirements:
-    type: text
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
     auto_fill: false
     influence_conversation: true
   agreement_on_categorization:
-    type: text
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
     auto_fill: false
     influence_conversation: true
   categorization_requirement_user:
-    type: text
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
     auto_fill: false
     influence_conversation: true
   sub_category_audio:
-    type: text
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
     auto_fill: false
     influence_conversation: true
   sub_category_video:
-    type: text
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
     auto_fill: false
     influence_conversation: true
   sub_category_screensharing:
-    type: text
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
     auto_fill: false
     influence_conversation: true
   sub_category_recording:
-    type: text
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
     auto_fill: false
     influence_conversation: true
   sub_category_reaction:
-    type: text
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
     auto_fill: false
     influence_conversation: true
   sub_category_polling:
-    type: text
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
     auto_fill: false
     influence_conversation: true
-  sub_category_livescript:
-    type: text
+  sub_category_livetranscript:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
     auto_fill: false
     influence_conversation: true
   sub_category_chat:
-    type: text
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
     auto_fill: false
     influence_conversation: true
   more_information_categories_needed:
-    type: bool
+    type: rasa.shared.core.slots.BooleanSlot
+    initial_value: null
     auto_fill: false
     influence_conversation: true
   does_participate:
-    type: bool
+    type: rasa.shared.core.slots.BooleanSlot
+    initial_value: null
     auto_fill: false
     influence_conversation: true
   ask_another_conflict:
-    type: bool
+    type: rasa.shared.core.slots.BooleanSlot
+    initial_value: null
     auto_fill: false
     influence_conversation: true
   agrees_with_conflict:
-    type: bool
+    type: rasa.shared.core.slots.BooleanSlot
+    initial_value: null
     auto_fill: false
     influence_conversation: true
   explanation_conflict:
-    type: text
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
     auto_fill: false
     influence_conversation: true
   preference:
-    type: text
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
     auto_fill: false
     influence_conversation: true
   explanation_preference:
-    type: text
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
     auto_fill: false
     influence_conversation: true
   when_discovered:
-    type: text
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
     auto_fill: false
     influence_conversation: true
   does_participate_user:
-    type: bool
+    type: rasa.shared.core.slots.BooleanSlot
+    initial_value: null
     auto_fill: false
     influence_conversation: true
   age:
-    type: float
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
     auto_fill: false
     influence_conversation: true
   main_use:
-    type: text
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
     auto_fill: false
     influence_conversation: true
   user_group:
-    type: text
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
     auto_fill: false
     influence_conversation: true
   interruption:
-    type: text
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
     auto_fill: false
     influence_conversation: true
   requested_slot:
-    type: categorical
+    type: rasa.shared.core.slots.CategoricalSlot
+    initial_value: null
+    auto_fill: true
     influence_conversation: true
     values:
     - new_requirement
@@ -207,7 +328,7 @@ slots:
     - sub_category_recording
     - sub_category_reaction
     - sub_category_polling
-    - sub_category_livescript
+    - sub_category_livetranscript
     - sub_category_chat
     - interruption
 responses:
@@ -238,148 +359,162 @@ responses:
       title: I disagree.
     - payload: /more_information_about_categories
       title: I need more information about the categories.
-    text: Your requirement was categorized as "{intent_new_requirement}". Do you agree with the categorization of your new requirement?
+    - payload: /changereq
+      title: I want to change my requirement.
+    text: Your requirement was categorized as {categorization_info}. \n Do you agree with the categorization of your new requirement?
   utter_ask_categorization_requirement_user:
   - buttons:
     - payload: /audio
-      title: audio
+      title: 'audio: \n There are different options to share audio during a meeting. This could be your own voice or audio from screen or other participants. This audio can also come from different sources such as a microphone from a webcam or smart phone or an application. So this category is about any audio you want to hear or share.'
     - payload: /video
-      title: video
+      title: 'video: \n Similar to audio, you can share a video of yourself or your screen. This can involve different sources such as a camera from your webcam or an application on your screen. This category is about the video you want to share or want to see.'
     - payload: /screensharing
-      title: screen sharing
+      title: 'screen sharing: \n A web conference tool gives you the option to share your screen. This category contains requirements that, for example, define how many users at a time and who can share their screen and what options they have.'
     - payload: /recording
-      title: recording
+      title: 'recording: \n Sometimes it is useful to record the meeting to save it. Any restrictions to recording a meeting do also fall under this category.'
     - payload: /reaction
-      title: reaction
+      title: 'reaction: \n Participants may want to react to something a presenter was saying and they can do so by choosing an emoji that will be displayed on their video. This can lead to less interruption than having participants react via their microphones.'
     - payload: /polling
-      title: polling
+      title: 'polling: \n Another way of getting feedback from participants of a web conference is polling.'
     - payload: /livetranscript
-      title: live transcript
+      title: 'live transcript: \n Live transcripts can be enabled to help your participants better understand the presenter.'
     - payload: /chat
-      title: chat
+      title: 'chat: \n It can be helpful to share information not only by audio but also written via chat. This offers the possibility to talk to the host or other participants privately.'
+    - payload: /changereq
+      title: I want to change my requirement.
+    - payload: /nocategory
+      title: None of these categories fit.
     text: Which of these main categories do you think would fit your requirement?
   utter_ask_sub_category_audio:
   - buttons:
     - payload: /audio+option+microphone
-      title: audio, option and microphone
+      title: 'audio option for microphone: \n Your requirement suggests a new option for a microphone source next to, e.g., a webcam, computer or microphone.'
+    - payload: /audio+option+screen
+      title: 'audio option for screen: \n Your have a new option for audio from a screen next to, e.g., to an application.'
     - payload: /audio+restriction
-      title: audio and restriction
+      title: 'restriction for sharing audio: \n You would like to add a restriction such as "only the host can disable the participants to turn on their microphone".'
     - payload: /audio+microphone+howto+start
-      title: audio, microphone, how to and start
+      title: 'a new option to start sharing microphone: \n Another way to turn on the microphone other than clicking the microphone icon.'
     - payload: /audio+microphone+howto+stop
-      title: audio, microphone, how to and stop
+      title: 'a new option to stop sharing microphone: \n Another way to turn off the microphone other than clicking the microphone icon.'
     - payload: /audio+screen+howto+start
-      title: audio, screen, how to and start
+      title: 'a new option to start sharing audio from screen: \n Participants can share their screen including their applications during a meeting. You suggest a way of starting the sharing.'
     - payload: /audio+screen+howto+stop
-      title: audio, screen, how to and stop
+      title: 'a new option to stop sharing audio from screen: \n Participants can share their screen including their applications during a meeting. You suggest a way of stopping the sharing.'
     - payload: /audio+default
-      title: audio and default
+      title: 'default option for audio: \n A default option tells, e.g., if audio is turned on or off when the meeting is started.'
     - payload: /audio+configation+option
-      title: audio, configation and option
+      title: 'option to configure audio: \n One way to configure the audio is to click the menu icon. You have an idea for another way.'
+    - payload: /goback
+      title: I want to go back to the main categories.
     text: Which of these sub categories is right for your requirement?
   utter_ask_sub_category_video:
   - buttons:
     - payload: /video+option+camera
-      title: video, option and camera
+      title: 'a new option for video from camera: \n One way to share video is your own camera. A source for a camera is a webcam but you would like to add another source.'
     - payload: /video+option+screen
-      title: video, option and screen
+      title: 'a new option for video from screen: \n One way to share video is your screen, e.g., an application. You have an idea for a new source.'
     - payload: /video+screen+restriction
-      title: video, screen and restriction
+      title: 'restriction for screen sharing: \n A restriction could limit who and what can be shared during a meeting regarding videos.'
     - payload: /video+screen+howto+stop
-      title: video, screen, how to and stop
+      title: 'a new option to stop sharing a video from screen: \n You have another idea on how to stop sharing video from your screen.'
     - payload: /video+screen+howto+start
-      title: video, screen, how to and start
+      title: 'a new option to start sharing a video from screen: \n You have another idea on how to start sharing video from your screen.'
     - payload: /video+camera+howto+stop
-      title: video, camera, how to and stop
+      title: 'a new option to stop sharing a video from camera: \n You have another idea on how to stop sharing video of your face.'
     - payload: /video+camera+howto+start
-      title: video, camera, how to and start
+      title: 'a new option to start sharing a video from camera: \n You have another idea on how to start sharing video of your face.'
     - payload: /video+default
-      title: video and default
+      title: 'default option video: \n The default option could tell if video is turned on when the meeting is starting.'
     - payload: /video+configuration
-      title: video and configuration
+      title: 'configuration for video: \n One way to configure the video is to click the menu icon. You have an idea for another way.'
+    - payload: /goback
+      title: I want to go back to the main categories.
     text: Which of these sub categories is right for your requirement?
   utter_ask_sub_category_screensharing:
   - buttons:
     - payload: /screensharing+option
-      title: screensharing and option
-    - payload: /screensharing+restriction+start
-      title: screen sharing, restriction and start
+      title: option for screen sharing:\n One way to share your screen is to share only an application. You would like to add another source.
     - payload: /screensharing+howto+stop
-      title: screensharing, how to and stop
+      title: a new way to stop screen sharing:\n You have another idea on how to stop sharing your screen.
     - payload: /screensharing+howto+start
-      title: screensharing, how to and start
+      title: a new way to start screen sharing:\n You have another idea on how to start sharing your screen.
     - payload: /screensharing+default
-      title: screensharing and default
+      title: default settings for screen sharing:\n The default option could tell if screen sharing starts when the meeting starts, for example.
     - payload: /screensharing+restriction+windows
-      title: screensharing, restriction and windows
+      title:  restrictions for screen sharing regarding windows in meeting:\n These restrictions concern how many people can share their screen at once and how many applications or windows a person can share.
     - payload: /screensharing+restriction+stop
-      title: screensharing, restriction and stop
+      title: restrictions for screen sharing regarding who can stop it:\n These type of restriction define who can stop the screen sharing of whose screen.
+    - payload: /screensharing+restriction+start
+      title: restrictions for screen sharing regarding who can start it:\n The ability to start screen sharing is described by this category.
+    - payload: /goback
+      title: I want to go back to the main categories.
     text: Which of these sub categories is right for your requirement?
   utter_ask_sub_category_recording:
   - buttons:
     - payload: /recording+restriction
-      title: recording and restriction
+      title: restrictions for recording:\n A recording of a meeting can be, e.g., restricted by the person who is allowed to start a meeting or if the participants have to agree beforehand.
     - payload: /recording+howto+start
-      title: recording, how to and start
+      title: a new option to start recording:\n You have another idea on how to start recording a meeting.
     - payload: /recording+howto+stop
-      title: recording, how to and stop
+      title: a new option to stop recording:\n You have another idea on how to stop recording a meeting.
     - payload: /recording+option
-      title: recording and option
+      title: a new option what to record on meeting:\n You have another idea on what is recorded, e.g., only the voice or the screen.
     - payload: /recording+default
-      title: recording and default
+      title: default option for recording:\n The default option tells if recording starts when the meeting starts, for example.
+    - payload: /goback
+      title: I want to go back to the main categories.
     text: Which of these sub categories is right for your requirement?
   utter_ask_sub_category_reaction:
   - buttons:
     - payload: /reaction+howto+start
-      title: reaction, how to and start
+      title: a new option to start a reaction:\n A reaction is an emoji that you choose and is seen on your video for other participants. You have another idea on how to start a reaction.
     - payload: /reaction+howto+stop
-      title: reaction, how to and stop
+      title:  a new option to stop a reaction:\n You have another idea on how to stop a reaction or when it stops.
     - payload: /reaction+default
-      title: reaction and default
+      title: default settings for reaction:\n The default option tells if a reaction is shown when the meeting starts, for example.
+    - payload: /goback
+      title: I want to go back to the main categories.
     text: Which of these sub categories is right for your requirement?
   utter_ask_sub_category_polling:
   - buttons:
     - payload: /polling+restriction
-      title: polling and restriction
+      title: 'restriction for polling: \n Polling can be restricted, for example, regarding on who can start a poll.'
     - payload: /polling+howto+start
-      title: polling, how to and start
+      title: 'a new option to start polling: \n You have another idea on how to start polling.'
     - payload: /polling+howto+stop
-      title: polling, how to and stop
+      title: 'a new option to stop polling: \n You have another idea on how to stop polling.'
     - payload: /polling+duration
-      title: polling and duration
+      title: 'duration for polling: \n Polling can, e.g., stop after a predefined amount of time.'
+    - payload: /goback
+      title: I want to go back to the main categories.
     text: Which of these sub categories is right for your requirement?
-  utter_ask_sub_category_livescript:
+  utter_ask_sub_category_livetranscript:
   - buttons:
     - payload: /livetranscript+restriction
-      title: live transcript and restriction
+      title: 'restrictions for live transcript: \n Live transcripts can be restricted, for example, regarding on who can start it.'
     - payload: /livetranscript+howto+start
-      title: live transcript, how to and start
+      title: 'a new option to start a live transcript: \n You have another idea on how to start live transcripts.'
     - payload: /livetranscript+howto+stop
-      title: livetranscript, how to and stop
+      title: 'a new option to stop a live transcript: \n You have another idea on how to stop live transcripts.'
     - payload: /livetranscript+default
-      title: livetranscript and default
+      title: 'default option for live transcript: \n Live transcript can, e.g., turned off when the meeting starts.'
+    - payload: /goback
+      title: I want to go back to the main categories.
     text: Which of these sub categories is right for your requirement?
   utter_ask_sub_category_chat:
   - buttons:
     - payload: /chat+howto+start
-      title: chat, how to and start
+      title: 'a new option to start a chat: \n You have another idea on how to start a chat.'
     - payload: /chat+howto+stop
-      title: chat, how to and stop
+      title: 'a new option to stop a chat: \n You have another idea on how to stop the chat.'
     - payload: /chat+default
-      title: chat and default
+      title: 'default settings for chat: \n The chat could be open when the meeting starts.'
+    - payload: /goback
+      title: I want to go back to the main categories.
     text: Which of these sub categories is right for your requirement?
   utter_ask_more_information_categories_needed:
-  - text: "It is necessary to categorize your requirement to check if it is conflicting with other requirement. Some requirements show the functionality of the system whereas others represent constraints. Otherwise, requirements in conflict cannot be implemented in the same system. 
-  Here are all the categories with information about them: 
-  Audio:
-  Video:
-  Screen sharing:
-  Recording: 
-  Reaction:
-  Polling:
-  Live transcript:
-  Chat: . 
-  Let me know when you are finished checking the categories."
+  - text: 'It is necessary to categorize your requirement to check if it is conflicting with other requirement. Some requirements show the functionality of the system whereas others represent constraints. Otherwise, requirements in conflict cannot be implemented in the same system. \n Here are all the categories with information about them: \n Audio: \n There are different options to share audio during a meeting. This could be your own voice or audio from screen or other participants. This audio can also come from different sources such as a microphone from a webcam or smart phone or an application. So this category is about any audio you want to hear or share. \n Video: \n Similar to audio, you can share a video of yourself or your screen. This can involve different sources such as a camera from your webcam or an application on your screen. This category is about the video you want to share or want to see. \n Screen sharing: \n A web conference tool gives you the option to share your screen. This category contains requirements that, for example, define how many users at a time and who can share their screen and what options they have. \n Recording: \n Sometimes it is useful to record the meeting to save it. Any restrictions to recording a meeting do also fall under this category. \n Reaction: \n Participants may want to react to something a presenter was saying and they can do so by choosing an emoji that will be displayed on their video. This can lead to less interruption than having participants react via their microphones. \n Polling: \n Another way of getting feedback from participants of a web conference is polling. \n Live transcript: \n Live transcripts can be enabled to help your participants better understand the presenter. \n Chat: \n It can be helpful to share information not only by audio but also written via chat. This offers the possibility to talk to the host or other participants privately. Let me know when you are finished checking the categories.'
   utter_select_categories_slack:
   - custom:
       blocks:
@@ -468,25 +603,24 @@ responses:
           type: mrkdwn
         type: section
   utter_ask_more_information:
-  - text: Would you like to give us additional information to help resolve the conflict? This would help us since we can only implement requirements when conflicts are resolved.
+  - text: Would you like to give us additional information to help resolve the conflict? \n This would help us since we can only implement requirements when conflicts are resolved.
   utter_requirement_information:
   - text: Great that you are asking. The better your requirement is formulated, the better it can be considered and even actually implemented.
   utter_thanks_for_info:
   - text: Thank you for your information.
   utter_ask_does_participate:
   - condition:
-      - type: slot
-        name: ask_another_conflict
-        value: true
+    - name: ask_another_conflict
+      type: slot
+      value: true
     text: Would you like to help solve another conflict?
-
   - text: Could you give us some information to help resolve the conflict? We are only able to implement requirements with resolved conflicts.
   utter_ask_agrees_with_conflict:
   - text: Do you agree with the conflict between {conflicting_requirements}?
   utter_ask_explanation_conflict:
-  - text: Please tell me why do you think so?
+  - text: Please tell me why do you think so? You could also propose an idea on how to handle a conflict if one exists.
   utter_ask_preference:
-  - text: If you had to choose between {conflicting_requirements}. Do you prefer the first or last one?
+  - text: If you had to choose between {conflicting_requirements}. Do you prefer the first or last one? Or do they want the same?
   utter_ask_explanation_preference:
   - text: Could you explain why you prefer one over the other?
   utter_ask_when_discovered:
@@ -498,20 +632,23 @@ responses:
   utter_ask_main_use:
   - text: For what purpose do you use the system mainly? For example, do you use it for work, school or with friends?
   utter_ask_user_group:
-  - text: One last question. I promise. To what type of user do you see yourself belonging? Student, worker, developer ... ?
+  - text: This is the last personal question. I promise. To what type of user do you see yourself belonging? Student, worker, developer ... ?
   utter_ask_does_participate_user:
   - text: Would you like to give us some information about yourself?
   utter_explain_requirement:
-  - text: Requirements explain how the system should interact with the user in a specific context. We need this information to see what you expect of our system. We will check if your requirement is in conflict with other requirements.
+  - text: Requirements explain the behaviour you expect from our system. Try to be as precise as possible. We need this information to see what you expect of our system. We will check if your requirement is in conflict with other requirements.
   utter_chitchat:
   - text: This is not the purpose I am intented for. I can only help you with submitting requirements.
+  utter_please_rephrase:
+  - text: I'm sorry, I didn't quite understand that. Could you rephrase?
 actions:
 - action_database
 - action_save_first_conflict
 - action_save_information
+- validate_another_conflict_form
 - validate_category_form
 - validate_manage_conflict_form
-- validate_another_conflict_form
+- catgeory_form
 - validate_user_information_form
 forms:
   category_form:
@@ -524,17 +661,22 @@ forms:
     required_slots:
       does_participate:
       - type: from_text
+      agrees_with_conflict:
+      - type: from_text
   another_conflict_form:
     required_slots:
       does_participate:
+      - type: from_text
+      agrees_with_conflict:
       - type: from_text
   user_information_form:
     required_slots:
       does_participate_user:
       - type: from_text
-      age:
+      user_group:
       - type: from_text
       main_use:
       - type: from_text
-      user_group:
+      age:
       - type: from_text
+e2e_actions: []

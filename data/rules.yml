@@ -12,9 +12,12 @@ rules:
   - intent: bot_challenge
   - action: utter_iamabot
 
+
+
+
 - rule: Help user to figure out what a requirement is
   steps: 
-  - intent: information_requirement
+  - intent: explain_how_to_requirement
   - action: utter_requirement_information
 
 - rule: activate another_conflict_form form
@@ -95,6 +98,11 @@ rules:
     - action: action_database
   wait_for_user_input: false
 
+- rule: Ask the user to rephrase whenever they send a message with low NLU confidence
+  steps:
+    - intent: nlu_fallback
+    - action: utter_please_rephrase
+
 #- rule: save information
 #  condition:
   #- active_loop: null
@@ -124,17 +132,17 @@ rules:
 #    #- action: utter_thanks_for_info 
    
 
-- rule: Example of an unhappy path
-  condition:
+#- rule: Example of an unhappy path
+#  condition:
   # Condition that form is active.
-  - active_loop: category_form
-  steps:
+ #  - active_loop: category_form
+ # steps:
   # This unhappy path handles the case of an intent `chitchat`.
-  - intent: chitchat
-  - action: utter_chitchat
+#  - intent: chitchat
+#  - action: utter_chitchat
   # Return to form after handling the `chitchat` intent
-  - action: category_form
-  - active_loop: category_form
+#  - action: category_form
+#  - active_loop: category_form
 
 - rule: chitchat
   steps:

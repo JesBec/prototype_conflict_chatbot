@@ -15,6 +15,7 @@ nlu:
     - goodmorning
     - goodevening
     - good afternoon
+    - whats up
 - intent: goodbye
   examples: |
     - good afternoon
@@ -40,6 +41,8 @@ nlu:
     - ok
     - okay
     - i will
+    - i do
+    - i want to
 - intent: deny
   examples: |
     - no
@@ -93,17 +96,17 @@ nlu:
     - i have a new requirement
     - i want to submit a feature
     - i got an idea for a new requirement
+    - i have another requirement
+    - new requirement
+    - i do have a requirement
+    - i got one
 - intent: more_information_about_categories
   examples: |
     - i need more information about the categories
     - what are those categories
     - i do not get the categories
-- intent: information_requirement
-  examples: |
-    - what is a requirement
-    - how can i formulate a requirement
-    - what should a requirement look like?
-    - what do i need to consider to formulate a requirement?
+    - tell me more about categories
+    - explain the category
 - intent: finished_checking_categories
   examples: |
     - i am finished
@@ -112,20 +115,16 @@ nlu:
     - done
     - i am ready
     - move on
-- intent: agrees_conflict_management
-  examples: |
-    - i would like to give some information
-    - i would do that
-    - i would like to
-    - kay
 - intent: stop
   examples: |
     - stop
     - i don't want to continue
     - no more questions
-    - I don't want to answer
     - cancel
     - no more answers
+    - exit
+    - stop it right now
+    - this was enough
 - intent: explain
   examples: |
     - why do you need that?
@@ -133,26 +132,39 @@ nlu:
     - why is this needed
     - is this necessary
     - explain
-    - why do you wanna know
-    - what is the purpose of this
+    - why do you wanna know?
+    - what is the purpose of this?
+    - what is the reason?
+    - this is the explanation
 - intent: explain_how_to_requirement
   examples: |
     - what is a requirement?
     - how to formulate
     - i need help
-    - i have no idea 
+    - i have no requirement idea
     - where can i find requirements
-    - i have non
+    - i have no requirement
+    - how should a requirement look like?
+    - how can i formulate a requirement
+    - what should a requirement look like?
+    - what do i need to consider to formulate a requirement?
+    - tell me about requirements
 - intent: chitchat
   examples: |
     - tell me a joke
     - how is the weather
     - how are you doing
+    - order a pizza
+    - what is 1 + 1
 - intent: audio
   examples: |
     - The user can share audio.
     - audio
     - audio can be shared
+    - computer audio
+    - audio from a camera
+    - microphone
+    - tablet audio
 - intent: audio+option+microphone
   examples: |
     - computer as a microphone option
@@ -184,13 +196,13 @@ nlu:
     - The user can stop to share their microphone audio by clicking the microphone icon/button.
     - turn microphone of with clicking
     - stop microphone by pressing
-    - diable microphone
+    - disable microphone
 - intent: audio+screen+howto+start
   examples: |
     - The user can start to share audio from screen by clicking the share screen button.
     - share computer audio with pressing share screen icon
     - turn on application audio by
-    - share video sound from
+    - share video sound from with
     - get sound of
 - intent: audio+screen+howto+stop
   examples: |
@@ -254,6 +266,8 @@ nlu:
     - The video is turned off by default
     - at the start of the meeting the video is
     - when entering the meeting the camera
+    - camera should be turned on by default
+    - the camera should already be on when the meeting ist starting
 - intent: video+configuration
   examples: |
     - The camera can be configured by right clicking the audio icon
@@ -296,6 +310,7 @@ nlu:
   examples: |
     - The user can only stop sharing their own screen.
     - user cannot end desktop sharing from other user
+    - they do not seem to contradict each other
 - intent: recording
   examples: |
     - The meeting can be recorded.
@@ -410,27 +425,63 @@ nlu:
     - when meeting is started chat is not open
     - open chat by default
     - chat on by default
+- intent: option
+  examples: |
+    - option
+    - another source
+    - additionally the option
+- intent: restriction
+  examples: |
+    - should be restricted
+    - not allowed
+    - needs permission
+    - needs to be enables by
+    - can be disabled for
+- intent: howto+start
+  examples: |
+    - user can start by
+    - through clicking starts
+    - by pressing opens
+- intent: howto+stop
+  examples: |
+    - the host can stop
+    - to stop click
+    - through pressing the icon it stops
+- intent: default
+  examples: |
+    - by default
+    - when the meeting starts
+    - when starting
+    - should be always
+    - right away
+    - when entering
 - intent: first
   examples: |
-    - first 
-    - one 
-    - 1 
+    - first requirement
+    - one
+    - 1
     - 1st
     - number one
     - no 1
+    - i would choose the first one
+    - i like mine
+    - i choose my requirement
 - intent: last
   examples: |
-    - last 
+    - last requirement
     - second one
     - 2nd
-    - 2 
+    - 2
     - number 2
-    - no 2 
+    - no 2
+    - i would choose the last one
 - intent: both
   examples: |
     - i find both important
     - i cant choose
-    - both 
+    - both requirements
+    - i choose them both
+    - can I choose both?
 - intent: no_answer
   examples: |
     - i don't want to answer
@@ -441,8 +492,21 @@ nlu:
     - what a rude question
     - this is rude
     - how rude
+    - skip
+    - skip it
+    - lets sskip
 - intent: no_idea
-  examples: | 
+  examples: |
     - i have no idea
-    - not sure 
-    - dont know 
+    - not sure
+    - dont know
+- intent: they_do_the_same
+  examples: |
+    - those requirements do the same
+    - they are similiar
+    - they are the same
+    - there is no difference between them
+- intent: changereq
+  examples: |
+    - there was an error
+    - i need to change my requirement
