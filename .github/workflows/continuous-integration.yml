@@ -20,7 +20,6 @@ jobs:
         uses: RasaHQ/rasa-action-server-gha@main
         with:
           actions_directory: 'actions'
-          requirements_file: 'actions/requirements-actions.txt'
           docker_registry_login: ${{ secrets.DOCKER_HUB_LOGIN }}
           docker_registry_password: ${{ secrets.DOCKER_HUB_PASSWORD }}
           docker_image_name: 'rasa/helpdesk-assistant'
