@@ -1,0 +1,28 @@
+name: Continuous Integration
+on:
+  push:
+    branches:
+    - FinishBot
+    paths:
+    - 'actions/**'
+    - '.github/workflows/continuous-integration.yml'
+
+jobs:
+  docker:
+    name: Build Action Server Docker Image
+    runs-on: ubuntu-latest
+    env:
+      DOCKERHUB_USERNAME: oakela
+    steps:
+      - name: Checkout git repository 🕝
+        uses: actions/checkout@v2
+      - name: Build Actions Server Image
+        uses: RasaHQ/rasa-action-server-gha@main
+        with:
+          actions_directory: 'actions'
+          requirements_file: 'actions/requirements-actions.txt'
+          docker_registry_login: ${{ secrets.DOCKER_HUB_LOGIN }}
+          docker_registry_password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+          docker_image_name: 'rasa/helpdesk-assistant'
+          docker_image_tag: 'latest'
+          rasa_sdk_version: '2.8.0'
