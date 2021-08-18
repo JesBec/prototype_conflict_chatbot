@@ -80,20 +80,6 @@ stories:
   steps:
   - intent: request_requirement_submission
   - action: category_form
-
- 
-
-#- story: collect user information unhappy
-#  steps:
-#  - action: user_information_form
-#  - active_loop: user_information_form
-#  - slot_was_set:
-#    - requested_slot: does_participate_user
-#  - intent: stop
-#  - action: utter_ask_continue
-#  - intent: affirm
-#  - action: action_deactivate_loop
-#  - active_loop: null
   
 
 #- story: interactive_story_1

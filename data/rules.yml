@@ -12,9 +12,6 @@ rules:
   - intent: bot_challenge
   - action: utter_iamabot
 
-
-
-
 - rule: Help user to figure out what a requirement is
   steps: 
   - intent: explain_how_to_requirement
