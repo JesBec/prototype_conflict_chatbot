@@ -72,9 +72,7 @@ rules:
     - active_loop: null            
     - slot_was_set:
       - requested_slot: null
-    #- action: action_save_information
-    - action: action_save_first_conflict
-    #- action: user_information_form   
+    #- action: action_save_first_conflict
   wait_for_user_input: false
     
 - rule: activate category form

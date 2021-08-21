@@ -32,16 +32,16 @@ stories:
   - action: utter_goodbye
 
 
-#- story: User interrupts the form and doesn't want to continue
-#  steps:
-  #- intent: request_requirement_submission
-  #- action: category_form
-#  - active_loop: category_form
-#  - intent: stop
-#  - action: utter_ask_continue
-#  - intent: affirm
-#  - action: action_deactivate_loop
-#  - active_loop: null
+- story: User interrupts the form and doesn't want to continue
+  steps:
+  - intent: request_requirement_submission
+  - action: category_form
+  - active_loop: category_form
+  - intent: stop
+  - slot_was_set:
+      - requested_slot: null
+  - active_loop: null
+  - action: utter_thanks_for_info
 
 #- story: User interrupts the form and doesn't want to continue
 #  steps:
@@ -100,10 +100,6 @@ stories:
  #   - requested_slot: null
  # - action: utter_thanks_for_info
 
-- story: interactive_story_1
-  steps:
-  - intent: request_requirement_submission
-  - action: category_form
 
 #- story: interactive_story_2
 #  steps:
@@ -121,6 +117,39 @@ stories:
 #  - intent: affirm
 #  - action: action_deactivate_loop
 #  - active_loop: null
+- story: requirement but no management
+  steps:
+    - intent: request_requirement_submission
+    - action: category_form
+    - active_loop: category_form
+    - slot_was_set:
+        - x_agreement_on_categorization: null
+    - slot_was_set:
+        - requested_slot: new_requirement
+    - slot_was_set:
+        - x_agreement_on_categorization: null
+    - slot_was_set:
+        - new_requirement: chat on by default
+    - slot_was_set:
+        - intent_new_requirement: chat+default
+    - slot_was_set:
+        - requested_slot: x_agreement_on_categorization
+    - slot_was_set:
+        - x_agreement_on_categorization: /affirm
+    - slot_was_set:
+        - requested_slot: null
+    - active_loop: null
+    - action: action_database
+    - action: manage_conflict_form
+    - active_loop: manage_conflict_form
+    - slot_was_set:
+        - requested_slot: does_participate
+    - slot_was_set:
+        - does_participate: false
+    - slot_was_set:
+        - requested_slot: null
+    - action: action_save_requirement
+    - action: utter_thanks_for_info
 
 - story: requirement and management happy path
   steps:
@@ -128,19 +157,19 @@ stories:
   - action: category_form
   - active_loop: category_form
   - slot_was_set:
-    - agreement_on_categorization: null
+    - x_agreement_on_categorization: null
   - slot_was_set:
     - requested_slot: new_requirement
   - slot_was_set:
-    - agreement_on_categorization: null
+    - x_agreement_on_categorization: null
   - slot_was_set:
     - new_requirement: chat on by default
   - slot_was_set:
     - intent_new_requirement: chat+default
   - slot_was_set:
-    - requested_slot: agreement_on_categorization
+    - requested_slot: x_agreement_on_categorization
   - slot_was_set:
-    - agreement_on_categorization: /affirm
+    - x_agreement_on_categorization: /affirm
   - slot_was_set:
     - requested_slot: null
   - active_loop: null
@@ -150,7 +179,27 @@ stories:
   - slot_was_set:
     - requested_slot: does_participate
   - slot_was_set:
-    - does_participate: false
+    - does_participate: true
+  - slot_was_set:
+      - requested_slot: x_agrees_with_conflict
+  - slot_was_set:
+      - x_agrees_with_conflict: True
+  - slot_was_set:
+      - requested_slot: explanation_conflict
+  - slot_was_set:
+      - explanation_conflict: 'they contradict each other'
+  - slot_was_set:
+      - requested_slot: preference
+  - slot_was_set:
+      - preference: 'the first one'
+  - slot_was_set:
+      - requested_slot: explanation_preference
+  - slot_was_set:
+      - explanation_preference: 'i prefer if i do not have to click it open'
+  - slot_was_set:
+      - requested_slot: explanation_preference
+  - slot_was_set:
+      - explanation_preference: 'i prefer if i do not have to click it open'
   - slot_was_set:
     - requested_slot: null
   - active_loop: null
@@ -163,17 +212,17 @@ stories:
   - slot_was_set:
     - does_participate_user: yes
   - slot_was_set:
-    - requested_slot: age
+    - requested_slot: z_age
   - slot_was_set:
-    - age: '25'
+    - z_age: '25'
   - slot_was_set:
-    - requested_slot: main_use
+    - requested_slot: y_main_use
   - slot_was_set:
-    - main_use: university
+    - y_main_use: university
   - slot_was_set:
-    - requested_slot: user_group
+    - requested_slot: x_user_group
   - slot_was_set:
-    - user_group: student
+    - x_user_group: student
   - slot_was_set:
     - requested_slot: null
   - active_loop: null
@@ -192,37 +241,38 @@ stories:
   #- action: action_save_first_conflict
   - action: action_save_information
   - action: utter_thanks_for_info 
+
 - story: interactive_story_1
   steps:
   - intent: request_requirement_submission
   - action: category_form
   - active_loop: category_form
   - slot_was_set:
-    - agreement_on_categorization: null
+    - x_agreement_on_categorization: null
   - slot_was_set:
     - requested_slot: new_requirement
   - slot_was_set:
-    - agreement_on_categorization: null
+    - x_agreement_on_categorization: null
   - slot_was_set:
     - new_requirement: camera should be turned on by default
   - slot_was_set:
     - intent_new_requirement: video+default
   - slot_was_set:
-    - requested_slot: agreement_on_categorization
+    - requested_slot: x_agreement_on_categorization
   - slot_was_set:
-    - agreement_on_categorization: /deny
+    - x_agreement_on_categorization: /deny
   - slot_was_set:
     - categorization_requirement_user: null
   - slot_was_set:
     - requested_slot: categorization_requirement_user
   - slot_was_set:
-    - agreement_on_categorization: /deny
+    - x_agreement_on_categorization: /deny
   - slot_was_set:
     - categorization_requirement_user: video
   - slot_was_set:
     - requested_slot: sub_category_video
   - slot_was_set:
-    - agreement_on_categorization: /deny
+    - x_agreement_on_categorization: /deny
   - slot_was_set:
     - sub_category_video: video+default
   - slot_was_set:
@@ -242,9 +292,9 @@ stories:
   - slot_was_set:
     - does_participate: true
   - slot_was_set:
-    - requested_slot: agrees_with_conflict
+    - requested_slot: x_agrees_with_conflict
   - slot_was_set:
-    - agrees_with_conflict: true
+    - x_agrees_with_conflict: true
   - slot_was_set:
     - requested_slot: explanation_conflict
 
@@ -254,11 +304,11 @@ stories:
   - action: category_form
   - active_loop: category_form
   - slot_was_set:
-    - agreement_on_categorization: null
+    - x_agreement_on_categorization: null
   - slot_was_set:
     - requested_slot: new_requirement
   - slot_was_set:
-    - agreement_on_categorization: null
+    - x_agreement_on_categorization: null
   - slot_was_set:
     - new_requirement: the camera should already be on when the meeting ist starting
   - slot_was_set:
@@ -266,9 +316,9 @@ stories:
   - slot_was_set:
     - categorization_info: The chat could be open when the meeting starts.. default settings for chat
   - slot_was_set:
-    - requested_slot: agreement_on_categorization
+    - requested_slot: x_agreement_on_categorization
   - slot_was_set:
-    - agreement_on_categorization: /affirm
+    - x_agreement_on_categorization: /affirm
   - slot_was_set:
     - requested_slot: null
   - active_loop: null
@@ -280,9 +330,9 @@ stories:
   - slot_was_set:
     - does_participate: true
   - slot_was_set:
-    - requested_slot: agrees_with_conflict
+    - requested_slot: x_agrees_with_conflict
   - slot_was_set:
-    - agrees_with_conflict: false
+    - x_agrees_with_conflict: false
   - slot_was_set:
     - requested_slot: explanation_conflict
   - slot_was_set:

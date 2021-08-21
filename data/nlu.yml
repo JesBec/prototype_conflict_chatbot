@@ -384,6 +384,7 @@ nlu:
   examples: |
     - The poll lasts until the host is clicking the stop icon.
     - there is no set duration for a poll
+    - polling should stay up for five minutes
 - intent: livetranscript
   examples: |
     - A live transcript can be created.

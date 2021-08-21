@@ -14,19 +14,19 @@ class ValidateCategoryForm(FormValidationAction):
     slots_to_reset = ["new_requirement",
     "intent_new_requirement",
     "conflicting_requirements",
-    "agreement_on_categorization",
+    "x_agreement_on_categorization",
     "categorization_requirement_user",
     "more_information_categories_needed",
     "does_participate",
-    "agrees_with_conflict",
+    "x_agrees_with_conflict",
     "explanation_conflict",
     "preference",
     "explanation_preference",
     "when_discovered",
     "does_participate_user",
-    "age",
-    "main_use",
-    "user_group",
+    "z_age",
+    "y_main_use",
+    "x_user_group",
     "sub_category_audio",
     "sub_category_video",
     "sub_category_screensharing",
@@ -38,15 +38,67 @@ class ValidateCategoryForm(FormValidationAction):
     "requested_slot",
     "interruption",
     "ask_another_conflict"]
+    req_categories = [
+        "audio",
+        "audio+option+microphone",
+        "audio+option+screen",
+        "audio+restriction",
+        "audio+microphone+howto+start",
+        "audio+microphone+howto+stop",
+        "audio+screen+howto+start",
+        "audio+screen+howto+stop",
+        "audio+default",
+        "audio+configation+option",
+        "video",
+        "video+option+camera",
+        "video+option+screen",
+        "video+screen+restriction",
+        "video+screen+howto+stop",
+        "video+screen+howto+start",
+        "video+camera+howto+stop",
+        "video+camera+howto+start",
+        "video+default",
+        "video+configuration",
+        "screensharing+option",
+        "screensharing+restriction+start",
+        "screensharing+howto+stop",
+        "screensharing+howto+start",
+        "screensharing+default",
+        "screensharing",
+        "screensharing+restriction+windows",
+        "screensharing+restriction+stop",
+        "recording",
+        "recording+restriction",
+        "recording+howto+start",
+        "recording+howto+stop",
+        "recording+option",
+        "recording+default",
+        "reaction",
+        "reaction+howto+start",
+        "reaction+howto+stop",
+        "reaction+default",
+        "polling",
+        "polling+restriction",
+        "polling+howto+start",
+        "polling+howto+stop",
+        "polling+duration",
+        "livetranscript",
+        "livetranscript+restriction",
+        "livetranscript+howto+start",
+        "livetranscript+howto+stop",
+        "livetranscript+default",
+        "chat",
+        "chat+howto+start",
+        "chat+howto+stop",
+        "chat+default"
+    ]
  
     def name(self) -> Text:
         return "validate_category_form"
 
     async def required_slots(self, slots_mapped_in_domain: List[Text], dispatcher: "CollectingDispatcher",tracker: "Tracker", domain: "DomainDict",
     ) -> Optional[List[Text]]:
-        agreement = tracker.slots.get("agreement_on_categorization")
-        #dispatcher.utter_message("agreement on categorization")
-        #dispatcher.utter_message(tracker.slots.get("categorization_requirement_user"))
+        agreement = tracker.slots.get("x_agreement_on_categorization")
         if tracker.slots.get("categorization_requirement_user"):
             category = tracker.slots.get("categorization_requirement_user")
             new_slot = "sub_category_" + category
@@ -57,24 +109,24 @@ class ValidateCategoryForm(FormValidationAction):
             #return slots_mapped_in_domain
 
         if agreement == "/deny":
-            additional_slots = ["agreement_on_categorization"]
+            additional_slots = ["x_agreement_on_categorization"]
             additional_slots.append("categorization_requirement_user")
             return additional_slots + slots_mapped_in_domain
 
         elif agreement == "/more_information_about_categories":
-            additional_slots = ["agreement_on_categorization"]
+            additional_slots = ["x_agreement_on_categorization"]
             additional_slots.append("more_information_categories_needed")
             return additional_slots + slots_mapped_in_domain
 
         return slots_mapped_in_domain
         
 
-    async def extract_agreement_on_categorization(
+    async def extract_x_agreement_on_categorization(
         self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
     ) -> Dict[Text, Any]:
         agreement = ""
-        if tracker.get_slot("agreement_on_categorization"):
-            return {"agreement_on_categorization": tracker.get_slot("agreement_on_categorization")}
+        if tracker.get_slot("x_agreement_on_categorization"):
+            return {"x_agreement_on_categorization": tracker.get_slot("x_agreement_on_categorization")}
         elif tracker.get_intent_of_latest_message() == "affirm":
             agreement = tracker.get_intent_of_latest_message()
         elif tracker.get_intent_of_latest_message() == "deny":
@@ -82,9 +134,9 @@ class ValidateCategoryForm(FormValidationAction):
         elif tracker.get_intent_of_latest_message() == "more_information_about_categories":
             agreement = tracker.get_intent_of_latest_message()
         else:
-            agreement = tracker.get_slot("agreement_on_categorization") 
+            agreement = tracker.get_slot("x_agreement_on_categorization")
 
-        return {"agreement_on_categorization": agreement}
+        return {"x_agreement_on_categorization": agreement}
 
     async def extract_categorization_requirement_user(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
     ) -> Dict[Text, Any]:
@@ -97,7 +149,7 @@ class ValidateCategoryForm(FormValidationAction):
     async def extract_more_information_categories_needed(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
     ) -> Dict[Text, Any]:
         if tracker.get_intent_of_latest_message() == "finished_checking_categories":
-            return {"agreement_on_categorization" : None, "more_information_categories_needed" : False}
+            return {"x_agreement_on_categorization" : None, "more_information_categories_needed" : False}
         return {"more_information_categories_needed" : None}
     
     async def extract_sub_category_chat(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
@@ -119,9 +171,6 @@ class ValidateCategoryForm(FormValidationAction):
     async def extract_sub_category_polling(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
     ) -> Dict[Text, Any]:
         if tracker.get_slot("sub_category_polling"):
-            # if tracker.get_slot("sub_category_polling") == "goback":
-            #     dispatcher.utter_message("In go back if")
-            #     return {"sub_category_polling" : None, "categorization_requirement_user" : None}
             return {"sub_category_polling" : tracker.get_slot("sub_category_polling")}
         return {"sub_category_polling" : tracker.get_intent_of_latest_message()}
 
@@ -173,11 +222,12 @@ class ValidateCategoryForm(FormValidationAction):
         domain: DomainDict,
     ) -> Dict[Text, Any]:
         """Validate `new_requirement` value."""
+        categorization_info = "no category found"
         if tracker.get_slot("requested_slot") == "new_requirement":
-
+            dispatcher.utter_message(tracker.get_intent_of_latest_message())
             if tracker.get_intent_of_latest_message() == "stop":
                 dispatcher.utter_message("Allright. We will stop asking questions. No requirement was submitted. Let me know when you have a new requirement.")
-                return {"requested_slot" : None}
+                return {slot : None for slot in ValidateCategoryForm.slots_to_reset}
             if tracker.get_intent_of_latest_message() == "chitchat":
                 dispatcher.utter_message(text=f"This is not the purpose I am intented for. I can help you submit new features and you can help me to resolve conflicts if you would like to.")
                 return {"new_requirement" : None}
@@ -187,23 +237,25 @@ class ValidateCategoryForm(FormValidationAction):
             if tracker.get_intent_of_latest_message() == "explain_how_to_requirement":
                 dispatcher.utter_message("Here is an example of a requirement:\"The camera should be turned on when the meeting is started.\". Just try to be as precise as possible.")
                 return {"new_requirement" : None}
-        return {"intent_new_requirement" : tracker.get_intent_of_latest_message(), "categorization_info" : HandleDatabase.get_category_description(tracker.get_intent_of_latest_message())}
+            if tracker.get_intent_of_latest_message() in ValidateCategoryForm.req_categories:
+                categorization_info = HandleDatabase.get_category_description(tracker.get_intent_of_latest_message())
+        return {"intent_new_requirement" : tracker.get_intent_of_latest_message(), "categorization_info" : categorization_info}
 
-    def validate_agreement_on_categorization(
+    def validate_x_agreement_on_categorization(
             self,
             slot_value: Any,
             dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
-        if tracker.get_slot("requested_slot") == "agreement_on_categorization":
-            if tracker.get_slot("agreement_on_categorization") == "/changereq":
+        if tracker.get_slot("requested_slot") == "x_agreement_on_categorization":
+            if tracker.get_slot("x_agreement_on_categorization") == "/changereq":
                 dispatcher.utter_message("Of course. You can change it now.")
-                return {"agreement_on_categorization" : None, "new_requirement" : None}
+                return {"x_agreement_on_categorization" : None, "new_requirement" : None}
             if tracker.get_intent_of_latest_message() == "stop":
                 dispatcher.utter_message("Allright. We will stop asking questions. No requirement was submitted. Let me know when you have a new requirement.")
                 return {slot : None for slot in ValidateCategoryForm.slots_to_reset}
-        return {"agreement_on_categorization" : tracker.get_slot("agreement_on_categorization")}
+        return {"x_agreement_on_categorization" : tracker.get_slot("x_agreement_on_categorization")}
     
     def validate_more_information_categories_needed(
         self,
@@ -216,7 +268,7 @@ class ValidateCategoryForm(FormValidationAction):
             if tracker.get_intent_of_latest_message() == "chitchat":
                 return {"more_information_categories_needed" : None}
             if tracker.get_slot("more_information_categories_needed") is False:
-                return {"agreement_on_categorization" : None}
+                return {"x_agreement_on_categorization" : None}
         return {"more_information_categories_needed" : tracker.get_slot("more_information_categories_needed")}
 
     def validate_categorization_requirement_user(
@@ -235,7 +287,7 @@ class ValidateCategoryForm(FormValidationAction):
         if tracker.get_slot("requested_slot") == "categorization_requirement_user":
             if tracker.get_slot("categorization_requirement_user") == "changereq":
                 dispatcher.utter_message("Of course. You can change it now.")
-                return {"categorization_requirement_user" : None, "agreement_on_categorization" : None, "new_requirement" : None}
+                return {"categorization_requirement_user" : None, "x_agreement_on_categorization" : None, "new_requirement" : None}
             if tracker.get_intent_of_latest_message() == "stop":
                 dispatcher.utter_message("Allright. We will stop asking questions. No requirement was submitted. Let me know when you have a new requirement.")
                 return {slot : None for slot in ValidateCategoryForm.slots_to_reset}
@@ -254,21 +306,9 @@ class ValidateManageConflictForm(FormValidationAction):
 
     async def required_slots(self, slots_mapped_in_domain: List[Text], dispatcher: "CollectingDispatcher", tracker: "Tracker", domain: "DomainDict",
     ) -> Optional[List[Text]]:
-
-        #if tracker.get_slot("does_participate"):
-        #    dispatcher.utter_message("does_participate")
-        #    dispatcher.utter_message(tracker.get_slot("does_participate"))
-        #if tracker.get_slot("agrees_with_conflict"):
-        #    dispatcher.utter_message("agrees_with_conflict")
-            #dispatcher.utter_message(tracker.get_slot("agrees_with_conflict"))
-        #agrees_w_confl = tracker.get_slot("agrees_with_conflict")
-        #dispatcher.utter_message("agrees with conflict:")
-        #dispatcher.utter_message(agrees_w_confl)
         if tracker.get_slot("does_participate") == True:
             additional_slots = ["does_participate"]
-            #additional_slots.append("agrees_with_conflict")
-            if tracker.get_slot("agrees_with_conflict"):
-                #dispatcher.utter_message(tracker.get_slot("agrees_with_conflict"))
+            if tracker.get_slot("x_agrees_with_conflict"):
                 additional_slots.append("explanation_conflict")
             if tracker.get_slot("explanation_conflict"):
                 additional_slots.append("preference")
@@ -283,23 +323,6 @@ class ValidateManageConflictForm(FormValidationAction):
 
         return slots_mapped_in_domain
 
-    # async def extract_agrees_with_conflict(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
-    # ) -> Dict[Text, Any]:
-    #     agrees = None
-    #     dispatcher.utter_message(tracker.get_intent_of_latest_message())
-    #     if tracker.get_slot("agrees_with_conflict"):
-    #         agrees = tracker.get_slot("agrees_with_conflict")
-    #     if tracker.get_intent_of_latest_message() == "affirm":
-    #         agrees = True
-    #     elif tracker.get_intent_of_latest_message() == "deny":
-    #         agrees = False
-    #     #agrees = None
-    #     #if tracker.get_slot("agrees_with_conflict"):
-    #     #    agrees = tracker.get_slot("agrees_with_conflict")
-    #     #dispatcher.utter_message("in extract agrees with conflict")
-    #     #dispatcher.utter_message(tracker.get_intent_of_latest_message())
-    #     return {"agrees_with_conflict" : agrees}
-
     async def extract_explanation_conflict(
         self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
     ) -> Dict[Text, Any]:
@@ -308,21 +331,9 @@ class ValidateManageConflictForm(FormValidationAction):
     async def extract_preference(
         self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
     ) -> Dict[Text, Any]:
-       # message = tracker.latest_message.get("text") #no_answer
         preference = None
         if tracker.get_slot("preference"):
             preference = tracker.get_slot("preference")
-        #preference = None
-        #if tracker.get_slot("requested_slot") == "preference":
-        #    if tracker.get_slot("preference"):
-        #        preference = tracker.get_slot("preference")
-        #    if tracker.get_intent_of_latest_message() == "no_answer":
-        #       dispatcher.utter_message(text="Allright. It is fine if you do not want to answer this question. We will skip it then.")
-        #       return {"preference" : "null", "explanation_preference" : "null"}
-        #    if "first" in message:
-        #        preference = "first"
-        #    elif "last" in message:
-        #        preference = "last"
         return {"preference" : preference}
 
     async def extract_explanation_preference(
@@ -344,7 +355,6 @@ class ValidateManageConflictForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         intent = tracker.get_intent_of_latest_message()
         does_participate = None
-        #dispatcher.utter_message(tracker.get)
         if tracker.get_slot("requested_slot") == "does_participate":
             if intent == "chitchat":
                 dispatcher.utter_message(text=f"This is not the purpose I am intented for. I can help you submit new features and you can help me to resolve conflicts if you would like to.")
@@ -353,7 +363,7 @@ class ValidateManageConflictForm(FormValidationAction):
                 dispatcher.utter_message(text=f"Your information will help us to focus on the features you want. So it would be great if you could answer some questions.")
                 return {"does_participate" : None}
             if intent == "stop":
-                dispatcher.utter_message(text=f"Allright. We will stop asking questions. No requirement was submitted. Let me know when you have a new requirement.")
+                dispatcher.utter_message(text=f"Allright. We will stop asking questions. Let me know when you have a new requirement.")
                 return {slot : None for slot in ValidateCategoryForm.slots_to_reset}
             if tracker.get_intent_of_latest_message() == "no_answer":
                 dispatcher.utter_message("If you do not want to participate any more you can say no.")
@@ -367,38 +377,37 @@ class ValidateManageConflictForm(FormValidationAction):
             elif intent == "affirm":
                 does_participate = True
                 slot_value = None
-        return {"does_participate" : does_participate, "agrees_with_conflict" : slot_value}
+        return {"does_participate" : does_participate, "x_agrees_with_conflict" : slot_value}
 
-    def validate_agrees_with_conflict(
+    def validate_x_agrees_with_conflict(
         self,
         slot_value: Any,
         dispatcher: CollectingDispatcher,
         tracker: Tracker,
         domain: DomainDict,
     ) -> Dict[Text, Any]:
-        dispatcher.utter_message(tracker.get_slot("agrees_with_conflict"))
-        if tracker.get_slot("requested_slot") == "agrees_with_conflict":
+        dispatcher.utter_message(tracker.get_slot("x_agrees_with_conflict"))
+        if tracker.get_slot("requested_slot") == "x_agrees_with_conflict":
             if tracker.get_intent_of_latest_message() == "stop":
                 dispatcher.utter_message("Allright. We will stop asking questions. Let me know when you have a new requirement.")
                 return {slot : None for slot in ValidateCategoryForm.slots_to_reset}
             if tracker.get_intent_of_latest_message() == "chitchat":
                 dispatcher.utter_message(text=f"This is not the purpose I am intented for. I can help you submit new features and you can help me to resolve conflicts if you would like to.")
-                return {"agrees_with_conflict" : None}
+                return {"x_agrees_with_conflict" : None}
             if tracker.get_intent_of_latest_message() == "explain": 
                 dispatcher.utter_message("We need your help to see if this is a real conflict. A conflict exists when two requirements cannot be implemented in the same system. E.g., they could contradict each other like \"camera on by default\" or \"camera off by default\". Sometimes constraints can hinder the implementation of requirements such as \"only the host can turn off the microphone of all participants\".")
-                return {"agrees_with_conflict" : None}
+                return {"x_agrees_with_conflict" : None}
             if tracker.get_intent_of_latest_message() == "no_idea": 
                 dispatcher.utter_message("No problem. Should I explain to you why we ask this questions and what a conflict is? You can also skip this question if you tell me to.")
-                return {"agrees_with_conflict" : None}
+                return {"x_agrees_with_conflict" : None}
             if tracker.get_intent_of_latest_message() == "no_answer": 
                 dispatcher.utter_message(text="Allright. It is fine if you do not want to answer this question. We will skip it then.")
-                return {"agrees_with_conflict" : "no answer", "explanation_conflict" : "no answer"}
+                return {"x_agrees_with_conflict" : "no answer", "explanation_conflict" : "no answer"}
             if tracker.get_intent_of_latest_message() == "affirm":
-                return {"agrees_with_conflict" : True}
+                return {"x_agrees_with_conflict" : True}
             elif tracker.get_intent_of_latest_message() == "deny":
-                #dispatcher.utter_message("in false agrees with")
-                return {"agrees_with_conflict" : False}
-        return {"agrees_with_conflict" : tracker.get_slot("agrees_with_conflict")}
+                return {"x_agrees_with_conflict" : False}
+        return {"x_agrees_with_conflict" : tracker.get_slot("x_agrees_with_conflict")}
 
     def validate_explanation_conflict(
         self,
@@ -519,9 +528,7 @@ class ValidateAnotherConflictForm(FormValidationAction):
     ) -> Optional[List[Text]]:
         if tracker.get_slot("does_participate") == True:
             additional_slots = ["does_participate"]
-            #additional_slots.append("agrees_with_conflict")
-            if tracker.get_slot("agrees_with_conflict"):
-                #dispatcher.utter_message(tracker.get_slot("agrees_with_conflict"))
+            if tracker.get_slot("x_agrees_with_conflict"):
                 additional_slots.append("explanation_conflict")
             if tracker.get_slot("explanation_conflict"):
                 additional_slots.append("preference")
@@ -563,22 +570,11 @@ class ValidateAnotherConflictForm(FormValidationAction):
                 return {"does_participate_user" : None}
             elif intent == "deny":
                 does_participate = False
+                slot_value = "no answer"
             elif intent == "affirm":
                 does_participate = True
-        return {"does_participate" : does_participate}
-
-    # async def extract_agrees_with_conflict(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
-    # ) -> Dict[Text, Any]:
-    #     #agrees = None
-    #     #if tracker.get_slot("agrees_with_conflict"):
-    #     #    agrees = tracker.get_slot("agrees_with_conflict")
-    #     #elif tracker.get_intent_of_latest_message() == "affirm":
-    #     #    agrees = True
-    #     #elif tracker.get_intent_of_latest_message() == "deny":
-    #     #    agrees = False
-    #     #_message("in extract agrees with conflict")
-    #     #dispatcher.utter_message(tracker.get_intent_of_latest_message())
-    #     return {"agrees_with_conflict" : tracker.get_intent_of_latest_message()}
+                slot_value = None
+        return {"does_participate" : does_participate, "x_agrees_with_conflict" : slot_value}
 
     async def extract_explanation_conflict(
         self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
@@ -588,21 +584,9 @@ class ValidateAnotherConflictForm(FormValidationAction):
     async def extract_preference(
         self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
     ) -> Dict[Text, Any]:
-       # message = tracker.latest_message.get("text") #no_answer
         preference = None
         if tracker.get_slot("preference"):
             preference = tracker.get_slot("preference")
-        #preference = None
-        #if tracker.get_slot("requested_slot") == "preference":
-        #    if tracker.get_slot("preference"):
-        #        preference = tracker.get_slot("preference")
-        #    if tracker.get_intent_of_latest_message() == "no_answer":
-        #       dispatcher.utter_message(text="Allright. It is fine if you do not want to answer this question. We will skip it then.")
-        #       return {"preference" : "null", "explanation_preference" : "null"}
-        #    if "first" in message:
-        #        preference = "first"
-        #    elif "last" in message:
-        #        preference = "last"
         return {"preference" : preference}
 
     async def extract_explanation_preference(
@@ -615,36 +599,35 @@ class ValidateAnotherConflictForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         return {"when_discovered" : tracker.latest_message.get("text")}
 
-    def validate_agrees_with_conflict(
+    def validate_x_agrees_with_conflict(
             self,
             slot_value: Any,
             dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
-        dispatcher.utter_message(tracker.get_slot("agrees_with_conflict"))
-        if tracker.get_slot("requested_slot") == "agrees_with_conflict":
+        dispatcher.utter_message(tracker.get_slot("x_agrees_with_conflict"))
+        if tracker.get_slot("requested_slot") == "x_agrees_with_conflict":
             if tracker.get_intent_of_latest_message() == "stop":
                 dispatcher.utter_message("Allright. We will stop asking questions. Let me know when you have a new requirement.")
                 return {slot : None for slot in ValidateCategoryForm.slots_to_reset}
             if tracker.get_intent_of_latest_message() == "chitchat":
                 dispatcher.utter_message(text=f"This is not the purpose I am intented for. I can help you submit new features and you can help me to resolve conflicts if you would like to.")
-                return {"agrees_with_conflict" : None}
+                return {"x_agrees_with_conflict" : None}
             if tracker.get_intent_of_latest_message() == "explain":
                 dispatcher.utter_message("We need your help to see if this is a real conflict. A conflict exists when two requirements cannot be implemented in the same system. E.g., they could contradict each other like \"camera on by default\" or \"camera off by default\". Sometimes constraints can hinder the implementation of requirements such as \"only the host can turn off the microphone of all participants\".")
-                return {"agrees_with_conflict" : None}
+                return {"x_agrees_with_conflict" : None}
             if tracker.get_intent_of_latest_message() == "no_idea":
                 dispatcher.utter_message("No problem. Should I explain to you why we ask this questions and what a conflict is? You can also skip this question if you tell me to.")
-                return {"agrees_with_conflict" : None}
+                return {"x_agrees_with_conflict" : None}
             if tracker.get_intent_of_latest_message() == "no_answer":
                 dispatcher.utter_message(text="Allright. It is fine if you do not want to answer this question. We will skip it then.")
-                return {"agrees_with_conflict" : "no answer", "explanation_conflict" : "no answer"}
+                return {"x_agrees_with_conflict" : "no answer", "explanation_conflict" : "no answer"}
             if tracker.get_intent_of_latest_message() == "affirm":
-               return {"agrees_with_conflict" : True}
+               return {"x_agrees_with_conflict" : True}
             elif tracker.get_intent_of_latest_message() == "deny":
-            #dispatcher.utter_message("in false agrees with")
-               return {"agrees_with_conflict" : False}
-        return {"agrees_with_conflict" : tracker.get_slot("agrees_with_conflict")}
+               return {"x_agrees_with_conflict" : False}
+        return {"x_agrees_with_conflict" : tracker.get_slot("x_agrees_with_conflict")}
 
     def validate_explanation_conflict(
         self,
@@ -789,82 +772,82 @@ class ValidateUserInformationForm(FormValidationAction):
             if tracker.get_intent_of_latest_message() == "no_idea": 
                 dispatcher.utter_message("Should I explain to you why we ask you to participate? If you do not want to participate you can say no.")
                 return {"does_participate_user" : None}
-        return {"age" : slot_value, "main_use" : slot_value, "user_group" : slot_value, "does_participate_user" : agrees}
+        return {"z_age" : slot_value, "y_main_use" : slot_value, "x_user_group" : slot_value, "does_participate_user" : agrees}
 
-    def validate_age(
+    def validate_z_age(
         self,
         slot_value: Any,
         dispatcher: CollectingDispatcher,
         tracker: Tracker,
         domain: DomainDict,
     ) -> Dict[Text, Any]:
-        if tracker.get_slot("requested_slot") == "age":
+        if tracker.get_slot("requested_slot") == "z_age":
             if tracker.get_intent_of_latest_message() == "stop":
                 dispatcher.utter_message("Allright. We will stop asking questions. Let me know when you have a new requirement.")
                 return {slot : None for slot in ValidateCategoryForm.slots_to_reset}
             if tracker.get_intent_of_latest_message() == "chitchat":
                 dispatcher.utter_message(text=f"This is not the purpose I am intented for. I can help you submit new features and you can help me to resolve conflicts if you would like to.")
-                return {"age" : None}
+                return {"z_age" : None}
             if tracker.get_intent_of_latest_message() == "explain":
                 dispatcher.utter_message("We are only asking this to see if different user groups have different needs. You can choose to skip this question.")
-                return {"age" : None}
+                return {"z_age" : None}
             if tracker.get_intent_of_latest_message() == "no_answer":
                 dispatcher.utter_message("You do not have to answer. We will skip this question.")
-                return {"age" : "no answer"}
+                return {"z_age" : "no answer"}
             if tracker.get_intent_of_latest_message() == "no_idea": 
                 dispatcher.utter_message("Should I explain to you why we ask this question? You can also skip this question if you tell me to.")
-                return {"age" : None}
-        return {"age" : slot_value}
+                return {"z_age" : None}
+        return {"z_age" : slot_value}
 
-    def validate_main_use(
+    def validate_y_main_use(
         self,
         slot_value: Any,
         dispatcher: CollectingDispatcher,
         tracker: Tracker,
         domain: DomainDict,
     ) -> Dict[Text, Any]:
-        if tracker.get_slot("requested_slot") == "main_use":
+        if tracker.get_slot("requested_slot") == "y_main_use":
             if tracker.get_intent_of_latest_message() == "stop":
                 dispatcher.utter_message("Allright. We will stop asking questions. Let me know when you have a new requirement.")
                 return {slot : None for slot in ValidateCategoryForm.slots_to_reset}
             if tracker.get_intent_of_latest_message() == "chitchat":
                 dispatcher.utter_message(text=f"This is not the purpose I am intented for. I can help you submit new features and you can help me to resolve conflicts if you would like to.")
-                return {"main_use" : None}
+                return {"y_main_use" : None}
             if tracker.get_intent_of_latest_message() == "explain":
                 dispatcher.utter_message("If we know in which contexts the system gets used, we can work on adding features that will improve your experience.")
-                return {"main_use" : None}
+                return {"y_main_use" : None}
             if tracker.get_intent_of_latest_message() == "no_answer":
                 dispatcher.utter_message("You do not have to answer. We will skip this question.")
-                return {"main_use" : "no answer"}
+                return {"y_main_use" : "no answer"}
             if tracker.get_intent_of_latest_message() == "no_idea": 
                 dispatcher.utter_message("Should I explain to you why we ask this question? You can also skip this question if you tell me to.")
-                return {"main_use" : None}
-        return {"main_use" : slot_value}
+                return {"y_main_use" : None}
+        return {"y_main_use" : slot_value}
 
-    def validate_user_group(
+    def validate_x_user_group(
         self,
         slot_value: Any,
         dispatcher: CollectingDispatcher,
         tracker: Tracker,
         domain: DomainDict,
     ) -> Dict[Text, Any]:
-        if tracker.get_slot("requested_slot") == "user_group":
+        if tracker.get_slot("requested_slot") == "x_user_group":
             if tracker.get_intent_of_latest_message() == "stop":
                 dispatcher.utter_message("Allright. We will stop asking questions. Let me know when you have a new requirement.")
                 return {slot : None for slot in ValidateCategoryForm.slots_to_reset}
             if tracker.get_intent_of_latest_message() == "chitchat":
                 dispatcher.utter_message(text=f"This is not the purpose I am intented for. I can help you submit new features and you can help me to resolve conflicts if you would like to.")
-                return {"user_group" : None}
+                return {"x_user_group" : None}
             if tracker.get_intent_of_latest_message() == "explain":
                 dispatcher.utter_message("Knowing to which user group you belong will tell us to focus on features catering to the needs of this user group.")
-                return {"user_group" : None}
+                return {"x_user_group" : None}
             if tracker.get_intent_of_latest_message() == "no_answer":
                 dispatcher.utter_message("You do not have to answer. We will skip this question.")
-                return {"user_group" : "no answer"}
+                return {"x_user_group" : "no answer"}
             if tracker.get_intent_of_latest_message() == "no_idea": 
                 dispatcher.utter_message("Should I explain to you why we ask this question? You can also skip this question if you tell me to.")
-                return {"user_group" : None}
-        return {"user_group" : slot_value}
+                return {"x_user_group" : None}
+        return {"x_user_group" : slot_value}
 
 
 class ActionDatabase(Action):
@@ -890,10 +873,10 @@ class ActionDatabase(Action):
         if ActionDatabase.round == 0:
             message_for_user = ""
         
-            if tracker.get_slot("agreement_on_categorization") == "/affirm":
+            if tracker.get_slot("x_agreement_on_categorization") == "/affirm":
                 ActionDatabase.categories_requirement = tracker.get_slot("intent_new_requirement")
          
-            elif tracker.get_slot("agreement_on_categorization") == "/deny":
+            elif tracker.get_slot("x_agreement_on_categorization") == "/deny":
                 ActionDatabase.categories_requirement = tracker.get_slot("categorization_requirement_user")
                 for sub_category in ActionDatabase.sub_categories:
                     if tracker.get_slot(sub_category) is not None:
@@ -923,6 +906,23 @@ class ActionDatabase(Action):
             return [SlotSet("conflicting_requirements", message_conflict)]
         return
 
+class ActionSaveRequirement(Action):
+    def name(self) -> Text:
+        return "action_save_requirement"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        if tracker.get_slot("new_requirement") and tracker.get_slot("intent_new_requirement"):
+            category_new_requirement = tracker.get_slot("intent_new_requirement")
+            if ActionDatabase.categories_requirement is not None:
+                category_new_requirement = ActionDatabase.categories_requirement
+
+            ActionSaveFirstConflict.new_requirement_id = HandleDatabase.insert_new_requirement(tracker.get_slot("new_requirement"),
+                                                                                               category_new_requirement,
+                                                                                               ActionDatabase.categories_requirement,
+                                                                                               "no answer")
+
 
 class ActionSaveInformation(Action):
     user_id = None
@@ -932,25 +932,6 @@ class ActionSaveInformation(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        #if tracker.get_slot("new_requirement") and tracker.get_slot("intent_new_requirement"):
-
-            #category_new_requirement = tracker.get_slot("intent_new_requirement")
-            #if ActionDatabase.categories_requirement is not None:
-            #    category_new_requirement = ActionDatabase.categories_requirement
-
-            #new_requirement_id = HandleDatabase.insert_new_requirement(tracker.get_slot("new_requirement"), 
-            #                                          category_new_requirement, 
-            #                                          ActionDatabase.categories_requirement, 
-            #                                          tracker.get_slot("when_discovered"))
-
-            #if HandleDatabase.conflict_detected == True:
-            #    HandleConflictManagement.conflict_1_id = new_requirement_id
-        
-            ##elif HandleConflictManagement.conflict_db_id is not None:
-            ##    HandleConflictManagement.update_conflict(tracker.get_slot("preference"),HandleConflictManagement.conflict_db_id)
-
-            #else:
         votes_requirement_1 = 0
         votes_requirement_2 = 0
         if tracker.get_slot("preference") == "first":
@@ -960,16 +941,16 @@ class ActionSaveInformation(Action):
 
         conflict_id = HandleConflictManagement.insert_conflict(HandleConflictManagement.conflict_1_id, #needs to be saved if conflicts from DB
                                                     HandleConflictManagement.conflict_2_id,#requirement_2_id, #needs
-                                                    tracker.get_slot("agrees_with_conflict"), 
+                                                    tracker.get_slot("x_agrees_with_conflict"),
                                                     tracker.get_slot("explanation_conflict"), 
                                                     votes_requirement_1,
                                                     votes_requirement_2,
                                                     tracker.get_slot("explanation_preference"))
 
         if tracker.get_slot("does_participate_user") == True and ActionSaveInformation.user_id is None:
-            ActionSaveInformation.user_id = HandleConflictManagement.insert_user_information(tracker.get_slot("age"), 
-                                                                    tracker.get_slot("main_use"), 
-                                                                    tracker.get_slot("user_group"))
+            ActionSaveInformation.user_id = HandleConflictManagement.insert_user_information(tracker.get_slot("z_age"),
+                                                                    tracker.get_slot("y_main_use"),
+                                                                    tracker.get_slot("x_user_group"))
             HandleConflictManagement.update_requirement_user_id(ActionSaveInformation.user_id, ActionSaveFirstConflict.new_requirement_id)
 
         #HandleDatabase.conflict_detected == False
@@ -986,7 +967,7 @@ class ActionSaveFirstConflict(Action):
     new_requirement_id = None
     conflict_id = None
     reset_mgmt_form = ["does_participate",
-                        "agrees_with_conflict",
+                        "x_agrees_with_conflict",
                         "explanation_conflict",
                         "preference",
                         "explanation_preference",
@@ -1026,7 +1007,7 @@ class ActionSaveFirstConflict(Action):
 
                 ActionSaveFirstConflict.conflict_id = HandleConflictManagement.insert_conflict(HandleConflictManagement.conflict_1_id, #needs to be saved if conflicts from DB
                                                          HandleConflictManagement.conflict_2_id,#requirement_2_id, #needs
-                                                         tracker.get_slot("agrees_with_conflict"), 
+                                                         tracker.get_slot("x_agrees_with_conflict"),
                                                          tracker.get_slot("explanation_conflict"), 
                                                          votes_requirement_1,
                                                          votes_requirement_2,
@@ -1045,7 +1026,7 @@ class ActionSaveFirstConflict(Action):
                 message_conflict = "No conflict found."
 
             return [SlotSet("does_participate", None),
-                    SlotSet("agrees_with_conflict", None),
+                    SlotSet("x_agrees_with_conflict", None),
                     SlotSet("explanation_conflict", None),
                     SlotSet("preference", None),
                     SlotSet("explanation_preference", None),
@@ -1201,13 +1182,15 @@ class HandleDatabase:
     conflict_detected = False
 
     def get_category_description(category):
+        print(category)
+        description_text = "There is no description"
         conn = sqlite3.connect('./database/PrototypeDB.db')
         cur = conn.cursor()
 
         cur.execute('SELECT description,description_name FROM categories WHERE name = ?', (category,))
         description = cur.fetchall()
-
-        description_text = description[0][1] + " The category is described as: " + description[0][0]
+        if description:
+            description_text = description[0][1] + ". The category is described as: " + description[0][0]
         return description_text
 
     
@@ -1245,11 +1228,8 @@ class HandleDatabase:
         else:
             HandleDatabase.conflicting_requirements_and_ids = None
             HandleDatabase.conflict_detected = False
-
-
         conn.close()
         return HandleDatabase.conflicting_requirements_and_ids
-
 
     def insert_new_requirement(requirement, categories_by_chatbot, categories_by_user, where_found):#, part_of_system):
         conflict_id = None
@@ -1266,17 +1246,3 @@ class HandleDatabase:
         conn.close()
     
         return new_requirement_id
-
-    # old way to put all conflicts into the table, that have not been evaluated by user
-    def insert_conflicts_table(requirements_and_ids, new_requirement, new_requirement_id, reasoning, votes_requirement_1, votes_requirement_2):#,part_of_system):
-        
-        conn = sqlite3.connect('./database/PrototypeDB.db')
-        cur = conn.cursor()
-
-        new_conflicts = []
-        for requirement_and_id in requirements_and_ids:
-                    new_conflicts.append([new_requirement_id, requirement_and_id[0], reasoning, votes_requirement_1, votes_requirement_2])
-                    
-        cur.executemany('INSERT INTO requirements_in_conflict VALUES (?,?,?,?,?,?,?)', (new_conflicts))
-        conn.commit()
-    
