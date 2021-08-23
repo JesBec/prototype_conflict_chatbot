@@ -1192,8 +1192,7 @@ class HandleDatabase:
         if description:
             description_text = description[0][1] + ". The category is described as: " + description[0][0]
         return description_text
-
-    
+ 
     def get_conflicting_categories(categories):
         conflicts = []
         conflicts.clear()
