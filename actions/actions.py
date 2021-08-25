@@ -1113,8 +1113,6 @@ class HandleConflictManagement:
                cur = mydb.cursor()
                cur.execute('''SELECT * FROM requirements WHERE requirementID = %s OR requirementID = %s''', (chosen_conflict[1],chosen_conflict[2]))
                selected_conflicts_db = cur.fetchall()
-               print("requirements from conflicts")
-               print(selected_conflicts_db)
 
                if selected_conflicts_db and selected_conflicts_db is not None:
                                 #id
