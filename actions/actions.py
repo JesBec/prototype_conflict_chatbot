@@ -7,6 +7,7 @@ from rasa_sdk.events import (SlotSet, EventType)
 import requests
 import random
 import sqlite3
+import mysql.connector
 from sqlite3 import Error
 
 class ValidateCategoryForm(FormValidationAction):
@@ -1045,6 +1046,11 @@ class HandleConflictManagement:
     conflict_2_id = None
     conflicts_from_db = []
     conflict_db_id = None
+    mydb = mysql.connector.connect(host='127.0.0.1',
+                                   user='root',
+                                   password='d0NK3yK0ng',
+                                   db='Chatbot')
+
 
     def select_conflict(category_new_requirement, new_requirement):
         text = None
@@ -1054,6 +1060,10 @@ class HandleConflictManagement:
         print(HandleDatabase.conflict_detected)
         print("Saved conflicts in array")
         print(conflicts)
+        mydb = mysql.connector.connect(host='127.0.0.1',
+                                       user='root',
+                                       password='d0NK3yK0ng',
+                                       db='Chatbot')
         if HandleDatabase.conflict_detected == True:
             if not HandleConflictManagement.conflicting_requirements:
                 print(HandleDatabase.conflicting_requirements_and_ids)
@@ -1073,8 +1083,8 @@ class HandleConflictManagement:
             chosen_conflict = HandleConflictManagement.conflicting_requirements[index]
 
             if chosen_conflict:
-                HandleConflictManagement.conflict_2_id = chosen_conflict[0]
-                chosen_conflict_2 = [chosen_conflict[0], chosen_conflict[1], chosen_conflict[2]]
+                HandleConflictManagement.conflict_2_id = chosen_conflict[9]
+                chosen_conflict_2 = [chosen_conflict[9], chosen_conflict[0], chosen_conflict[1]]
         
             HandleConflictManagement.conflicting_requirements.pop(index)
             print("HandleConflictManagement.conflicting_requirements")
@@ -1103,116 +1113,162 @@ class HandleConflictManagement:
                print(chosen_conflict)
                HandleConflictManagement.conflict_db_id = chosen_conflict[0]
 
-               conn = sqlite3.connect('./database/PrototypeDB.db')
-               cur = conn.cursor()
-               cur.execute('''SELECT rowid,* FROM requirements WHERE rowid = ? OR rowid = ?''', (chosen_conflict[1],chosen_conflict[2]))
+               #conn = sqlite3.connect('./database/PrototypeDB.db')
+               cur = mydb.cursor()
+               cur.execute('''SELECT * FROM requirements WHERE requirementID = %s OR requirementID = %s''', (chosen_conflict[1],chosen_conflict[2]))
                selected_conflicts_db = cur.fetchall()
                print("requirements from conflicts")
                print(selected_conflicts_db)
 
                if selected_conflicts_db and selected_conflicts_db is not None:
-                   conflict_1 = [selected_conflicts_db[0][0],selected_conflicts_db[0][1],selected_conflicts_db[0][2]]
-                   conflict_2 = [selected_conflicts_db[1][0],selected_conflicts_db[1][1],selected_conflicts_db[1][2]]
+                                #id
+                   conflict_1 = [selected_conflicts_db[0][9],selected_conflicts_db[0][0],selected_conflicts_db[0][1]]
+                   conflict_2 = [selected_conflicts_db[1][9],selected_conflicts_db[1][0],selected_conflicts_db[1][1]]
                    conflicts.append(conflict_1)
                    conflicts.append(conflict_2)
-                   HandleConflictManagement.conflict_1_id = conflicts[0][0]
-                   HandleConflictManagement.conflict_2_id = conflicts[1][0]
+                   HandleConflictManagement.conflict_1_id = conflicts[0][9]
+                   HandleConflictManagement.conflict_2_id = conflicts[1][9]
                
         print("Those are the chosen conflicts:")
         print(conflicts)
+        mydb.close()
         return conflicts
         
 
     def insert_conflict(requirement_1_id, requirement_2_id, user_agreed_conflict, reasoning_conflict, 
                         votes_requirement_1,votes_requirement_2,reasoning_preference):
-        conn = sqlite3.connect('./database/PrototypeDB.db')
-        cur = conn.cursor()
+        mydb = mysql.connector.connect(host='127.0.0.1',
+                                       user='root',
+                                       password='d0NK3yK0ng',
+                                       db='Chatbot')
+        cur = mydb.cursor()
 
-        cur.execute('INSERT INTO requirements_in_conflict VALUES (?,?,?,?,?,?,?,?)', (requirement_1_id,
-                                                                                      requirement_2_id,
-                                                                                      user_agreed_conflict,
-                                                                                      reasoning_conflict,
-                                                                                      votes_requirement_1, 
-                                                                                      votes_requirement_2,
-                                                                                      reasoning_preference,
-                                                                                      "new"))
-        conn.commit()
+        cur.execute('''INSERT INTO requirements_in_conflict (requirement_1_id,
+                                                             requirement_2_id,
+                                                             user_agreement_conflict,
+                                                             reasoning_conflict,
+                                                             votes_requirment_1,
+                                                             votes_requirement_2,
+                                                             reasoning_preference,
+                                                             status) 
+                       VALUES (%s,%s,%s,%s,%s,%s,%s,%s)''', (requirement_1_id,
+                                                              requirement_2_id,
+                                                              user_agreed_conflict,
+                                                              reasoning_conflict,
+                                                              votes_requirement_1,
+                                                              votes_requirement_2,
+                                                              reasoning_preference,
+                                                              "new"))
+        mydb.commit()
         conflict_id = cur.lastrowid
-        
+        mydb.close()
         return conflict_id
     
     def update_conflict(preference,rowid):
-        conn = sqlite3.connect('./database/PrototypeDB.db')
-        cur = conn.cursor()
+        mydb = mysql.connector.connect(host='127.0.0.1',
+                                       user='root',
+                                       password='d0NK3yK0ng',
+                                       db='Chatbot')
+        cur = mydb.cursor()
 
         if preference == "first":
-            cur.execute('UPDATE requirements_in_conflict SET votes_requirment_1 = 1, votes_requirement_2 = 0 WHERE rowid = ?', (rowid,))
-            conn.commit()
+            cur.execute('UPDATE requirements_in_conflict SET votes_requirment_1 = 1, votes_requirement_2 = 0 WHERE conflictID = %s', (rowid,))
+            mydb.commit()
         elif preference == "last":
-            cur.execute('UPDATE requirements_in_conflict SET votes_requirement_1 = 0, votes_requirement_2 = 1 WHERE rowid = ?', (rowid,))
-            conn.commit()
+            cur.execute('UPDATE requirements_in_conflict SET votes_requirement_1 = 0, votes_requirement_2 = 1 WHERE conflictID = %s', (rowid,))
+            mydb.commit()
+        mydb.close()
 
     def insert_user_information(age, main_use, user_group):
-        conn = sqlite3.connect('./database/PrototypeDB.db')
-        cur = conn.cursor()
+        mydb = mysql.connector.connect(host='127.0.0.1',
+                                       user='root',
+                                       password='d0NK3yK0ng',
+                                       db='Chatbot')
+        cur = mydb.cursor()
 
-        cur.execute('''INSERT INTO user_information VALUES (?,?,?)''', (age, main_use, user_group))
-        conn.commit()
+        cur.execute('''INSERT INTO user_information (age,main_use,user_group) VALUES (%s,%s,%s)''', (age, main_use, user_group))
+        mydb.commit()
+        user_id = cur.lastrowid
+        mydb.close()
 
-        return cur.lastrowid
+        return user_id
     
     def update_requirement_user_id(user_id, new_requirement_id):
-        conn = sqlite3.connect('./database/PrototypeDB.db')
-        cur = conn.cursor()
+        mydb = mysql.connector.connect(host='127.0.0.1',
+                                       user='root',
+                                       password='d0NK3yK0ng',
+                                       db='Chatbot')
+        cur = mydb.cursor()
 
-        cur.execute('''UPDATE requirements SET user_id = ? WHERE rowid = ?''', (user_id, new_requirement_id))
-        conn.commit()
+        cur.execute('''UPDATE requirements SET user_id = %s WHERE requirementID = %s''', (user_id, new_requirement_id))
+        mydb.commit()
+        mydb.close()
 
     def select_conflicts_to_resolve():
-        conn = sqlite3.connect('./database/PrototypeDB.db')
-        cur = conn.cursor()
+        mydb = mysql.connector.connect(host='127.0.0.1',
+                                       user='root',
+                                       password='d0NK3yK0ng',
+                                       db='Chatbot')
+        cur = mydb.cursor()
 
-        cur.execute("SELECT rowid,* FROM requirements_in_conflict WHERE status='original'")
-        return cur.fetchall()
+        cur.execute("SELECT * FROM requirements_in_conflict WHERE status='original'")
+        conflicts = cur.fetchall()
+        mydb.close()
+        return conflicts
 
 
 class HandleDatabase:
     ids_of_conflicting_requirements = []
     conflicting_requirements_and_ids = []
     conflict_detected = False
+    mydb = mysql.connector.connect(host='127.0.0.1',
+                                   user='root',
+                                   password='d0NK3yK0ng',
+                                   db='Chatbot')
 
     def get_category_description(category):
         print(category)
         description_text = "There is no description"
-        conn = sqlite3.connect('./database/PrototypeDB.db')
-        cur = conn.cursor()
+        mydb = mysql.connector.connect(host='127.0.0.1',
+                                       user='root',
+                                       password='d0NK3yK0ng',
+                                       db='Chatbot')
+        cur = mydb.cursor()
 
-        cur.execute('SELECT description,description_name FROM categories WHERE name = ?', (category,))
+        cur.execute('SELECT description,description_name FROM categories WHERE name = %s', (category,))
         description = cur.fetchall()
         if description:
             description_text = description[0][1] + ". The category is described as: " + description[0][0]
+        mydb.close()
         return description_text
  
     def get_conflicting_categories(categories):
         conflicts = []
         conflicts.clear()
-        conn = sqlite3.connect('./database/PrototypeDB.db')
-        cur = conn.cursor()
+        mydb = mysql.connector.connect(host='127.0.0.1',
+                                       user='root',
+                                       password='d0NK3yK0ng',
+                                       db='Chatbot')
+        cur = mydb.cursor()
 
-        cur.execute('SELECT categories_in_conflict FROM categories WHERE name = ?', (categories,))
+        cur.execute('SELECT categories_in_conflict FROM categories WHERE name = %s', (categories,))
         conflicts = cur.fetchall()
         
         if conflicts and conflicts[0][0].find(";"):
             conflicts = conflicts[0][0].split(';')
-        
-        conn.close()
+
+        mydb.close()
         return conflicts
 
     def get_conflicting_requirements(all_conflicting_categories):
         if HandleDatabase.conflicting_requirements_and_ids is not None:
             HandleDatabase.conflicting_requirements_and_ids.clear()
-        conn = sqlite3.connect('./database/PrototypeDB.db')
-        cur = conn.cursor()
+        #conn = sqlite3.connect('./database/PrototypeDB.db')
+        mydb = mysql.connector.connect(host='127.0.0.1',
+                                       user='root',
+                                       password='d0NK3yK0ng',
+                                       db='Chatbot')
+        cur = mydb.cursor()
         
         print("All conflicting categories is 508: ")
         print(all_conflicting_categories)
@@ -1220,28 +1276,41 @@ class HandleDatabase:
             all_conflicting_categories = all_conflicting_categories[0].split(';')
             for conflict in all_conflicting_categories:
                 conflict = '%' + conflict + '%'
-                cur.execute('SELECT rowid,* FROM requirements WHERE category_original LIKE ?', (conflict,))
+                cur.execute('SELECT * FROM requirements WHERE category_original LIKE %s', (conflict,))
                 conflicting_requirements_and_ids = cur.fetchall()
                 HandleDatabase.conflicting_requirements_and_ids = conflicting_requirements_and_ids
                 HandleDatabase.conflict_detected = True
         else:
             HandleDatabase.conflicting_requirements_and_ids = None
             HandleDatabase.conflict_detected = False
-        conn.close()
+        mydb.close()
         return HandleDatabase.conflicting_requirements_and_ids
 
     def insert_new_requirement(requirement, categories_by_chatbot, categories_by_user, where_found):#, part_of_system):
         conflict_id = None
         categories_approval = False
         status = "new"
+        mydb = mysql.connector.connect(host='127.0.0.1',
+                                       user='root',
+                                       password='d0NK3yK0ng',
+                                       db='Chatbot')
         if categories_by_user is None:
             categories_by_user = categories_by_chatbot
-        conn = sqlite3.connect('./database/PrototypeDB.db')
-        cur = conn.cursor()
+
+        cur = mydb.cursor()
         
-        cur.execute('INSERT INTO requirements VALUES(?,?,?,?,?,?,?,?,?)', (requirement, categories_by_user, status, categories_approval, categories_by_chatbot, categories_by_user, where_found, conflict_id, ""))
-        conn.commit()
+        cur.execute('''INSERT INTO requirements (requirement,
+                                                 category_original,
+                                                 status,
+                                                 agreed_w_category,
+                                                 category_by_chatbot,
+                                                 category_by_user_2,
+                                                 where_found,
+                                                 conflict_id,
+                                                 user_id)
+                       VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s)''', (requirement, categories_by_user, status, categories_approval, categories_by_chatbot, categories_by_user, where_found, conflict_id, ""))
+        mydb.commit()
         new_requirement_id = cur.lastrowid
-        conn.close()
+        mydb.close()
     
         return new_requirement_id
