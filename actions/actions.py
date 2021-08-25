@@ -1107,10 +1107,6 @@ class HandleConflictManagement:
                index = random.randint(0, len(HandleConflictManagement.conflicts_from_db)-1)
                chosen_conflict = HandleConflictManagement.conflicts_from_db[index]
                HandleConflictManagement.conflicts_from_db.pop(index)
-               print("HandleConflictManagement.conflicts_from_db")
-               print(HandleConflictManagement.conflicts_from_db)
-               print("chosen_conflict")
-               print(chosen_conflict)
                HandleConflictManagement.conflict_db_id = chosen_conflict[0]
 
                #conn = sqlite3.connect('./database/PrototypeDB.db')
