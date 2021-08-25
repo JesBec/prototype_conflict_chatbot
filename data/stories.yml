@@ -122,12 +122,12 @@ stories:
     - intent: request_requirement_submission
     - action: category_form
     - active_loop: category_form
-    - slot_was_set:
-        - x_agreement_on_categorization: null
+    #- slot_was_set:
+    #    - x_agreement_on_categorization: null
     - slot_was_set:
         - requested_slot: new_requirement
-    - slot_was_set:
-        - x_agreement_on_categorization: null
+    #- slot_was_set:
+    #    - x_agreement_on_categorization: null
     - slot_was_set:
         - new_requirement: chat on by default
     - slot_was_set:
