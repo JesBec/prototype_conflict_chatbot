@@ -1123,8 +1123,6 @@ class HandleConflictManagement:
                    HandleConflictManagement.conflict_1_id = conflicts[0][9]
                    HandleConflictManagement.conflict_2_id = conflicts[1][9]
                
-        print("Those are the chosen conflicts:")
-        print(conflicts)
         mydb.close()
         return conflicts
         
