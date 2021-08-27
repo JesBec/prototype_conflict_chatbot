@@ -23,6 +23,6 @@ jobs:
           #actions_directory: 'actions'
           docker_registry_login: ${{ secrets.DOCKER_HUB_LOGIN }}
           docker_registry_password: ${{ secrets.DOCKER_HUB_PASSWORD }}
-          docker_image_name: 'jesbec/new_action_server'
+          docker_image_name: 'jesbec/latest_action_server'
           docker_image_tag: ${{ github.sha }}
           #rasa_sdk_version: '2.8.0'
