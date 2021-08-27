@@ -7,7 +7,8 @@ from rasa_sdk.events import (SlotSet, EventType)
 import requests
 import random
 import sqlite3
-import mysql.connector
+#import mysql.connector
+import MySQLdb
 from sqlite3 import Error
 
 class ValidateCategoryForm(FormValidationAction):
@@ -1046,7 +1047,7 @@ class HandleConflictManagement:
     conflict_2_id = None
     conflicts_from_db = []
     conflict_db_id = None
-    mydb = mysql.connector.connect(host='127.0.0.1',
+    mydb = MySQLdb.connector.connect(host='127.0.0.1',
                                    user='root',
                                    password='d0NK3yK0ng',
                                    db='Chatbot')
@@ -1060,7 +1061,7 @@ class HandleConflictManagement:
         print(HandleDatabase.conflict_detected)
         print("Saved conflicts in array")
         print(conflicts)
-        mydb = mysql.connector.connect(host='127.0.0.1',
+        mydb = MySQLdb.connector.connect(host='127.0.0.1',
                                        user='root',
                                        password='d0NK3yK0ng',
                                        db='Chatbot')
@@ -1122,14 +1123,14 @@ class HandleConflictManagement:
                    conflicts.append(conflict_2)
                    HandleConflictManagement.conflict_1_id = conflicts[0][9]
                    HandleConflictManagement.conflict_2_id = conflicts[1][9]
-               
+
         mydb.close()
         return conflicts
         
 
     def insert_conflict(requirement_1_id, requirement_2_id, user_agreed_conflict, reasoning_conflict, 
                         votes_requirement_1,votes_requirement_2,reasoning_preference):
-        mydb = mysql.connector.connect(host='127.0.0.1',
+        mydb = MySQLdb.connector.connect(host='127.0.0.1',
                                        user='root',
                                        password='d0NK3yK0ng',
                                        db='Chatbot')
@@ -1157,7 +1158,7 @@ class HandleConflictManagement:
         return conflict_id
     
     def update_conflict(preference,rowid):
-        mydb = mysql.connector.connect(host='127.0.0.1',
+        mydb = MySQLdb.connector.connect(host='127.0.0.1',
                                        user='root',
                                        password='d0NK3yK0ng',
                                        db='Chatbot')
@@ -1172,7 +1173,7 @@ class HandleConflictManagement:
         mydb.close()
 
     def insert_user_information(age, main_use, user_group):
-        mydb = mysql.connector.connect(host='127.0.0.1',
+        mydb = MySQLdb.connector.connect(host='127.0.0.1',
                                        user='root',
                                        password='d0NK3yK0ng',
                                        db='Chatbot')
@@ -1186,7 +1187,7 @@ class HandleConflictManagement:
         return user_id
     
     def update_requirement_user_id(user_id, new_requirement_id):
-        mydb = mysql.connector.connect(host='127.0.0.1',
+        mydb = MySQLdb.connector.connect(host='127.0.0.1',
                                        user='root',
                                        password='d0NK3yK0ng',
                                        db='Chatbot')
@@ -1197,7 +1198,7 @@ class HandleConflictManagement:
         mydb.close()
 
     def select_conflicts_to_resolve():
-        mydb = mysql.connector.connect(host='127.0.0.1',
+        mydb = MySQLdb.connector.connect(host='127.0.0.1',
                                        user='root',
                                        password='d0NK3yK0ng',
                                        db='Chatbot')
@@ -1213,7 +1214,7 @@ class HandleDatabase:
     ids_of_conflicting_requirements = []
     conflicting_requirements_and_ids = []
     conflict_detected = False
-    mydb = mysql.connector.connect(host='127.0.0.1',
+    mydb = MySQLdb.connector.connect(host='127.0.0.1',
                                    user='root',
                                    password='d0NK3yK0ng',
                                    db='Chatbot')
@@ -1221,7 +1222,7 @@ class HandleDatabase:
     def get_category_description(category):
         print(category)
         description_text = "There is no description"
-        mydb = mysql.connector.connect(host='127.0.0.1',
+        mydb = MySQLdb.connector.connect(host='127.0.0.1',
                                        user='root',
                                        password='d0NK3yK0ng',
                                        db='Chatbot')
@@ -1237,7 +1238,7 @@ class HandleDatabase:
     def get_conflicting_categories(categories):
         conflicts = []
         conflicts.clear()
-        mydb = mysql.connector.connect(host='127.0.0.1',
+        mydb = MySQLdb.connector.connect(host='127.0.0.1',
                                        user='root',
                                        password='d0NK3yK0ng',
                                        db='Chatbot')
@@ -1256,7 +1257,7 @@ class HandleDatabase:
         if HandleDatabase.conflicting_requirements_and_ids is not None:
             HandleDatabase.conflicting_requirements_and_ids.clear()
         #conn = sqlite3.connect('./database/PrototypeDB.db')
-        mydb = mysql.connector.connect(host='127.0.0.1',
+        mydb = MySQLdb.connector.connect(host='127.0.0.1',
                                        user='root',
                                        password='d0NK3yK0ng',
                                        db='Chatbot')
@@ -1282,7 +1283,7 @@ class HandleDatabase:
         conflict_id = None
         categories_approval = False
         status = "new"
-        mydb = mysql.connector.connect(host='127.0.0.1',
+        mydb = MySQLdb.connector.connect(host='127.0.0.1',
                                        user='root',
                                        password='d0NK3yK0ng',
                                        db='Chatbot')
