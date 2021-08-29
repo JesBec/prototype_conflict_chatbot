@@ -1063,7 +1063,7 @@ class HandleConflictManagement:
         print(HandleDatabase.conflict_detected)
         print("Saved conflicts in array")
         print(conflicts)
-        mydb = mysql.connector.connect(host='127.0.0.1',
+        mydb = mysql.connector.connect(host='35.246.207.244',
                                        user='root',
                                        password='d0NK3yK0ng',
                                        db='Chatbot')
