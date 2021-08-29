@@ -1,2 +1,3 @@
 mysql.connector
+sqlite3
 - r database/PrototypeDB.db
