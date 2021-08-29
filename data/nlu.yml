@@ -100,6 +100,7 @@ nlu:
     - new requirement
     - i do have a requirement
     - i got one
+    - i have one
 - intent: more_information_about_categories
   examples: |
     - i need more information about the categories

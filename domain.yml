@@ -379,21 +379,37 @@ responses:
   utter_ask_categorization_requirement_user:
   - buttons:
     - payload: /audio
-      title: 'audio: \n There are different options to share audio during a meeting. This could be your own voice or audio from screen or other participants. This audio can also come from different sources such as a microphone from a webcam or smart phone or an application. So this category is about any audio you want to hear or share.'
+      title: |
+             Audio:
+             There are different options to share audio during a meeting. This could be your own voice or audio from screen or other participants. This audio can also come from different sources such as a microphone from a webcam or smart phone or an application. So this category is about any audio you want to hear or share.
     - payload: /video
-      title: 'video: \n Similar to audio, you can share a video of yourself or your screen. This can involve different sources such as a camera from your webcam or an application on your screen. This category is about the video you want to share or want to see.'
+      title: |
+              Video:
+              Similar to audio, you can share a video of yourself or your screen. This can involve different sources such as a camera from your webcam or an application on your screen. This category is about the video you want to share or want to see.
     - payload: /screensharing
-      title: 'screen sharing: \n A web conference tool gives you the option to share your screen. This category contains requirements that, for example, define how many users at a time and who can share their screen and what options they have.'
+      title: |
+             Screen sharing:
+             A web conference tool gives you the option to share your screen. This category contains requirements that, for example, define how many users at a time and who can share their screen and what options they have.
     - payload: /recording
-      title: 'recording: \n Sometimes it is useful to record the meeting to save it. Any restrictions to recording a meeting do also fall under this category.'
+      title: |
+             Recording:
+             Sometimes it is useful to record the meeting to save it. Any restrictions to recording a meeting do also fall under this category.
     - payload: /reaction
-      title: 'reaction: \n Participants may want to react to something a presenter was saying and they can do so by choosing an emoji that will be displayed on their video. This can lead to less interruption than having participants react via their microphones.'
+      title: |
+             Reaction:
+             Participants may want to react to something a presenter was saying and they can do so by choosing an emoji that will be displayed on their video. This can lead to less interruption than having participants react via their microphones.
     - payload: /polling
-      title: 'polling: \n Another way of getting feedback from participants of a web conference is polling.'
+      title: |
+             Polling:
+             Another way of getting feedback from participants of a web conference is polling.
     - payload: /livetranscript
-      title: 'live transcript: \n Live transcripts can be enabled to help your participants better understand the presenter.'
+      title: |
+             Live transcript:
+             Live transcripts can be enabled to help your participants better understand the presenter.
     - payload: /chat
-      title: 'chat: \n It can be helpful to share information not only by audio but also written via chat. This offers the possibility to talk to the host or other participants privately.'
+      title: |
+             Chat:
+             It can be helpful to share information not only by audio but also written via chat. This offers the possibility to talk to the host or other participants privately.
     - payload: /changereq
       title: I want to change my requirement.
     - payload: /nocategory
@@ -402,133 +418,238 @@ responses:
   utter_ask_sub_category_audio:
   - buttons:
     - payload: /audio+option+microphone
-      title: 'audio option for microphone: \n Your requirement suggests a new option for a microphone source next to, e.g., a webcam, computer or microphone.'
+      title: |
+             Audio option for microphone:
+             Your requirement suggests a new option for a microphone source next to, e.g., a webcam, computer or microphone.
     - payload: /audio+option+screen
-      title: 'audio option for screen: \n Your have a new option for audio from a screen next to, e.g., to an application.'
+      title: |
+             Audio option for screen:
+             Your have a new option for audio from a screen next to, e.g., to an application.
     - payload: /audio+restriction
-      title: 'restriction for sharing audio: \n You would like to add a restriction such as "only the host can disable the participants to turn on their microphone".'
+      title: |
+             Restriction for sharing audio:
+             You would like to add a restriction such as "only the host can disable the participants to turn on their microphone".
     - payload: /audio+microphone+howto+start
-      title: 'a new option to start sharing microphone: \n Another way to turn on the microphone other than clicking the microphone icon.'
+      title: |
+             A new option to start sharing microphone:
+             Another way to turn on the microphone other than clicking the microphone icon.
     - payload: /audio+microphone+howto+stop
-      title: 'a new option to stop sharing microphone: \n Another way to turn off the microphone other than clicking the microphone icon.'
+      title: |
+             A new option to stop sharing microphone:
+             Another way to turn off the microphone other than clicking the microphone icon.
     - payload: /audio+screen+howto+start
-      title: 'a new option to start sharing audio from screen: \n Participants can share their screen including their applications during a meeting. You suggest a way of starting the sharing.'
+      title: |
+             A new option to start sharing audio from screen:
+             Participants can share their screen including their applications during a meeting. You suggest a way of starting the sharing.
     - payload: /audio+screen+howto+stop
-      title: 'a new option to stop sharing audio from screen: \n Participants can share their screen including their applications during a meeting. You suggest a way of stopping the sharing.'
+      title: |
+             A new option to stop sharing audio from screen:
+             Participants can share their screen including their applications during a meeting. You suggest a way of stopping the sharing.
     - payload: /audio+default
-      title: 'default option for audio: \n A default option tells, e.g., if audio is turned on or off when the meeting is started.'
+      title: |
+             Default option for audio:
+             A default option tells, e.g., if audio is turned on or off when the meeting is started.
     - payload: /audio+configation+option
-      title: 'option to configure audio: \n One way to configure the audio is to click the menu icon. You have an idea for another way.'
+      title: |
+             Option to configure audio:
+             One way to configure the audio is to click the menu icon. You have an idea for another way.
     - payload: /goback
       title: I want to go back to the main categories.
     text: Which of these sub categories is right for your requirement?
   utter_ask_sub_category_video:
   - buttons:
     - payload: /video+option+camera
-      title: 'a new option for video from camera: \n One way to share video is your own camera. A source for a camera is a webcam but you would like to add another source.'
+      title: |
+             A new option for video from camera:
+             One way to share video is your own camera. A source for a camera is a webcam but you would like to add another source.
     - payload: /video+option+screen
-      title: 'a new option for video from screen: \n One way to share video is your screen, e.g., an application. You have an idea for a new source.'
+      title: |
+             A new option for video from screen:
+             One way to share video is your screen, e.g., an application. You have an idea for a new source.
     - payload: /video+screen+restriction
-      title: 'restriction for screen sharing: \n A restriction could limit who and what can be shared during a meeting regarding videos.'
+      title: |
+             Restriction for screen sharing:
+             A restriction could limit who and what can be shared during a meeting regarding videos.
     - payload: /video+screen+howto+stop
-      title: 'a new option to stop sharing a video from screen: \n You have another idea on how to stop sharing video from your screen.'
+      title: |
+             A new option to stop sharing a video from screen:
+             You have another idea on how to stop sharing video from your screen.
     - payload: /video+screen+howto+start
-      title: 'a new option to start sharing a video from screen: \n You have another idea on how to start sharing video from your screen.'
+      title: |
+             A new option to start sharing a video from screen:
+             You have another idea on how to start sharing video from your screen.
     - payload: /video+camera+howto+stop
-      title: 'a new option to stop sharing a video from camera: \n You have another idea on how to stop sharing video of your face.'
+      title: |
+             A new option to stop sharing a video from camera:
+             You have another idea on how to stop sharing video of your face.
     - payload: /video+camera+howto+start
-      title: 'a new option to start sharing a video from camera: \n You have another idea on how to start sharing video of your face.'
+      title: |
+             A new option to start sharing a video from camera:
+             You have another idea on how to start sharing video of your face.
     - payload: /video+default
-      title: 'default option video: \n The default option could tell if video is turned on when the meeting is starting.'
+      title: |
+             Default option video:
+             The default option could tell if video is turned on when the meeting is starting.
     - payload: /video+configuration
-      title: 'configuration for video: \n One way to configure the video is to click the menu icon. You have an idea for another way.'
+      title: |
+             Configuration for video:
+             One way to configure the video is to click the menu icon. You have an idea for another way.
     - payload: /goback
       title: I want to go back to the main categories.
     text: Which of these sub categories is right for your requirement?
   utter_ask_sub_category_screensharing:
   - buttons:
     - payload: /screensharing+option
-      title: option for screen sharing:\n One way to share your screen is to share only an application. You would like to add another source.
+      title: |
+             Option for screen sharing:
+             One way to share your screen is to share only an application. You would like to add another source.
     - payload: /screensharing+howto+stop
-      title: a new way to stop screen sharing:\n You have another idea on how to stop sharing your screen.
+      title: |
+             A new way to stop screen sharing:
+             You have another idea on how to stop sharing your screen.
     - payload: /screensharing+howto+start
-      title: a new way to start screen sharing:\n You have another idea on how to start sharing your screen.
+      title: |
+             A new way to start screen sharing:
+             You have another idea on how to start sharing your screen.
     - payload: /screensharing+default
-      title: default settings for screen sharing:\n The default option could tell if screen sharing starts when the meeting starts, for example.
+      title: |
+             Default settings for screen sharing:
+             The default option could tell if screen sharing starts when the meeting starts, for example.
     - payload: /screensharing+restriction+windows
-      title:  restrictions for screen sharing regarding windows in meeting:\n These restrictions concern how many people can share their screen at once and how many applications or windows a person can share.
+      title: |
+             Restrictions for screen sharing regarding windows in meeting:
+             These restrictions concern how many people can share their screen at once and how many applications or windows a person can share.
     - payload: /screensharing+restriction+stop
-      title: restrictions for screen sharing regarding who can stop it:\n These type of restriction define who can stop the screen sharing of whose screen.
+      title: |
+             Restrictions for screen sharing regarding who can stop it:
+             These type of restriction define who can stop the screen sharing of whose screen.
     - payload: /screensharing+restriction+start
-      title: restrictions for screen sharing regarding who can start it:\n The ability to start screen sharing is described by this category.
+      title: |
+             Restrictions for screen sharing regarding who can start it:
+             The ability to start screen sharing is described by this category.
     - payload: /goback
       title: I want to go back to the main categories.
     text: Which of these sub categories is right for your requirement?
   utter_ask_sub_category_recording:
   - buttons:
     - payload: /recording+restriction
-      title: restrictions for recording:\n A recording of a meeting can be, e.g., restricted by the person who is allowed to start a meeting or if the participants have to agree beforehand.
+      title: |
+             Restrictions for recording:
+             A recording of a meeting can be, e.g., restricted by the person who is allowed to start a meeting or if the participants have to agree beforehand.
     - payload: /recording+howto+start
-      title: a new option to start recording:\n You have another idea on how to start recording a meeting.
+      title: |
+             A new option to start recording:
+             You have another idea on how to start recording a meeting.
     - payload: /recording+howto+stop
-      title: a new option to stop recording:\n You have another idea on how to stop recording a meeting.
+      title: |
+             A new option to stop recording:
+             You have another idea on how to stop recording a meeting.
     - payload: /recording+option
-      title: a new option what to record on meeting:\n You have another idea on what is recorded, e.g., only the voice or the screen.
+      title: |
+             A new option what to record on meeting:
+             You have another idea on what is recorded, e.g., only the voice or the screen.
     - payload: /recording+default
-      title: default option for recording:\n The default option tells if recording starts when the meeting starts, for example.
+      title: |
+             Default option for recording:
+             The default option tells if recording starts when the meeting starts, for example.
     - payload: /goback
       title: I want to go back to the main categories.
     text: Which of these sub categories is right for your requirement?
   utter_ask_sub_category_reaction:
   - buttons:
     - payload: /reaction+howto+start
-      title: a new option to start a reaction:\n A reaction is an emoji that you choose and is seen on your video for other participants. You have another idea on how to start a reaction.
+      title: |
+             A new option to start a reaction:
+             A reaction is an emoji that you choose and is seen on your video for other participants. You have another idea on how to start a reaction.
     - payload: /reaction+howto+stop
-      title:  a new option to stop a reaction:\n You have another idea on how to stop a reaction or when it stops.
+      title: |
+             A new option to stop a reaction:
+             You have another idea on how to stop a reaction or when it stops.
     - payload: /reaction+default
-      title: default settings for reaction:\n The default option tells if a reaction is shown when the meeting starts, for example.
+      title: |
+             Default settings for reaction:
+             The default option tells if a reaction is shown when the meeting starts, for example.
     - payload: /goback
       title: I want to go back to the main categories.
     text: Which of these sub categories is right for your requirement?
   utter_ask_sub_category_polling:
   - buttons:
     - payload: /polling+restriction
-      title: 'restriction for polling: \n Polling can be restricted, for example, regarding on who can start a poll.'
+      title: |
+             Restriction for polling:
+             Polling can be restricted, for example, regarding on who can start a poll.
     - payload: /polling+howto+start
-      title: 'a new option to start polling: \n You have another idea on how to start polling.'
+      title: |
+             A new option to start polling:
+             You have another idea on how to start polling.
     - payload: /polling+howto+stop
-      title: 'a new option to stop polling: \n You have another idea on how to stop polling.'
+      title: |
+             A new option to stop polling:
+             You have another idea on how to stop polling.
     - payload: /polling+duration
-      title: 'duration for polling: \n Polling can, e.g., stop after a predefined amount of time.'
+      title: |
+             Duration for polling:
+             Polling can, e.g., stop after a predefined amount of time.
     - payload: /goback
       title: I want to go back to the main categories.
     text: Which of these sub categories is right for your requirement?
   utter_ask_sub_category_livetranscript:
   - buttons:
     - payload: /livetranscript+restriction
-      title: 'restrictions for live transcript: \n Live transcripts can be restricted, for example, regarding on who can start it.'
+      title: |
+             Restrictions for live transcript:
+             Live transcripts can be restricted, for example, regarding on who can start it.
     - payload: /livetranscript+howto+start
-      title: 'a new option to start a live transcript: \n You have another idea on how to start live transcripts.'
+      title: |
+             A new option to start a live transcript:
+             You have another idea on how to start live transcripts.
     - payload: /livetranscript+howto+stop
-      title: 'a new option to stop a live transcript: \n You have another idea on how to stop live transcripts.'
+      title: |
+             A new option to stop a live transcript:
+             You have another idea on how to stop live transcripts.
     - payload: /livetranscript+default
-      title: 'default option for live transcript: \n Live transcript can, e.g., turned off when the meeting starts.'
+      title: |
+             Default option for live transcript:
+             Live transcript can, e.g., turned off when the meeting starts.
     - payload: /goback
       title: I want to go back to the main categories.
     text: Which of these sub categories is right for your requirement?
   utter_ask_sub_category_chat:
   - buttons:
     - payload: /chat+howto+start
-      title: 'a new option to start a chat: \n You have another idea on how to start a chat.'
+      title: |
+             A new option to start a chat:
+             You have another idea on how to start a chat.
     - payload: /chat+howto+stop
-      title: 'a new option to stop a chat: \n You have another idea on how to stop the chat.'
+      title: |
+             A new option to stop a chat:
+             You have another idea on how to stop the chat.
     - payload: /chat+default
-      title: 'default settings for chat: \n The chat could be open when the meeting starts.'
+      title: |
+             Default settings for chat: The chat could be open when the meeting starts.
     - payload: /goback
       title: I want to go back to the main categories.
     text: Which of these sub categories is right for your requirement?
   utter_ask_more_information_categories_needed:
-  - text: 'It is necessary to categorize your requirement to check if it is conflicting with other requirement. Some requirements show the functionality of the system whereas others represent constraints. Otherwise, requirements in conflict cannot be implemented in the same system. \n Here are all the categories with information about them: \n Audio: \n There are different options to share audio during a meeting. This could be your own voice or audio from screen or other participants. This audio can also come from different sources such as a microphone from a webcam or smart phone or an application. So this category is about any audio you want to hear or share. \n Video: \n Similar to audio, you can share a video of yourself or your screen. This can involve different sources such as a camera from your webcam or an application on your screen. This category is about the video you want to share or want to see. \n Screen sharing: \n A web conference tool gives you the option to share your screen. This category contains requirements that, for example, define how many users at a time and who can share their screen and what options they have. \n Recording: \n Sometimes it is useful to record the meeting to save it. Any restrictions to recording a meeting do also fall under this category. \n Reaction: \n Participants may want to react to something a presenter was saying and they can do so by choosing an emoji that will be displayed on their video. This can lead to less interruption than having participants react via their microphones. \n Polling: \n Another way of getting feedback from participants of a web conference is polling. \n Live transcript: \n Live transcripts can be enabled to help your participants better understand the presenter. \n Chat: \n It can be helpful to share information not only by audio but also written via chat. This offers the possibility to talk to the host or other participants privately. Let me know when you are finished checking the categories.'
+  - text: |
+          It is necessary to categorize your requirement to check if it is conflicting with other requirement. Some requirements show the functionality of the system whereas others represent constraints. Otherwise, requirements in conflict cannot be implemented in the same system.
+          Here are all the categories with information about them:
+          Audio:
+          There are different options to share audio during a meeting. This could be your own voice or audio from screen or other participants. This audio can also come from different sources such as a microphone from a webcam or smart phone or an application. So this category is about any audio you want to hear or share.
+          Video:
+          Similar to audio, you can share a video of yourself or your screen. This can involve different sources such as a camera from your webcam or an application on your screen. This category is about the video you want to share or want to see.
+          Screen sharing:
+          A web conference tool gives you the option to share your screen. This category contains requirements that, for example, define how many users at a time and who can share their screen and what options they have.
+          Recording:
+          Sometimes it is useful to record the meeting to save it. Any restrictions to recording a meeting do also fall under this category.
+          Reaction:
+          Participants may want to react to something a presenter was saying and they can do so by choosing an emoji that will be displayed on their video. This can lead to less interruption than having participants react via their microphones.
+          Polling:
+          Another way of getting feedback from participants of a web conference is polling.
+          Live transcript:
+          Live transcripts can be enabled to help your participants better understand the presenter.
+          Chat:
+          It can be helpful to share information not only by audio but also written via chat. This offers the possibility to talk to the host or other participants privately. Let me know when you are finished checking the categories.
   utter_select_categories_slack:
   - custom:
       blocks:
@@ -642,11 +763,11 @@ responses:
   utter_ask_continue:
   - text: Do you want to stop submitting information?
   utter_ask_z_age:
-  - text: May I ask you how old you are?
+  - text: This is the last personal question. I promise. May I ask you how old you are?
   utter_ask_y_main_use:
   - text: For what purpose do you use the system mainly? For example, do you use it for work, school or with friends?
   utter_ask_x_user_group:
-  - text: This is the last personal question. I promise. To what type of user do you see yourself belonging? Student, worker, developer ... ?
+  - text: To what type of user do you see yourself belonging? Student, worker, developer ... ?
   utter_ask_does_participate_user:
   - text: Would you like to give us some information about yourself?
   utter_explain_requirement:

@@ -1114,7 +1114,7 @@ class HandleConflictManagement:
 
                #conn = sqlite3.connect('./database/PrototypeDB.db')
                cur = mydb.cursor()
-               cur.execute('''SELECT * FROM requirements WHERE requirementID = %s OR requirementID = %s''', (chosen_conflict[1],chosen_conflict[2]))
+               cur.execute('''SELECT * FROM requirements WHERE requirementID = %s OR requirementID = %s''', (chosen_conflict[0],chosen_conflict[1]))
                selected_conflicts_db = cur.fetchall()
 
                if selected_conflicts_db and selected_conflicts_db is not None:
@@ -1123,8 +1123,8 @@ class HandleConflictManagement:
                    conflict_2 = [selected_conflicts_db[1][9],selected_conflicts_db[1][0],selected_conflicts_db[1][1]]
                    conflicts.append(conflict_1)
                    conflicts.append(conflict_2)
-                   HandleConflictManagement.conflict_1_id = conflicts[0][9]
-                   HandleConflictManagement.conflict_2_id = conflicts[1][9]
+                   HandleConflictManagement.conflict_1_id = selected_conflicts_db[0][9]
+                   HandleConflictManagement.conflict_2_id = selected_conflicts_db[1][9]
 
         mydb.close()
         return conflicts
@@ -1206,7 +1206,7 @@ class HandleConflictManagement:
                                        db='Chatbot')
         cur = mydb.cursor()
 
-        cur.execute("SELECT * FROM requirements_in_conflict WHERE status='original'")
+        cur.execute("SELECT * FROM requirements_in_conflict WHERE status='original\r'")
         conflicts = cur.fetchall()
         mydb.close()
         return conflicts
@@ -1233,7 +1233,8 @@ class HandleDatabase:
         cur.execute('SELECT description,description_name FROM categories WHERE name = %s', (category,))
         description = cur.fetchall()
         if description:
-            description_text = description[0][1] + ". The category is described as: " + description[0][0]
+            #description_text = description[0][1] + ". The category is described as: " + description[0][0]
+            description_text = "{0}. The category is described as: {1}".format(description[0][1], description[0][0])
         mydb.close()
         return description_text
  
@@ -1271,10 +1272,12 @@ class HandleDatabase:
             all_conflicting_categories = all_conflicting_categories[0].split(';')
             for conflict in all_conflicting_categories:
                 conflict = '%' + conflict + '%'
-                cur.execute('SELECT * FROM requirements WHERE category_original LIKE %s', (conflict,))
+                cur.execute("SELECT * FROM requirements WHERE category_original LIKE %s AND status='original'", (conflict,))
                 conflicting_requirements_and_ids = cur.fetchall()
                 HandleDatabase.conflicting_requirements_and_ids = conflicting_requirements_and_ids
                 HandleDatabase.conflict_detected = True
+            #if HandleDatabase.conflicting_requirements_and_ids is not None:
+            #    HandleDatabase.conflict_detected = True
         else:
             HandleDatabase.conflicting_requirements_and_ids = None
             HandleDatabase.conflict_detected = False
