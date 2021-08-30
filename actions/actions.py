@@ -166,8 +166,6 @@ class ValidateCategoryForm(FormValidationAction):
     async def extract_sub_category_livetranscript(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
     ) -> Dict[Text, Any]:
         if tracker.get_slot("sub_category_livetranscript"):
-            # if tracker.get_slot("sub_category_livetranscript") == "goback":
-            #     return {"sub_category_livetranscript" : None, "categorization_requirement_user" : None}
             return {"sub_category_livetranscript" : tracker.get_slot("sub_category_livetranscript")}
         return {"sub_category_livetranscript" : tracker.get_intent_of_latest_message()}
 
