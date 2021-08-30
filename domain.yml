@@ -384,35 +384,35 @@ responses:
   - buttons:
     - payload: /audio
       title: |
-             U+1F3B6 Audio:
+             🎵 Audio:
              This category is about any audio you want to hear or share. This could be your own voice or audio from screen and it can also come from different sources such as a microphone from a webcam or an application.
     - payload: /video
       title: |
-              U+1F3A5 Video:
+              🎥 Video:
               Similar to audio, you can share a video of yourself or your screen. This can involve different sources such as a camera from your webcam or an application on your screen. This category is about the video you want to share or want to see.
     - payload: /screensharing
       title: |
-             U+1F4BB Screen sharing:
+             💻 Screen sharing:
              A web conference tool gives you the option to share your screen. This category contains requirements that, for example, define how many users at a time and who can share their screen and what options they have.
     - payload: /recording
       title: |
-             U+1F39E Recording:
+             🎞 Recording:
              Sometimes it is useful to record the meeting to save it. Any restrictions to recording a meeting do also fall under this category.
     - payload: /reaction
       title: |
-             U+1F603 Reaction:
+             😃 Reaction:
              Participants may want to react to something a presenter was saying and they can do so by choosing an emoji that will be displayed on their video. This can lead to less interruption than having participants react via their microphones.
     - payload: /polling
       title: |
-             U+1F4CA Polling:
+             📊 Polling:
              Another way of getting feedback from participants of a web conference is polling.
     - payload: /livetranscript
       title: |
-             U+1F4C4 Live transcript:
+             📄 Live transcript:
              Live transcripts can be enabled to help your participants better understand the presenter.
     - payload: /chat
       title: |
-             U+1F4AC Chat:
+             💬 Chat:
              It can be helpful to share information not only by audio but also written via chat. This offers the possibility to talk to the host or other participants privately.
     - payload: /changereq
       title: I want to change my requirement.
