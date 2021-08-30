@@ -22,5 +22,5 @@ jobs:
           requirements_file: "actions/requirements.txt"
           docker_registry_login: ${{ secrets.DOCKER_HUB_LOGIN }}
           docker_registry_password: ${{ secrets.DOCKER_HUB_PASSWORD }}
-          docker_image_name: 'jesbec/host_mysql_actions_server'
+          docker_image_name: 'jesbec/bot_action_server'
           docker_image_tag: ${{ github.sha }}
