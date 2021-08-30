@@ -197,9 +197,9 @@ stories:
   - slot_was_set:
       - explanation_preference: 'i prefer if i do not have to click it open'
   - slot_was_set:
-      - requested_slot: explanation_preference
+      - requested_slot: when_discovered
   - slot_was_set:
-      - explanation_preference: 'i prefer if i do not have to click it open'
+      - explanation_preference: 'i was bored in class'
   - slot_was_set:
     - requested_slot: null
   - active_loop: null
@@ -296,9 +296,9 @@ stories:
     - slot_was_set:
         - explanation_preference: 'i prefer if i do not have to click it open'
     - slot_was_set:
-        - requested_slot: explanation_preference
+        - requested_slot: when_discovered
     - slot_was_set:
-        - explanation_preference: 'i prefer if i do not have to click it open'
+        - when_discovered: 'i was bored in class'
     - slot_was_set:
         - requested_slot: null
     - active_loop: null
