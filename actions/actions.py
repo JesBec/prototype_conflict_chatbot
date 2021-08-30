@@ -338,10 +338,10 @@ class ValidateManageConflictForm(FormValidationAction):
     async def extract_preference(
         self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
     ) -> Dict[Text, Any]:
-        preference = None
-        if tracker.get_slot("preference"):
-            preference = tracker.get_slot("preference")
-        return {"preference" : preference}
+        #preference = None
+        #if tracker.get_slot("requested_slot"):
+        #    preference = tracker.get_slot("preference")
+        return {"preference" : tracker.get_slot("preference")}
 
     async def extract_explanation_preference(
         self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
@@ -596,10 +596,10 @@ class ValidateAnotherConflictForm(FormValidationAction):
     async def extract_preference(
         self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
     ) -> Dict[Text, Any]:
-        preference = None
-        if tracker.get_slot("preference"):
-            preference = tracker.get_slot("preference")
-        return {"preference" : preference}
+        #preference = None
+        #if tracker.get_slot("preference"):
+        #    preference = tracker.get_slot("preference")
+        return {"preference" : tracker.get_slot("preference")}
 
     async def extract_explanation_preference(
         self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
