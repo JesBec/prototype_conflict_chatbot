@@ -110,7 +110,6 @@ class ValidateCategoryForm(FormValidationAction):
                 additional_slots = ["categorization_requirement_user"]
                 additional_slots.append(new_slot)
                 return additional_slots + slots_mapped_in_domain
-            #return slots_mapped_in_domain
 
         if agreement == "/deny":
             additional_slots = ["x_agreement_on_categorization"]
