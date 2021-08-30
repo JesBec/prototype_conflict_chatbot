@@ -1,91 +1,394 @@
-#### This file contains tests to evaluate that your bot behaves as expected.
-#### If you want to learn more, please see the docs: https://rasa.com/docs/rasa/testing-your-assistant
-
+version: "2.0"
 stories:
 - story: happy path 1
   steps:
-  - user: |
+  - intent: greet
+    user: |-
       hello there!
-    intent: greet
   - action: utter_greet
-  - user: |
+  - intent: mood_great
+    user: |-
       amazing
-    intent: mood_great
   - action: utter_happy
-
 - story: happy path 2
   steps:
-  - user: |
+  - intent: greet
+    user: |-
       hello there!
-    intent: greet
   - action: utter_greet
-  - user: |
+  - intent: mood_great
+    user: |-
       amazing
-    intent: mood_great
   - action: utter_happy
-  - user: |
+  - intent: goodbye
+    user: |-
       bye-bye!
-    intent: goodbye
   - action: utter_goodbye
-
 - story: sad path 1
   steps:
-  - user: |
+  - intent: greet
+    user: |-
       hello
-    intent: greet
   - action: utter_greet
-  - user: |
+  - intent: mood_unhappy
+    user: |-
       not good
-    intent: mood_unhappy
   - action: utter_cheer_up
   - action: utter_did_that_help
-  - user: |
+  - intent: affirm
+    user: |-
       yes
-    intent: affirm
   - action: utter_happy
-
 - story: sad path 2
   steps:
-  - user: |
+  - intent: greet
+    user: |-
       hello
-    intent: greet
   - action: utter_greet
-  - user: |
+  - intent: mood_unhappy
+    user: |-
       not good
-    intent: mood_unhappy
   - action: utter_cheer_up
   - action: utter_did_that_help
-  - user: |
+  - intent: deny
+    user: |-
       not really
-    intent: deny
   - action: utter_goodbye
-
 - story: sad path 3
   steps:
-  - user: |
+  - intent: greet
+    user: |-
       hi
-    intent: greet
   - action: utter_greet
-  - user: |
+  - intent: mood_unhappy
+    user: |-
       very terrible
-    intent: mood_unhappy
   - action: utter_cheer_up
   - action: utter_did_that_help
-  - user: |
+  - intent: deny
+    user: |-
       no
-    intent: deny
   - action: utter_goodbye
-
 - story: say goodbye
   steps:
-  - user: |
+  - intent: goodbye
+    user: |-
       bye-bye!
-    intent: goodbye
   - action: utter_goodbye
-
 - story: bot challenge
   steps:
-  - user: |
+  - intent: bot_challenge
+    user: |-
       are you a bot?
-    intent: bot_challenge
   - action: utter_iamabot
+- story: Story from Conversation ID 94e211161e3c4d7f96d1f8550314facd
+  steps:
+  - intent: affirm
+    user: |-
+      hellp
+  - action: utter_happy
+  - intent: greet
+    user: |-
+      hello
+  - action: utter_greet
+  - intent: request_requirement_submission
+    user: |-
+      i have a new requirement
+  - action: category_form
+  - active_loop: category_form
+  - slot_was_set:
+    - x_agreement_on_categorization: null
+  - slot_was_set:
+    - requested_slot: new_requirement
+  - intent: polling+howto+start
+    user: |-
+      start polling by pressing ctrl+p
+  - action: category_form
+  - slot_was_set:
+    - new_requirement: start polling by pressing ctrl+p
+  - slot_was_set:
+    - x_agreement_on_categorization: null
+  - slot_was_set:
+    - intent_new_requirement: polling+howto+start
+  - slot_was_set:
+    - categorization_info: 'a new option to start polling. The category is described as: You have another idea on how to start polling.'
+  - slot_was_set:
+    - requested_slot: x_agreement_on_categorization
+  - intent: more_information_about_categories
+    user: |-
+      /more_information_about_categories
+  - action: category_form
+  - slot_was_set:
+    - x_agreement_on_categorization: /more_information_about_categories
+  - slot_was_set:
+    - more_information_categories_needed: null
+  - slot_was_set:
+    - requested_slot: more_information_categories_needed
+  - intent: finished_checking_categories
+    user: |-
+      i am finished
+  - action: category_form
+  - slot_was_set:
+    - x_agreement_on_categorization: null
+  - slot_was_set:
+    - more_information_categories_needed: false
+  - slot_was_set:
+    - requested_slot: x_agreement_on_categorization
+  - intent: affirm
+    user: |-
+      /affirm
+  - action: category_form
+  - slot_was_set:
+    - x_agreement_on_categorization: /affirm
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_database
+  - slot_was_set:
+    - conflicting_requirements: '"start polling by pressing ctrl+p" and "The host has to start the poll."'
+  - action: manage_conflict_form
+  - active_loop: manage_conflict_form
+  - slot_was_set:
+    - requested_slot: does_participate
+  - intent: affirm
+    user: |-
+      yes
+  - action: manage_conflict_form
+  - slot_was_set:
+    - does_participate: true
+  - slot_was_set:
+    - x_agrees_with_conflict: null
+  - slot_was_set:
+    - requested_slot: x_agrees_with_conflict
+  - intent: affirm
+    user: |-
+      yes
+  - action: manage_conflict_form
+  - slot_was_set:
+    - x_agrees_with_conflict: true
+  - slot_was_set:
+    - explanation_conflict: null
+  - slot_was_set:
+    - requested_slot: explanation_conflict
+  - intent: request_requirement_submission
+    user: |-
+      the first requirement does not have the restriction of the second one
+  - action: manage_conflict_form
+  - slot_was_set:
+    - explanation_conflict: the first requirement does not have the restriction of the second one
+  - slot_was_set:
+    - requested_slot: preference
+  - intent: first
+    user: |-
+      the first one
+  - action: manage_conflict_form
+  - slot_was_set:
+    - explanation_conflict: the first requirement does not have the restriction of the second one
+  - slot_was_set:
+    - preference: first
+  - slot_was_set:
+    - requested_slot: explanation_preference
+  - intent: screensharing+restriction+start
+    user: |-
+      waiting for the host to start polling could take too long
+  - action: manage_conflict_form
+  - slot_was_set:
+    - explanation_conflict: the first requirement does not have the restriction of the second one
+  - slot_was_set:
+    - preference: first
+  - slot_was_set:
+    - explanation_preference: waiting for the host to start polling could take too long
+  - slot_was_set:
+    - requested_slot: when_discovered
+  - intent: affirm
+    user: |-
+      i was in a lot of classes
+  - action: manage_conflict_form
+  - slot_was_set:
+    - explanation_conflict: the first requirement does not have the restriction of the second one
+  - slot_was_set:
+    - preference: first
+  - slot_was_set:
+    - explanation_preference: i was in a lot of classes
+  - slot_was_set:
+    - when_discovered: i was in a lot of classes
+  - slot_was_set:
+    - requested_slot: null
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_save_first_conflict
+  - slot_was_set:
+    - does_participate: null
+  - slot_was_set:
+    - x_agrees_with_conflict: null
+  - slot_was_set:
+    - explanation_conflict: null
+  - slot_was_set:
+    - preference: null
+  - slot_was_set:
+    - explanation_preference: null
+  - slot_was_set:
+    - when_discovered: null
+  - slot_was_set:
+    - ask_another_conflict: true
+  - slot_was_set:
+    - conflicting_requirements: '"The video is turned off by default/meeting start and shows the profile image of the user." and "The camera should be turned on by default."'
+  - action: user_information_form
+  - active_loop: user_information_form
+  - slot_was_set:
+    - requested_slot: does_participate_user
+  - intent: affirm
+    user: |-
+      yes
+  - action: user_information_form
+  - slot_was_set:
+    - does_participate_user: true
+  - slot_was_set:
+    - z_age: null
+  - slot_was_set:
+    - y_main_use: null
+  - slot_was_set:
+    - x_user_group: null
+  - slot_was_set:
+    - requested_slot: x_user_group
+  - intent: affirm
+    user: |-
+      student
+  - action: user_information_form
+  - slot_was_set:
+    - x_user_group: student
+  - slot_was_set:
+    - requested_slot: y_main_use
+  - intent: reaction+howto+start
+    user: |-
+      uni and friends
+  - action: user_information_form
+  - slot_was_set:
+    - y_main_use: uni and friends
+  - slot_was_set:
+    - requested_slot: z_age
+  - intent: affirm
+    user: |-
+      yes i am 25
+  - action: user_information_form
+  - slot_was_set:
+    - z_age: yes i am 25
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: another_conflict_form
+  - active_loop: another_conflict_form
+  - slot_was_set:
+    - requested_slot: does_participate
+  - intent: affirm
+    user: |-
+      yes
+  - action: another_conflict_form
+  - slot_was_set:
+    - does_participate: true
+  - slot_was_set:
+    - x_agrees_with_conflict: null
+  - slot_was_set:
+    - requested_slot: x_agrees_with_conflict
+  - intent: affirm
+    user: |-
+      yes
+  - action: another_conflict_form
+  - slot_was_set:
+    - x_agrees_with_conflict: true
+  - slot_was_set:
+    - explanation_conflict: null
+  - slot_was_set:
+    - requested_slot: explanation_conflict
+  - intent: reaction+default
+    user: |-
+      it could be either one. maybe there could be settings to choose one option
+  - action: another_conflict_form
+  - slot_was_set:
+    - explanation_conflict: it could be either one. maybe there could be settings to choose one option
+  - slot_was_set:
+    - requested_slot: preference
+  - intent: last
+    user: |-
+      the second one
+  - action: another_conflict_form
+  - slot_was_set:
+    - explanation_conflict: it could be either one. maybe there could be settings to choose one option
+  - slot_was_set:
+    - preference: last
+  - slot_was_set:
+    - requested_slot: explanation_preference
+  - intent: audio+option+microphone
+    user: |-
+      a lot of people could be caught of guard
+  - action: another_conflict_form
+  - slot_was_set:
+    - explanation_conflict: it could be either one. maybe there could be settings to choose one option
+  - slot_was_set:
+    - preference: last
+  - slot_was_set:
+    - explanation_preference: a lot of people could be caught of guard
+  - slot_was_set:
+    - interruption: ready save
+  - slot_was_set:
+    - requested_slot: null
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_save_information
+  - slot_was_set:
+    - new_requirement: null
+  - slot_was_set:
+    - intent_new_requirement: null
+  - slot_was_set:
+    - conflicting_requirements: null
+  - slot_was_set:
+    - x_agreement_on_categorization: null
+  - slot_was_set:
+    - categorization_requirement_user: null
+  - slot_was_set:
+    - more_information_categories_needed: null
+  - slot_was_set:
+    - does_participate: null
+  - slot_was_set:
+    - x_agrees_with_conflict: null
+  - slot_was_set:
+    - explanation_conflict: null
+  - slot_was_set:
+    - preference: null
+  - slot_was_set:
+    - explanation_preference: null
+  - slot_was_set:
+    - when_discovered: null
+  - slot_was_set:
+    - does_participate_user: null
+  - slot_was_set:
+    - z_age: null
+  - slot_was_set:
+    - y_main_use: null
+  - slot_was_set:
+    - x_user_group: null
+  - slot_was_set:
+    - sub_category_audio: null
+  - slot_was_set:
+    - sub_category_video: null
+  - slot_was_set:
+    - sub_category_screensharing: null
+  - slot_was_set:
+    - sub_category_recording: null
+  - slot_was_set:
+    - sub_category_reaction: null
+  - slot_was_set:
+    - sub_category_polling: null
+  - slot_was_set:
+    - sub_category_livetranscript: null
+  - slot_was_set:
+    - sub_category_chat: null
+  - slot_was_set:
+    - requested_slot: null
+  - slot_was_set:
+    - interruption: null
+  - slot_was_set:
+    - ask_another_conflict: null
+  - action: utter_thanks_for_info
