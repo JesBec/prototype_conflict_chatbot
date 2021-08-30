@@ -356,7 +356,9 @@ responses:
         - type: slot
           name: categorization_info
           value: "no category found"
-      text: Unfortunately, we were not able to categorize your requirement. \n Can you choose a category for your requirement? We need a category to potentially implement your requirement.
+      text: |
+            Unfortunately, we were not able to categorize your requirement.
+            Can you choose a category for your requirement? We need a category to potentially implement your requirement.
       buttons:
         - payload: /deny
           title: I can choose category.
@@ -365,7 +367,9 @@ responses:
         - payload: /changereq
           title: I want to change my requirement.
 
-    - text: Your requirement was categorized as {categorization_info} \n Do you agree with the categorization of your new requirement?
+    - text: |
+            Your requirement was categorized as {categorization_info}
+            Do you agree with the categorization of your new requirement?
       buttons:
       - payload: /affirm
         title: It seems right.
@@ -380,35 +384,35 @@ responses:
   - buttons:
     - payload: /audio
       title: |
-             Audio:
-             There are different options to share audio during a meeting. This could be your own voice or audio from screen or other participants. This audio can also come from different sources such as a microphone from a webcam or smart phone or an application. So this category is about any audio you want to hear or share.
+             U+1F3B6 Audio:
+             This category is about any audio you want to hear or share. This could be your own voice or audio from screen and it can also come from different sources such as a microphone from a webcam or an application.
     - payload: /video
       title: |
-              Video:
+              U+1F3A5 Video:
               Similar to audio, you can share a video of yourself or your screen. This can involve different sources such as a camera from your webcam or an application on your screen. This category is about the video you want to share or want to see.
     - payload: /screensharing
       title: |
-             Screen sharing:
+             U+1F4BB Screen sharing:
              A web conference tool gives you the option to share your screen. This category contains requirements that, for example, define how many users at a time and who can share their screen and what options they have.
     - payload: /recording
       title: |
-             Recording:
+             U+1F39E Recording:
              Sometimes it is useful to record the meeting to save it. Any restrictions to recording a meeting do also fall under this category.
     - payload: /reaction
       title: |
-             Reaction:
+             U+1F603 Reaction:
              Participants may want to react to something a presenter was saying and they can do so by choosing an emoji that will be displayed on their video. This can lead to less interruption than having participants react via their microphones.
     - payload: /polling
       title: |
-             Polling:
+             U+1F4CA Polling:
              Another way of getting feedback from participants of a web conference is polling.
     - payload: /livetranscript
       title: |
-             Live transcript:
+             U+1F4C4 Live transcript:
              Live transcripts can be enabled to help your participants better understand the presenter.
     - payload: /chat
       title: |
-             Chat:
+             U+1F4AC Chat:
              It can be helpful to share information not only by audio but also written via chat. This offers the possibility to talk to the host or other participants privately.
     - payload: /changereq
       title: I want to change my requirement.
@@ -626,7 +630,8 @@ responses:
              You have another idea on how to stop the chat.
     - payload: /chat+default
       title: |
-             Default settings for chat: The chat could be open when the meeting starts.
+             Default settings for chat:
+             An example of this category is the chat being open when the meeting starts.
     - payload: /goback
       title: I want to go back to the main categories.
     text: Which of these sub categories is right for your requirement?
@@ -634,6 +639,7 @@ responses:
   - text: |
           It is necessary to categorize your requirement to check if it is conflicting with other requirement. Some requirements show the functionality of the system whereas others represent constraints. Otherwise, requirements in conflict cannot be implemented in the same system.
           Here are all the categories with information about them:
+
           Audio:
           There are different options to share audio during a meeting. This could be your own voice or audio from screen or other participants. This audio can also come from different sources such as a microphone from a webcam or smart phone or an application. So this category is about any audio you want to hear or share.
           Video:
@@ -649,7 +655,9 @@ responses:
           Live transcript:
           Live transcripts can be enabled to help your participants better understand the presenter.
           Chat:
-          It can be helpful to share information not only by audio but also written via chat. This offers the possibility to talk to the host or other participants privately. Let me know when you are finished checking the categories.
+          It can be helpful to share information not only by audio but also written via chat. This offers the possibility to talk to the host or other participants privately.
+
+          Let me know when you are finished checking the categories.
   utter_select_categories_slack:
   - custom:
       blocks:
@@ -738,7 +746,9 @@ responses:
           type: mrkdwn
         type: section
   utter_ask_more_information:
-  - text: Would you like to give us additional information to help resolve the conflict? \n This would help us since we can only implement requirements when conflicts are resolved.
+  - text: |
+          Would you like to give us additional information to help resolve the conflict?
+          This would help us since we can only implement requirements when conflicts are resolved.
   utter_requirement_information:
   - text: Great that you are asking. The better your requirement is formulated, the better it can be considered and even actually implemented.
   utter_thanks_for_info:

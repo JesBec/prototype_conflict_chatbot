@@ -488,10 +488,7 @@ nlu:
   examples: |
     - i don't want to answer
     - no answer
-    - i am not telling you this
-    - i will not anwser
     - i want to skip this question
-    - what a rude question
     - this is rude
     - how rude
     - skip
@@ -508,6 +505,7 @@ nlu:
     - they are similiar
     - they are the same
     - there is no difference between them
+    - the same
 - intent: changereq
   examples: |
     - there was an error

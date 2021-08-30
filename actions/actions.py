@@ -228,7 +228,7 @@ class ValidateCategoryForm(FormValidationAction):
         """Validate `new_requirement` value."""
         categorization_info = "no category found"
         if tracker.get_slot("requested_slot") == "new_requirement":
-            dispatcher.utter_message(tracker.get_intent_of_latest_message())
+            #dispatcher.utter_message(tracker.get_intent_of_latest_message())
             if tracker.get_intent_of_latest_message() == "stop":
                 dispatcher.utter_message("Allright. We will stop asking questions. No requirement was submitted. Let me know when you have a new requirement.")
                 return {slot : None for slot in ValidateCategoryForm.slots_to_reset}
@@ -330,7 +330,10 @@ class ValidateManageConflictForm(FormValidationAction):
     async def extract_explanation_conflict(
         self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
     ) -> Dict[Text, Any]:
-        return {"explanation_conflict" : tracker.latest_message.get("text")}
+        explanation_conflict = tracker.get_slot("explanation_conflict")
+        if tracker.get_slot("requested_slot") == "explanation_conflict":
+            explanation_conflict = tracker.latest_message.get("text")
+        return {"explanation_conflict" : explanation_conflict}
 
     async def extract_preference(
         self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
@@ -390,7 +393,7 @@ class ValidateManageConflictForm(FormValidationAction):
         tracker: Tracker,
         domain: DomainDict,
     ) -> Dict[Text, Any]:
-        dispatcher.utter_message(tracker.get_slot("x_agrees_with_conflict"))
+        #dispatcher.utter_message(tracker.get_slot("x_agrees_with_conflict"))
         if tracker.get_slot("requested_slot") == "x_agrees_with_conflict":
             if tracker.get_intent_of_latest_message() == "stop":
                 dispatcher.utter_message("Allright. We will stop asking questions. Let me know when you have a new requirement.")
@@ -465,6 +468,8 @@ class ValidateManageConflictForm(FormValidationAction):
                 return {"preference" : "first"}
             elif tracker.get_intent_of_latest_message() == "last":
                 return {"preference" : "last"}
+            elif tracker.get_intent_of_latest_message() == "they_do_the_same":
+                return {"preference" : "they do the same", "explanation_preference" : "they do the same"}
             elif tracker.get_intent_of_latest_message() == "both":
                 dispatcher.utter_message(text="I am sorry. You can only choose one.")
                 return {"preference" : None}
@@ -583,7 +588,10 @@ class ValidateAnotherConflictForm(FormValidationAction):
     async def extract_explanation_conflict(
         self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
     ) -> Dict[Text, Any]:
-        return {"explanation_conflict" : tracker.latest_message.get("text")}
+        explanation_conflict = tracker.get_slot("explanation_conflict")
+        if tracker.get_slot("requested_slot") == "explanation_conflict":
+            explanation_conflict = tracker.latest_message.get("text")
+        return {"explanation_conflict" : explanation_conflict}
 
     async def extract_preference(
         self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
@@ -610,7 +618,7 @@ class ValidateAnotherConflictForm(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
-        dispatcher.utter_message(tracker.get_slot("x_agrees_with_conflict"))
+        #dispatcher.utter_message(tracker.get_slot("x_agrees_with_conflict"))
         if tracker.get_slot("requested_slot") == "x_agrees_with_conflict":
             if tracker.get_intent_of_latest_message() == "stop":
                 dispatcher.utter_message("Allright. We will stop asking questions. Let me know when you have a new requirement.")
@@ -856,7 +864,7 @@ class ValidateUserInformationForm(FormValidationAction):
 
 class ActionDatabase(Action):
     categories_requirement = None
-    round = 0
+    #round = 0
     sub_categories = ["sub_category_audio",
                       "sub_category_video",
                       "sub_category_screensharing",
@@ -874,7 +882,6 @@ class ActionDatabase(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        if ActionDatabase.round == 0:
             message_for_user = ""
         
             if tracker.get_slot("x_agreement_on_categorization") == "/affirm":
@@ -906,9 +913,9 @@ class ActionDatabase(Action):
             else:
                 message_conflict = "No conflict found."
         
-            ActionDatabase.round = 1
+            #ActionDatabase.round = 1
             return [SlotSet("conflicting_requirements", message_conflict)]
-        return
+
 
 class ActionSaveRequirement(Action):
     def name(self) -> Text:
@@ -940,7 +947,7 @@ class ActionSaveInformation(Action):
         votes_requirement_2 = 0
         if tracker.get_slot("preference") == "first":
             votes_requirement_1 = 1
-        elif  tracker.get_slot("preference") == "last":
+        elif tracker.get_slot("preference") == "last":
             votes_requirement_2 = 1
 
         conflict_id = HandleConflictManagement.insert_conflict(HandleConflictManagement.conflict_1_id, #needs to be saved if conflicts from DB
@@ -1006,7 +1013,7 @@ class ActionSaveFirstConflict(Action):
                 votes_requirement_2 = 0
                 if tracker.get_slot("preference") == "first":
                     votes_requirement_1 = 1
-                elif  tracker.get_slot("preference") == "last":
+                elif tracker.get_slot("preference") == "last":
                     votes_requirement_2 = 1
 
                 ActionSaveFirstConflict.conflict_id = HandleConflictManagement.insert_conflict(HandleConflictManagement.conflict_1_id, #needs to be saved if conflicts from DB
@@ -1025,7 +1032,7 @@ class ActionSaveFirstConflict(Action):
                                                                          tracker.get_slot("new_requirement"))
 
             if selected_conflict:
-                message_conflict = "\" " + selected_conflict[0][1] + "\" (" + selected_conflict[0][2] + ") and \"" + selected_conflict[1][1] + "\" (" + selected_conflict[1][2] +")"
+                message_conflict = "\"" + selected_conflict[0][1] + "\"" + " and \"" + selected_conflict[1][1] + "\""
             else:
                 message_conflict = "No conflict found."
 
