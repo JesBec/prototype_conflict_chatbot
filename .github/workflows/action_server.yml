@@ -11,8 +11,6 @@ jobs:
   build_and_deploy:
     name: Build Action Server Docker Image
     runs-on: ubuntu-latest
-    #env:
-      #DOCKERHUB_USERNAME: oakela
     steps:
       - name: Checkout git repository 🕝
         uses: actions/checkout@v2
@@ -24,6 +22,5 @@ jobs:
           requirements_file: "actions/requirements.txt"
           docker_registry_login: ${{ secrets.DOCKER_HUB_LOGIN }}
           docker_registry_password: ${{ secrets.DOCKER_HUB_PASSWORD }}
-          docker_image_name: 'jesbec/host_mysql_actions_server'
+          docker_image_name: 'jesbec/bot_action_server'
           docker_image_tag: ${{ github.sha }}
-          #rasa_sdk_version: '2.8.0'
