@@ -310,6 +310,7 @@ class ValidateManageConflictForm(FormValidationAction):
         if tracker.get_slot("does_participate") == True:
             additional_slots = ["does_participate"]
             if tracker.get_slot("x_agrees_with_conflict"):
+                #dispatcher.utter_message("In required slots x agrees with conflict")
                 additional_slots.append("explanation_conflict")
             if tracker.get_slot("explanation_conflict"):
                 additional_slots.append("preference")
@@ -350,6 +351,14 @@ class ValidateManageConflictForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         return {"when_discovered" : tracker.latest_message.get("text")}
 
+    async def extract_does_participate(
+            self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
+    ) -> Dict[Text, Any]:
+        #dispatcher.utter_message("in extract_does_participate")
+        if tracker.get_slot("requested_slot") == "does_participate":
+            return {"does_participate" : tracker.get_intent_of_latest_message()}
+        return {"does_participate" : tracker.get_slot("does_participate")}
+
     def validate_does_participate(
             self,
             slot_value: Any,
@@ -358,8 +367,9 @@ class ValidateManageConflictForm(FormValidationAction):
             domain: DomainDict,
     ) -> Dict[Text, Any]:
         intent = tracker.get_intent_of_latest_message()
-        does_participate = None
+        does_participate = tracker.get_slot("does_participate")
         if tracker.get_slot("requested_slot") == "does_participate":
+            #dispatcher.utter_message("In validate does participate")
             if intent == "chitchat":
                 dispatcher.utter_message(text=f"This is not the purpose I am intented for. I can help you submit new features and you can help me to resolve conflicts if you would like to.")
                 return {"does_participate" : None}
@@ -371,10 +381,10 @@ class ValidateManageConflictForm(FormValidationAction):
                 return {slot : None for slot in ValidateCategoryForm.slots_to_reset}
             if tracker.get_intent_of_latest_message() == "no_answer":
                 dispatcher.utter_message("If you do not want to participate any more you can say no.")
-                return {"does_participate_user" : None}
+                return {"does_participate" : None}
             if tracker.get_intent_of_latest_message() == "no_idea":
                 dispatcher.utter_message("Should I explain to you why we ask you to participate? If you do not want to participate you can say no.")
-                return {"does_participate_user" : None}
+                return {"does_participate" : None}
             elif intent == "deny":
                 does_participate = False
                 slot_value = "no answer"
@@ -390,7 +400,8 @@ class ValidateManageConflictForm(FormValidationAction):
         tracker: Tracker,
         domain: DomainDict,
     ) -> Dict[Text, Any]:
-        #dispatcher.utter_message(tracker.get_slot("x_agrees_with_conflict"))
+        #dispatcher.utter_message("in validate_x_agrees_with_conflict")
+        #dispatcher.utter_message(tracker.get_intent_of_latest_message())
         if tracker.get_slot("requested_slot") == "x_agrees_with_conflict":
             if tracker.get_intent_of_latest_message() == "stop":
                 dispatcher.utter_message("Allright. We will stop asking questions. Let me know when you have a new requirement.")
@@ -410,6 +421,8 @@ class ValidateManageConflictForm(FormValidationAction):
             if tracker.get_intent_of_latest_message() == "affirm":
                 return {"x_agrees_with_conflict" : True}
             elif tracker.get_intent_of_latest_message() == "deny":
+                #dispatcher.utter_message("In validate x agrees with conflict deny")
+                #dispatcher.utter_message(tracker.get_slot("does_participate"))
                 return {"x_agrees_with_conflict" : False}
         return {"x_agrees_with_conflict" : tracker.get_slot("x_agrees_with_conflict")}
 
@@ -557,8 +570,9 @@ class ValidateAnotherConflictForm(FormValidationAction):
         domain: DomainDict,
     ) -> Dict[Text, Any]:
         intent = tracker.get_intent_of_latest_message()
-        does_participate = None
+        does_participate = tracker.get_slot("does_participate")
         if tracker.get_slot("requested_slot") == "does_participate":
+            #dispatcher.utter_message("In validate does _ participate")
             if intent == "chitchat":
                 dispatcher.utter_message(text=f"This is not the purpose I am intented for. I can help you submit new features and you can help me to resolve conflicts if you would like to.")
                 return {"does_participate" : None}
@@ -570,10 +584,10 @@ class ValidateAnotherConflictForm(FormValidationAction):
                 return {slot : None for slot in ValidateCategoryForm.slots_to_reset}
             if tracker.get_intent_of_latest_message() == "no_answer":
                 dispatcher.utter_message("If you do not want to participate any more you can say no.")
-                return {"does_participate_user" : None}
+                return {"does_participate" : None}
             if tracker.get_intent_of_latest_message() == "no_idea":
                 dispatcher.utter_message("Should I explain to you why we ask you to participate? If you do not want to participate you can say no.")
-                return {"does_participate_user" : None}
+                return {"does_participate" : None}
             elif intent == "deny":
                 does_participate = False
                 slot_value = "no answer"
@@ -581,6 +595,14 @@ class ValidateAnotherConflictForm(FormValidationAction):
                 does_participate = True
                 slot_value = None
         return {"does_participate" : does_participate, "x_agrees_with_conflict" : slot_value}
+
+    async def extract_does_participate(
+            self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
+    ) -> Dict[Text, Any]:
+        #dispatcher.utter_message("in extract_does_participate")
+        if tracker.get_slot("requested_slot") == "does_participate":
+            return {"does_participate" : tracker.get_intent_of_latest_message()}
+        return {"does_participate" : tracker.get_slot("does_participate")}
 
     async def extract_explanation_conflict(
         self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
@@ -633,9 +655,9 @@ class ValidateAnotherConflictForm(FormValidationAction):
                 dispatcher.utter_message(text="Allright. It is fine if you do not want to answer this question. We will skip it then.")
                 return {"x_agrees_with_conflict" : "no answer", "explanation_conflict" : "no answer"}
             if tracker.get_intent_of_latest_message() == "affirm":
-               return {"x_agrees_with_conflict" : True}
+                return {"x_agrees_with_conflict" : True}
             elif tracker.get_intent_of_latest_message() == "deny":
-               return {"x_agrees_with_conflict" : False}
+                return {"does_participate" : True , "x_agrees_with_conflict" : False}
         return {"x_agrees_with_conflict" : tracker.get_slot("x_agrees_with_conflict")}
 
     def validate_explanation_conflict(
