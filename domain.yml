@@ -457,6 +457,10 @@ responses:
       title: |
              Option to configure audio:
              One way to configure the audio is to click the menu icon. You have an idea for another way.
+    - payload: /audio
+      title: |
+            Audio:
+            Your requirement does not fit any of the sub categories above but belongs to the category audio.
     - payload: /goback
       title: I want to go back to the main categories.
     text: Which of these sub categories is right for your requirement?
@@ -498,6 +502,10 @@ responses:
       title: |
              Configuration for video:
              One way to configure the video is to click the menu icon. You have an idea for another way.
+    - payload: /video
+      title: |
+             Video:
+             Your requirement does not fit any of the sub categories above but belongs to the category video.
     - payload: /goback
       title: I want to go back to the main categories.
     text: Which of these sub categories is right for your requirement?
@@ -531,6 +539,10 @@ responses:
       title: |
              Restrictions for screen sharing regarding who can start it:
              The ability to start screen sharing is described by this category.
+    - payload: /screensharing
+      title: |
+              Screen sharing:
+              Your requirement does not fit any of the sub categories above but belongs to the category screen sharing.
     - payload: /goback
       title: I want to go back to the main categories.
     text: Which of these sub categories is right for your requirement?
@@ -556,6 +568,10 @@ responses:
       title: |
              Default option for recording:
              The default option tells if recording starts when the meeting starts, for example.
+    - payload: /recording
+      title: |
+            Recording:
+            Your requirement does not fit any of the sub categories above but belongs to the category recording.
     - payload: /goback
       title: I want to go back to the main categories.
     text: Which of these sub categories is right for your requirement?
@@ -573,6 +589,10 @@ responses:
       title: |
              Default settings for reaction:
              The default option tells if a reaction is shown when the meeting starts, for example.
+    - payload: /reaction
+      title: |
+            Reactions:
+            Your requirement does not fit any of the sub categories above but belongs to the category reaction.
     - payload: /goback
       title: I want to go back to the main categories.
     text: Which of these sub categories is right for your requirement?
@@ -594,6 +614,10 @@ responses:
       title: |
              Duration for polling:
              Polling can, e.g., stop after a predefined amount of time.
+    - payload: /polling
+      title: |
+            Polling:
+            Your requirement does not fit any of the sub categories above but belongs to the category polling.
     - payload: /goback
       title: I want to go back to the main categories.
     text: Which of these sub categories is right for your requirement?
@@ -615,6 +639,10 @@ responses:
       title: |
              Default option for live transcript:
              Live transcript can, e.g., turned off when the meeting starts.
+    - payload: /livetranscript
+      title: |
+            Live transcript:
+            Your requirement does not fit any of the sub categories above but belongs to the category live transcript.
     - payload: /goback
       title: I want to go back to the main categories.
     text: Which of these sub categories is right for your requirement?
@@ -632,6 +660,10 @@ responses:
       title: |
              Default settings for chat:
              An example of this category is the chat being open when the meeting starts.
+    - payload: /chat
+      title: |
+            Chat:
+            Your requirement does not fit any of the sub categories above but belongs to the category chat.
     - payload: /goback
       title: I want to go back to the main categories.
     text: Which of these sub categories is right for your requirement?
@@ -640,21 +672,21 @@ responses:
           It is necessary to categorize your requirement to check if it is conflicting with other requirement. Some requirements show the functionality of the system whereas others represent constraints. Otherwise, requirements in conflict cannot be implemented in the same system.
           Here are all the categories with information about them:
 
-          Audio:
+          🎵 Audio:
           There are different options to share audio during a meeting. This could be your own voice or audio from screen or other participants. This audio can also come from different sources such as a microphone from a webcam or smart phone or an application. So this category is about any audio you want to hear or share.
-          Video:
+          🎥 Video:
           Similar to audio, you can share a video of yourself or your screen. This can involve different sources such as a camera from your webcam or an application on your screen. This category is about the video you want to share or want to see.
-          Screen sharing:
+          💻 Screen sharing:
           A web conference tool gives you the option to share your screen. This category contains requirements that, for example, define how many users at a time and who can share their screen and what options they have.
-          Recording:
+          🎞 Recording:
           Sometimes it is useful to record the meeting to save it. Any restrictions to recording a meeting do also fall under this category.
-          Reaction:
+          😃 Reaction:
           Participants may want to react to something a presenter was saying and they can do so by choosing an emoji that will be displayed on their video. This can lead to less interruption than having participants react via their microphones.
-          Polling:
+          📊 Polling:
           Another way of getting feedback from participants of a web conference is polling.
-          Live transcript:
+          📄 Live transcript:
           Live transcripts can be enabled to help your participants better understand the presenter.
-          Chat:
+          💬 Chat:
           It can be helpful to share information not only by audio but also written via chat. This offers the possibility to talk to the host or other participants privately.
 
           Let me know when you are finished checking the categories.

@@ -280,6 +280,7 @@ nlu:
     - desktop can be used via screen sharing
     - through screen sharing a whiteboard can be shared
     - screen shaing should allow applications to be shown
+    - starting screen sharing should always be enabled
 - intent: screensharing+restriction+start
   examples: |
     - The screen sharing option can be disabled by the host.
@@ -489,8 +490,6 @@ nlu:
     - i don't want to answer
     - no answer
     - i want to skip this question
-    - this is rude
-    - how rude
     - skip
     - skip it
     - lets sskip
