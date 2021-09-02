@@ -117,39 +117,42 @@ stories:
 #  - intent: affirm
 #  - action: action_deactivate_loop
 #  - active_loop: null
-- story: requirement but no management
-  steps:
-    - intent: request_requirement_submission
-    - action: category_form
-    - active_loop: category_form
+
+
+
+#- story: requirement but no management
+#  steps:
+#    - intent: request_requirement_submission
+#    - action: category_form
+#    - active_loop: category_form
     #- slot_was_set:
     #    - x_agreement_on_categorization: null
-    - slot_was_set:
-        - requested_slot: new_requirement
+#    - slot_was_set:
+#        - requested_slot: new_requirement
     #- slot_was_set:
     #    - x_agreement_on_categorization: null
-    - slot_was_set:
-        - new_requirement: chat on by default
-    - slot_was_set:
-        - intent_new_requirement: chat+default
-    - slot_was_set:
-        - requested_slot: x_agreement_on_categorization
-    - slot_was_set:
-        - x_agreement_on_categorization: /affirm
-    - slot_was_set:
-        - requested_slot: null
-    - active_loop: null
-    - action: action_database
-    - action: manage_conflict_form
-    - active_loop: manage_conflict_form
-    - slot_was_set:
-        - requested_slot: does_participate
-    - slot_was_set:
-        - does_participate: false
-    - slot_was_set:
-        - requested_slot: null
-    - action: action_save_requirement
-    - action: utter_thanks_for_info
+#    - slot_was_set:
+ #       - new_requirement: chat on by default
+ #   - slot_was_set:
+ #       - intent_new_requirement: chat+default
+ #   - slot_was_set:
+ #       - requested_slot: x_agreement_on_categorization
+ #   - slot_was_set:
+ #       - x_agreement_on_categorization: /affirm
+ #   - slot_was_set:
+ #       - requested_slot: null
+ #   - active_loop: null
+ #   - action: action_database
+ #   - action: manage_conflict_form
+ #   - active_loop: manage_conflict_form
+ #   - slot_was_set:
+ #       - requested_slot: does_participate
+ #   - slot_was_set:
+ #       - does_participate: false
+ #   - slot_was_set:
+ #       - requested_slot: null
+ #   - action: action_save_requirement
+ #   - action: utter_thanks_for_info
 
 - story: requirement and management happy path
   steps:
