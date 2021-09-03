@@ -18,6 +18,8 @@ class ValidateCategoryForm(FormValidationAction):
     slots_to_reset = ["new_requirement",
     "intent_new_requirement",
     "conflicting_requirements",
+    "first_conflict",
+    "last_conflict",
     "x_agreement_on_categorization",
     "categorization_requirement_user",
     "more_information_categories_needed",
@@ -227,16 +229,16 @@ class ValidateCategoryForm(FormValidationAction):
         if tracker.get_slot("requested_slot") == "new_requirement":
             #dispatcher.utter_message(tracker.get_intent_of_latest_message())
             if tracker.get_intent_of_latest_message() == "stop":
-                dispatcher.utter_message("Allright. We will stop asking questions. No requirement was submitted. Let me know when you have a new requirement.")
+                dispatcher.utter_message("Allright. We will stop asking questions. No feature was submitted. Let me know when you have a new feature.")
                 return {slot : None for slot in ValidateCategoryForm.slots_to_reset}
             if tracker.get_intent_of_latest_message() == "chitchat":
                 dispatcher.utter_message(text=f"This is not the purpose I am intented for. I can help you submit new features and you can help me to resolve conflicts if you would like to.")
                 return {"new_requirement" : None}
             if tracker.get_intent_of_latest_message() == "explain":
-                dispatcher.utter_message("Requirements explain the behaviour you want from our system. We need this information to see what you expect from our system. We will check if your requirement is in conflict with other requirements to see if we can implement it. If you would like to, I can tell you more about how to formulate a requirement.")
+                dispatcher.utter_message("Features explain the behaviour you want from our system. We need this information to see what you expect from our system. We will check if your feature is in conflict with other features to see if we can implement it. If you would like to, I can tell you more about how to formulate a feature.")
                 return {"new_requirement" : None}
             if tracker.get_intent_of_latest_message() == "explain_how_to_requirement":
-                dispatcher.utter_message("Here is an example of a requirement:\"The camera should be turned on when the meeting is started.\". Just try to be as precise as possible.")
+                dispatcher.utter_message("Here is an example of a feature:\"The camera should be turned on when the meeting is started.\". Just try to be as precise as possible.")
                 return {"new_requirement" : None}
             if tracker.get_intent_of_latest_message() in ValidateCategoryForm.req_categories:
                 categorization_info = HandleDatabase.get_category_description(tracker.get_intent_of_latest_message())
@@ -254,7 +256,7 @@ class ValidateCategoryForm(FormValidationAction):
                 dispatcher.utter_message("Of course. You can change it now.")
                 return {"x_agreement_on_categorization" : None, "new_requirement" : None}
             if tracker.get_intent_of_latest_message() == "stop":
-                dispatcher.utter_message("Allright. We will stop asking questions. No requirement was submitted. Let me know when you have a new requirement.")
+                dispatcher.utter_message("Allright. We will stop asking questions. No feature was submitted. Let me know when you have a new feature.")
                 return {slot : None for slot in ValidateCategoryForm.slots_to_reset}
         return {"x_agreement_on_categorization" : tracker.get_slot("x_agreement_on_categorization")}
     
@@ -290,13 +292,13 @@ class ValidateCategoryForm(FormValidationAction):
                 dispatcher.utter_message("Of course. You can change it now.")
                 return {"categorization_requirement_user" : None, "x_agreement_on_categorization" : None, "new_requirement" : None}
             if tracker.get_intent_of_latest_message() == "stop":
-                dispatcher.utter_message("Allright. We will stop asking questions. No requirement was submitted. Let me know when you have a new requirement.")
+                dispatcher.utter_message("Allright. We will stop asking questions. No feature was submitted. Let me know when you have a new feature.")
                 return {slot : None for slot in ValidateCategoryForm.slots_to_reset}
             if tracker.get_intent_of_latest_message() == "chitchat":
                 dispatcher.utter_message(text=f"This is not the purpose I am intented for. I can help you submit new features and you can help me to resolve conflicts if you would like to.")
                 return {"categorization_requirement_user" : None}
             if tracker.get_intent_of_latest_message() == "explain":
-                dispatcher.utter_message("We need a categorization of your requirement to check if it is conflicting with other requirements. We can only implement non-conflicting requirements.")
+                dispatcher.utter_message("We need a categorization of your feature to check if it is conflicting with other features. We can only implement non-conflicting features.")
                 return {"categorization_requirement_user" : None}
         return {"categorization_requirement_user" : tracker.get_slot("categorization_requirement_user")}
 
@@ -321,7 +323,7 @@ class ValidateManageConflictForm(FormValidationAction):
             return additional_slots + slots_mapped_in_domain
 
         elif tracker.get_slot("does_participate") == False:
-                dispatcher.utter_message(text=f"Allright. Thank you for submitting your requirement. We will look into it as soon as possible.")
+                dispatcher.utter_message(text=f"Allright. Thank you for submitting your feature. We will look into it as soon as possible.")
 
         return slots_mapped_in_domain
 
@@ -377,7 +379,7 @@ class ValidateManageConflictForm(FormValidationAction):
                 dispatcher.utter_message(text=f"Your information will help us to focus on the features you want. So it would be great if you could answer some questions.")
                 return {"does_participate" : None}
             if intent == "stop":
-                dispatcher.utter_message(text=f"Allright. We will stop asking questions. Let me know when you have a new requirement.")
+                dispatcher.utter_message(text=f"Allright. We will stop asking questions. Let me know when you have a new feature.")
                 return {slot : None for slot in ValidateCategoryForm.slots_to_reset}
             if tracker.get_intent_of_latest_message() == "no_answer":
                 dispatcher.utter_message("If you do not want to participate any more you can say no.")
@@ -404,13 +406,13 @@ class ValidateManageConflictForm(FormValidationAction):
         #dispatcher.utter_message(tracker.get_intent_of_latest_message())
         if tracker.get_slot("requested_slot") == "x_agrees_with_conflict":
             if tracker.get_intent_of_latest_message() == "stop":
-                dispatcher.utter_message("Allright. We will stop asking questions. Let me know when you have a new requirement.")
+                dispatcher.utter_message("Allright. We will stop asking questions. Let me know when you have a new feature.")
                 return {slot : None for slot in ValidateCategoryForm.slots_to_reset}
             if tracker.get_intent_of_latest_message() == "chitchat":
                 dispatcher.utter_message(text=f"This is not the purpose I am intented for. I can help you submit new features and you can help me to resolve conflicts if you would like to.")
                 return {"x_agrees_with_conflict" : None}
             if tracker.get_intent_of_latest_message() == "explain": 
-                dispatcher.utter_message("We need your help to see if this is a real conflict. A conflict exists when two requirements cannot be implemented in the same system. E.g., they could contradict each other like \"camera on by default\" or \"camera off by default\". Sometimes constraints can hinder the implementation of requirements such as \"only the host can turn off the microphone of all participants\".")
+                dispatcher.utter_message("We need your help to see if this is a real conflict. A conflict exists when two features cannot be implemented in the same system. E.g., they could contradict each other like \"camera on by default\" or \"camera off by default\". Sometimes constraints can hinder the implementation of feature such as \"only the host can turn off the microphone of all participants\".")
                 return {"x_agrees_with_conflict" : None}
             if tracker.get_intent_of_latest_message() == "no_idea": 
                 dispatcher.utter_message("No problem. Should I explain to you why we ask this questions and what a conflict is? You can also skip this question if you tell me to.")
@@ -435,7 +437,7 @@ class ValidateManageConflictForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         if tracker.get_slot("requested_slot") == "explanation_conflict":
             if tracker.get_intent_of_latest_message() == "stop":
-                dispatcher.utter_message("Allright. We will stop asking questions. Let me know when you have a new requirement.")
+                dispatcher.utter_message("Allright. We will stop asking questions. Let me know when you have a new feature.")
                 return {slot : None for slot in ValidateCategoryForm.slots_to_reset}
             if tracker.get_intent_of_latest_message() == "chitchat":
                 dispatcher.utter_message(text=f"This is not the purpose I am intented for. I can help you submit new features and you can help me to resolve conflicts if you would like to.")
@@ -460,13 +462,13 @@ class ValidateManageConflictForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         if tracker.get_slot("requested_slot") == "preference":
             if tracker.get_intent_of_latest_message() == "stop":
-                dispatcher.utter_message("Allright. We will stop asking questions. Let me know when you have a new requirement.")
+                dispatcher.utter_message("Allright. We will stop asking questions. Let me know when you have a new feature.")
                 return {slot : None for slot in ValidateCategoryForm.slots_to_reset}
             if tracker.get_intent_of_latest_message() == "chitchat":
                 dispatcher.utter_message(text=f"This is not the purpose I am intented for. I can help you submit new features and you can help me to resolve conflicts if you would like to.")
                 return {"preference" : None}
             if tracker.get_intent_of_latest_message() == "explain":
-                dispatcher.utter_message("By telling us what you prefer, we can focus on the features that you find important since conflicting requirements can often not be implemented in the same system.")
+                dispatcher.utter_message("By telling us what you prefer, we can focus on the features that you find important since conflicting features can often not be implemented in the same system.")
                 return {"preference" : None}
             if tracker.get_intent_of_latest_message() == "no_answer":
                 dispatcher.utter_message(text="Allright. It is fine if you do not want to answer this question. We will skip it then.")
@@ -481,8 +483,8 @@ class ValidateManageConflictForm(FormValidationAction):
             elif tracker.get_intent_of_latest_message() == "they_do_the_same":
                 return {"preference" : "they do the same", "explanation_preference" : "they do the same"}
             elif tracker.get_intent_of_latest_message() == "both":
-                dispatcher.utter_message(text="I am sorry. You can only choose one.")
-                return {"preference" : None}
+                #dispatcher.utter_message(text="I am sorry. You can only choose one.")
+                return {"preference" : "both"}
         return {"preference" : tracker.get_slot("preference")}
 
     def validate_explanation_preference(
@@ -494,7 +496,7 @@ class ValidateManageConflictForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         if tracker.get_slot("requested_slot") == "explanation_preference":
             if tracker.get_intent_of_latest_message() == "stop":
-                dispatcher.utter_message("Allright. We will stop asking questions. Let me know when you have a new requirement.")
+                dispatcher.utter_message("Allright. We will stop asking questions. Let me know when you have a new feature.")
                 return {slot : None for slot in ValidateCategoryForm.slots_to_reset}
             if tracker.get_intent_of_latest_message() == "chitchat":
                 dispatcher.utter_message(text=f"This is not the purpose I am intented for. I can help you submit new features and you can help me to resolve conflicts if you would like to.")
@@ -521,7 +523,7 @@ class ValidateManageConflictForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         if tracker.get_slot("requested_slot") == "when_discovered":
             if tracker.get_intent_of_latest_message() == "stop":
-                dispatcher.utter_message("Allright. We will stop asking questions. Let me know when you have a new requirement.")
+                dispatcher.utter_message("Allright. We will stop asking questions. Let me know when you have a new feature.")
                 return {slot : None for slot in ValidateCategoryForm.slots_to_reset}
             if tracker.get_intent_of_latest_message() == "chitchat":
                 dispatcher.utter_message(text=f"This is not the purpose I am intented for. I can help you submit new features and you can help me to resolve conflicts if you would like to.")
@@ -558,7 +560,7 @@ class ValidateAnotherConflictForm(FormValidationAction):
             return additional_slots + slots_mapped_in_domain
 
         elif tracker.get_slot("does_participate") == False:
-            dispatcher.utter_message(text=f"Allright. Thank you for submitting your requirement. We will look into it as soon as possible.")
+            dispatcher.utter_message(text=f"Allright. Thank you for submitting your feature. We will look into it as soon as possible.")
 
         return slots_mapped_in_domain
 
@@ -580,7 +582,7 @@ class ValidateAnotherConflictForm(FormValidationAction):
                 dispatcher.utter_message(text=f"Your information will help us to focus on the features you want. So it would be great if you could answer some questions.")
                 return {"does_participate" : None}
             if intent == "stop":
-                dispatcher.utter_message(text=f"Allright. We will stop asking questions. No requirement was submitted. Let me know when you have a new requirement.")
+                dispatcher.utter_message(text=f"Allright. We will stop asking questions. No feature was submitted. Let me know when you have a new feature.")
                 return {slot : None for slot in ValidateCategoryForm.slots_to_reset}
             if tracker.get_intent_of_latest_message() == "no_answer":
                 dispatcher.utter_message("If you do not want to participate any more you can say no.")
@@ -640,13 +642,13 @@ class ValidateAnotherConflictForm(FormValidationAction):
         #dispatcher.utter_message(tracker.get_slot("x_agrees_with_conflict"))
         if tracker.get_slot("requested_slot") == "x_agrees_with_conflict":
             if tracker.get_intent_of_latest_message() == "stop":
-                dispatcher.utter_message("Allright. We will stop asking questions. Let me know when you have a new requirement.")
+                dispatcher.utter_message("Allright. We will stop asking questions. Let me know when you have a new feature.")
                 return {slot : None for slot in ValidateCategoryForm.slots_to_reset}
             if tracker.get_intent_of_latest_message() == "chitchat":
                 dispatcher.utter_message(text=f"This is not the purpose I am intented for. I can help you submit new features and you can help me to resolve conflicts if you would like to.")
                 return {"x_agrees_with_conflict" : None}
             if tracker.get_intent_of_latest_message() == "explain":
-                dispatcher.utter_message("We need your help to see if this is a real conflict. A conflict exists when two requirements cannot be implemented in the same system. E.g., they could contradict each other like \"camera on by default\" or \"camera off by default\". Sometimes constraints can hinder the implementation of requirements such as \"only the host can turn off the microphone of all participants\".")
+                dispatcher.utter_message("We need your help to see if this is a real conflict. A conflict exists when two feature cannot be implemented in the same system. E.g., they could contradict each other like \"camera on by default\" or \"camera off by default\". Sometimes constraints can hinder the implementation of features such as \"only the host can turn off the microphone of all participants\".")
                 return {"x_agrees_with_conflict" : None}
             if tracker.get_intent_of_latest_message() == "no_idea":
                 dispatcher.utter_message("No problem. Should I explain to you why we ask this questions and what a conflict is? You can also skip this question if you tell me to.")
@@ -669,7 +671,7 @@ class ValidateAnotherConflictForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         if tracker.get_slot("requested_slot") == "explanation_conflict":
             if tracker.get_intent_of_latest_message() == "stop":
-                dispatcher.utter_message("Allright. We will stop asking questions. Let me know when you have a new requirement.")
+                dispatcher.utter_message("Allright. We will stop asking questions. Let me know when you have a new feature.")
                 return {slot : None for slot in ValidateCategoryForm.slots_to_reset}
             if tracker.get_intent_of_latest_message() == "chitchat":
                 dispatcher.utter_message(text=f"This is not the purpose I am intented for. I can help you submit new features and you can help me to resolve conflicts if you would like to.")
@@ -694,13 +696,13 @@ class ValidateAnotherConflictForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         if tracker.get_slot("requested_slot") == "preference":
             if tracker.get_intent_of_latest_message() == "stop":
-                dispatcher.utter_message("Allright. We will stop asking questions. Let me know when you have a new requirement.")
+                dispatcher.utter_message("Allright. We will stop asking questions. Let me know when you have a new feature.")
                 return {slot : None for slot in ValidateCategoryForm.slots_to_reset}
             if tracker.get_intent_of_latest_message() == "chitchat":
                 dispatcher.utter_message(text=f"This is not the purpose I am intented for. I can help you submit new features and you can help me to resolve conflicts if you would like to.")
                 return {"preference" : None}
             if tracker.get_intent_of_latest_message() == "explain":
-                dispatcher.utter_message("By telling us what you prefer, we can focus on the features that you find important since conflicting requirements can often not be implemented in the same system.")
+                dispatcher.utter_message("By telling us what you prefer, we can focus on the features that you find important since conflicting features can often not be implemented in the same system.")
                 return {"preference" : None}
             if tracker.get_intent_of_latest_message() == "no_answer":
                 dispatcher.utter_message(text="Allright. It is fine if you do not want to answer this question. We will skip it then.")
@@ -728,7 +730,7 @@ class ValidateAnotherConflictForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         if tracker.get_slot("requested_slot") == "explanation_preference":
             if tracker.get_intent_of_latest_message() == "stop":
-                dispatcher.utter_message("Allright. We will stop asking questions. Let me know when you have a new requirement.")
+                dispatcher.utter_message("Allright. We will stop asking questions. Let me know when you have a new feature.")
                 return {slot : None for slot in ValidateCategoryForm.slots_to_reset}
             if tracker.get_intent_of_latest_message() == "chitchat":
                 dispatcher.utter_message(text=f"This is not the purpose I am intented for. I can help you submit new features and you can help me to resolve conflicts if you would like to.")
@@ -755,7 +757,7 @@ class ValidateAnotherConflictForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         if tracker.get_slot("requested_slot") == "when_discovered":
             if tracker.get_intent_of_latest_message() == "stop":
-                dispatcher.utter_message("Allright. We will stop asking questions. Let me know when you have a new requirement.")
+                dispatcher.utter_message("Allright. We will stop asking questions. Let me know when you have a new feature.")
                 return {slot : None for slot in ValidateCategoryForm.slots_to_reset}
             if tracker.get_intent_of_latest_message() == "chitchat":
                 dispatcher.utter_message(text=f"This is not the purpose I am intented for. I can help you submit new features and you can help me to resolve conflicts if you would like to.")
@@ -789,13 +791,13 @@ class ValidateUserInformationForm(FormValidationAction):
                 agrees = False
                 slot_value = "not stated"
             if tracker.get_intent_of_latest_message() == "stop":
-                dispatcher.utter_message("Allright. We will stop asking questions. Let me know when you have a new requirement.")
+                dispatcher.utter_message("Allright. We will stop asking questions. Let me know when you have a new feature.")
                 return {slot : None for slot in ValidateCategoryForm.slots_to_reset}
             if tracker.get_intent_of_latest_message() == "chitchat":
                 dispatcher.utter_message(text=f"This is not the purpose I am intented for. I can help you submit new features and you can help me to resolve conflicts if you would like to.")
                 return {"does_participate_user" : None}
             if tracker.get_intent_of_latest_message() == "explain":
-                dispatcher.utter_message("You do not have to participate. We will still save your requirement. Your additional information will help us to understand what you expect from our system.")
+                dispatcher.utter_message("You do not have to participate. We will still save your feature. Your additional information will help us to understand what you expect from our system.")
                 return {"does_participate_user" : None}
             if tracker.get_intent_of_latest_message() == "no_answer":
                 dispatcher.utter_message("If you do not want to answer personal questions you can say no.")
@@ -814,7 +816,7 @@ class ValidateUserInformationForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         if tracker.get_slot("requested_slot") == "z_age":
             if tracker.get_intent_of_latest_message() == "stop":
-                dispatcher.utter_message("Allright. We will stop asking questions. Let me know when you have a new requirement.")
+                dispatcher.utter_message("Allright. We will stop asking questions. Let me know when you have a new feature.")
                 return {slot : None for slot in ValidateCategoryForm.slots_to_reset}
             if tracker.get_intent_of_latest_message() == "chitchat":
                 dispatcher.utter_message(text=f"This is not the purpose I am intented for. I can help you submit new features and you can help me to resolve conflicts if you would like to.")
@@ -839,7 +841,7 @@ class ValidateUserInformationForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         if tracker.get_slot("requested_slot") == "y_main_use":
             if tracker.get_intent_of_latest_message() == "stop":
-                dispatcher.utter_message("Allright. We will stop asking questions. Let me know when you have a new requirement.")
+                dispatcher.utter_message("Allright. We will stop asking questions. Let me know when you have a new feature.")
                 return {slot : None for slot in ValidateCategoryForm.slots_to_reset}
             if tracker.get_intent_of_latest_message() == "chitchat":
                 dispatcher.utter_message(text=f"This is not the purpose I am intented for. I can help you submit new features and you can help me to resolve conflicts if you would like to.")
@@ -864,7 +866,7 @@ class ValidateUserInformationForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         if tracker.get_slot("requested_slot") == "x_user_group":
             if tracker.get_intent_of_latest_message() == "stop":
-                dispatcher.utter_message("Allright. We will stop asking questions. Let me know when you have a new requirement.")
+                dispatcher.utter_message("Allright. We will stop asking questions. Let me know when you have a new feature.")
                 return {slot : None for slot in ValidateCategoryForm.slots_to_reset}
             if tracker.get_intent_of_latest_message() == "chitchat":
                 dispatcher.utter_message(text=f"This is not the purpose I am intented for. I can help you submit new features and you can help me to resolve conflicts if you would like to.")
@@ -919,21 +921,25 @@ class ActionDatabase(Action):
                                                                          tracker.get_slot("new_requirement"))
 
             if conflicting_requirements is None:
-                message_for_user = """We have checked your requirements for conflicts with other requirements and there were non found.\n Great!\n But there are other requirement conflicts that need to be resolved."""
+                message_for_user = """We have checked your feature for conflicts with other features and there were non found.\n Great!\n But there are other feature conflicts that need to be resolved."""
             elif tracker.get_slot("categorization_requirement_user") == "nocategory":
-                message_for_user = """Since your requirement does not fit any of our predefined requirements we cannot check if it is conflicting with any other requirements, yet. \n But there are other requirement conflicts that need to be resolved."""
+                message_for_user = """Since your feature does not fit any of our predefined categeries we cannot check if it is conflicting with any other features, yet. \n But there are other features conflicts that need to be resolved."""
             else:
-                message_for_user = """There was a conflict between your and already existing requirements.\n"""
+                message_for_user = """There was a conflict between your and already existing features.\n"""
             dispatcher.utter_message(text=f"{message_for_user}")
 
             if selected_conflict:
                 #message_conflict = "\" " + selected_conflict[0][1] + "\" (" + selected_conflict[0][2] + ") and \"" + selected_conflict[1][1] + "\" (" + selected_conflict[1][2] +")"
                 message_conflict = "\"" + selected_conflict[0][1] + "\"" + " and \"" + selected_conflict[1][1] + "\""
+                conflict_1 = selected_conflict[0][1]
+                conflict_2 = selected_conflict[1][1]
             else:
                 message_conflict = "No conflict found."
         
             #ActionDatabase.round = 1
-            return [SlotSet("conflicting_requirements", message_conflict)]
+            return [SlotSet("conflicting_requirements", message_conflict),
+                    SlotSet("first_conflict", conflict_1),
+                    SlotSet("last_conflict", conflict_2)]
 
 
 class ActionSaveRequirement(Action):
@@ -1052,6 +1058,8 @@ class ActionSaveFirstConflict(Action):
 
             if selected_conflict:
                 message_conflict = "\"" + selected_conflict[0][1] + "\"" + " and \"" + selected_conflict[1][1] + "\""
+                conflict_1 = selected_conflict[0][1]
+                conflict_2 = selected_conflict[1][1]
             else:
                 message_conflict = "No conflict found."
 
@@ -1062,7 +1070,11 @@ class ActionSaveFirstConflict(Action):
                     SlotSet("explanation_preference", None),
                     SlotSet("when_discovered", None),
                     SlotSet("ask_another_conflict", True),
-                    SlotSet("conflicting_requirements", message_conflict)]
+                    SlotSet("conflicting_requirements", message_conflict),
+                    SlotSet("first_conflict", conflict_1),
+                    SlotSet("last_conflict", conflict_2)]
+
+
         print("First requirement NOT saved.")
         #return
 

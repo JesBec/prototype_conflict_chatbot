@@ -185,6 +185,16 @@ slots:
     initial_value: null
     auto_fill: false
     influence_conversation: true
+  first_conflict:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: false
+    influence_conversation: true
+  last_conflict:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: false
+    influence_conversation: true
   x_agreement_on_categorization:
     type: rasa.shared.core.slots.TextSlot
     initial_value: null
@@ -333,7 +343,7 @@ slots:
     - interruption
 responses:
   utter_greet:
-  - text: Hey! How are you? I can help you to submit a new requirement. Let me know when you have a new requirement.
+  - text: Hello! I can help you to submit a new feature. Just say "I have a new feature" if you have one.
   utter_cheer_up:
   - image: https://i.imgur.com/nGF1K8f.jpg
     text: 'Here is something to cheer you up:'
@@ -350,26 +360,26 @@ responses:
   utter_ask_should_we_continue:
   - text: Should we continue?
   utter_ask_new_requirement:
-  - text: What is your requirement?
+  - text: What is your feature?
   utter_ask_x_agreement_on_categorization:
     - condition:
         - type: slot
           name: categorization_info
           value: "no category found"
       text: |
-            Unfortunately, we were not able to categorize your requirement.
-            Can you choose a category for your requirement? We need a category to potentially implement your requirement.
+            Unfortunately, we were not able to categorize your feature.
+            Can you choose a category?
       buttons:
         - payload: /deny
-          title: I can choose category.
+          title: I can choose a category.
         - payload: /more_information_about_categories
           title: I need more information about the categories.
         - payload: /changereq
-          title: I want to change my requirement.
+          title: I want to change my feature.
 
     - text: |
-            Your requirement was categorized as {categorization_info}
-            Do you agree with the categorization of your new requirement?
+            Your feature was categorized as {categorization_info}
+            Do you agree with the categorization of your feature?
       buttons:
       - payload: /affirm
         title: It seems right.
@@ -378,30 +388,30 @@ responses:
       - payload: /more_information_about_categories
         title: I need more information about the categories.
       - payload: /changereq
-        title: I want to change my requirement.
+        title: I want to change my feature.
 
   utter_ask_categorization_requirement_user:
   - buttons:
     - payload: /audio
       title: |
              🎵 Audio:
-             This category is about any audio you want to hear or share. This could be your own voice or audio from screen and it can also come from different sources such as a microphone from a webcam or an application.
+             This category is about any audio you want to hear or share. It can come from sources such as a microphone or an application.
     - payload: /video
       title: |
               🎥 Video:
-              Similar to audio, you can share a video of yourself or your screen. This can involve different sources such as a camera from your webcam or an application on your screen. This category is about the video you want to share or want to see.
+              Similar to audio, you can share a video of yourself or your screen from different sources.
     - payload: /screensharing
       title: |
              💻 Screen sharing:
-             A web conference tool gives you the option to share your screen. This category contains requirements that, for example, define how many users at a time and who can share their screen and what options they have.
+             A web conference tool gives you the option to share your screen. For example, your desktop or an application.
     - payload: /recording
       title: |
              🎞 Recording:
-             Sometimes it is useful to record the meeting to save it. Any restrictions to recording a meeting do also fall under this category.
+             Sometimes it is useful to record the meeting to save it for later.
     - payload: /reaction
       title: |
              😃 Reaction:
-             Participants may want to react to something a presenter was saying and they can do so by choosing an emoji that will be displayed on their video. This can lead to less interruption than having participants react via their microphones.
+             Participants may want to react to something a presenter was saying and they can do so by choosing an emoji that will be displayed on their video.
     - payload: /polling
       title: |
              📊 Polling:
@@ -415,10 +425,10 @@ responses:
              💬 Chat:
              It can be helpful to share information not only by audio but also written via chat. This offers the possibility to talk to the host or other participants privately.
     - payload: /changereq
-      title: I want to change my requirement.
+      title: I want to change my feature.
     - payload: /nocategory
       title: None of these categories fit.
-    text: Which of these main categories do you think would fit your requirement?
+    text: Which of these main categories do you think would fit your feature?
   utter_ask_sub_category_audio:
   - buttons:
     - payload: /audio+option+microphone
@@ -542,10 +552,10 @@ responses:
     - payload: /screensharing
       title: |
               Screen sharing:
-              Your requirement does not fit any of the sub categories above but belongs to the category screen sharing.
+              Your feature does not fit any of the sub categories above but belongs to the category screen sharing.
     - payload: /goback
       title: I want to go back to the main categories.
-    text: Which of these sub categories is right for your requirement?
+    text: Which of these sub categories is right for your feature?
   utter_ask_sub_category_recording:
   - buttons:
     - payload: /recording+restriction
@@ -571,10 +581,10 @@ responses:
     - payload: /recording
       title: |
             Recording:
-            Your requirement does not fit any of the sub categories above but belongs to the category recording.
+            Your feature does not fit any of the sub categories above but belongs to the category recording.
     - payload: /goback
       title: I want to go back to the main categories.
-    text: Which of these sub categories is right for your requirement?
+    text: Which of these sub categories is right for your feature?
   utter_ask_sub_category_reaction:
   - buttons:
     - payload: /reaction+howto+start
@@ -592,10 +602,10 @@ responses:
     - payload: /reaction
       title: |
             Reactions:
-            Your requirement does not fit any of the sub categories above but belongs to the category reaction.
+            Your feature does not fit any of the sub categories above but belongs to the category reaction.
     - payload: /goback
       title: I want to go back to the main categories.
-    text: Which of these sub categories is right for your requirement?
+    text: Which of these sub categories is right for your feature?
   utter_ask_sub_category_polling:
   - buttons:
     - payload: /polling+restriction
@@ -617,10 +627,10 @@ responses:
     - payload: /polling
       title: |
             Polling:
-            Your requirement does not fit any of the sub categories above but belongs to the category polling.
+            Your feature does not fit any of the sub categories above but belongs to the category polling.
     - payload: /goback
       title: I want to go back to the main categories.
-    text: Which of these sub categories is right for your requirement?
+    text: Which of these sub categories is right for your feature?
   utter_ask_sub_category_livetranscript:
   - buttons:
     - payload: /livetranscript+restriction
@@ -642,10 +652,10 @@ responses:
     - payload: /livetranscript
       title: |
             Live transcript:
-            Your requirement does not fit any of the sub categories above but belongs to the category live transcript.
+            Your feature does not fit any of the sub categories above but belongs to the category live transcript.
     - payload: /goback
       title: I want to go back to the main categories.
-    text: Which of these sub categories is right for your requirement?
+    text: Which of these sub categories is right for your feature?
   utter_ask_sub_category_chat:
   - buttons:
     - payload: /chat+howto+start
@@ -663,124 +673,37 @@ responses:
     - payload: /chat
       title: |
             Chat:
-            Your requirement does not fit any of the sub categories above but belongs to the category chat.
+            Your feature does not fit any of the sub categories above but belongs to the category chat.
     - payload: /goback
       title: I want to go back to the main categories.
-    text: Which of these sub categories is right for your requirement?
+    text: Which of these sub categories is right for your feature?
   utter_ask_more_information_categories_needed:
-  - text: >
-      It is necessary to categorize your requirement to check if it is conflicting with other requirement. Some requirements show the functionality of the system whereas others represent constraints. Otherwise, requirements in conflict cannot be implemented in the same system.\n
+  - text: |
+      It is necessary to categorize your feature to check if it is conflicting with other features. \n
       Here are all the categories with information about them:\n\n
       🎵 Audio:\n
-      There are different options to share audio during a meeting. This could be your own voice or audio from screen or other participants. This audio can also come from different sources such as a microphone from a webcam or smart phone or an application. So this category is about any audio you want to hear or share.\n
+      There are different options to share audio during a meeting: This could be your own voice or audio from screen or other sources.n
       🎥 Video:\n
-      Similar to audio, you can share a video of yourself or your screen. This can involve different sources such as a camera from your webcam or an application on your screen. This category is about the video you want to share or want to see.\n
+      Similar to audio, you can share a video of yourself or your screen from different sources.\n
       💻 Screen sharing:\n
-      A web conference tool gives you the option to share your screen. This category contains requirements that, for example, define how many users at a time and who can share their screen and what options they have.\n
+      A web conference tool gives you the option to share your screen during a meeting. You could, e.g., show your desktop or an application.\n
       🎞 Recording:\n
-      Sometimes it is useful to record the meeting to save it. Any restrictions to recording a meeting do also fall under this category.\n
+      Sometimes it is useful to record the meeting to save it for later.\n
       😃 Reaction:\n
-      Participants may want to react to something a presenter was saying and they can do so by choosing an emoji that will be displayed on their video. This can lead to less interruption than having participants react via their microphones.\n
+      Participants may want to react to something a presenter was saying and they can do so by choosing an emoji that will be displayed on their video.\n
       📊 Polling:\n
-      Another way of getting feedback from participants of a web conference is polling.\n
+      Another way of getting feedback from participants of a meeting is polling.\n
       📄 Live transcript:\n
       Live transcripts can be enabled to help your participants better understand the presenter.\n
       💬 Chat:\n
-      It can be helpful to share information not only by audio but also written via chat. This offers the possibility to talk to the host or other participants privately.\n\n
+      It can be helpful to share information not only by audio but also written via chat. This allows for private conversations during a meeting.\n\n
       💡 Let me know when you are finished checking the categories.
-  utter_select_categories_slack:
-  - custom:
-      blocks:
-      - accessory:
-          action_id: selectcategories
-          options:
-          - text:
-              text: '*meeting*'
-              type: plain_text
-            value: value-0
-          - text:
-              text: '*joining*'
-              type: plain_text
-            value: value-1
-          - text:
-              text: '*installation*'
-              type: plain_text
-            value: value-2
-          - text:
-              text: '*video*'
-              type: plain_text
-            value: value-3
-          - text:
-              text: '*audio*'
-              type: plain_text
-            value: value-4
-          - text:
-              text: '*configuration*'
-              type: plain_text
-            value: value-5
-          - text:
-              text: '*testing*'
-              type: plain_text
-            value: value-6
-          - text:
-              text: '*control*'
-              type: plain_text
-            value: value-7
-          - text:
-              text: '*creation*'
-              type: plain_text
-            value: value-8
-          - text:
-              text: '*start*'
-              type: plain_text
-            value: value-9
-          - text:
-              text: '*participants*'
-              type: plain_text
-            value: value-10
-          - text:
-              text: '*sharing*'
-              type: plain_text
-            value: value-11
-          - text:
-              text: '*option*'
-              type: plain_text
-            value: value-12
-          - text:
-              text: '*sound*'
-              type: plain_text
-            value: value-13
-          - text:
-              text: '*record*'
-              type: plain_text
-            value: value-14
-          - text:
-              text: '*storing*'
-              type: plain_text
-            value: value-15
-          - text:
-              text: '*schedule*'
-              type: plain_text
-            value: value-16
-          - text:
-              text: '*create*'
-              type: plain_text
-            value: value-17
-          placeholder:
-            text: Select categories
-            type: plain_text
-          type: multi_static_select
-        block_id: section678
-        text:
-          text: Hello
-          type: mrkdwn
-        type: section
   utter_ask_more_information:
   - text: |
           Would you like to give us additional information to help resolve the conflict?
-          This would help us since we can only implement requirements when conflicts are resolved.
+          This would help us since we can only implement features when conflicts are resolved.
   utter_requirement_information:
-  - text: Great that you are asking. The better your requirement is formulated, the better it can be considered and even actually implemented.
+  - text: Great that you are asking. The better your feature is formulated, the better it can be considered and even actually implemented.
   utter_thanks_for_info:
   - text: Thank you for your information.
   utter_ask_does_participate:
@@ -789,17 +712,38 @@ responses:
       type: slot
       value: true
     text: Would you like to help solve another conflict?
-  - text: Could you give us some information to help resolve the conflict? We are only able to implement requirements with resolved conflicts.
+  - text: Could you give us some information to help resolve the conflict? We are only able to implement features with resolved conflicts.
   utter_ask_x_agrees_with_conflict:
-  - text: Do you agree with the conflict between {conflicting_requirements}?
+  - text: |
+     Do you agree with the conflict between these features?
+     First feature:
+     "{first_conflict}".
+
+     Second feature:
+     "{last_conflict}".
   utter_ask_explanation_conflict:
   - text: Please tell me why do you think so? You could also propose an idea on how to handle a conflict if one exists.
   utter_ask_preference:
-  - text: If you had to choose between {conflicting_requirements}. Do you prefer the first or last one? Or do they want the same?
+  - buttons:
+    - payload: /first
+      title: |
+          I choose the first feature:
+          {first_conflict}.
+    - payload: /last
+      title: |
+          I choose the second feature:
+          {last_conflict}.
+    - payload: /they_do_the_same
+      title: |
+          They do the same.
+    - payload: /both
+      title: |
+          Both work fine.
+    text: If you had to choose between the features. What would you choose?
   utter_ask_explanation_preference:
   - text: Could you explain why you prefer one over the other?
   utter_ask_when_discovered:
-  - text: When did you discover your new requirement? Have you been using, e.g., a specific feature of the system?
+  - text: When did you discover your new feature? Have you been using, e.g., a specific feature of the system?
   utter_ask_continue:
   - text: Do you want to stop submitting information?
   utter_ask_z_age:
@@ -811,9 +755,9 @@ responses:
   utter_ask_does_participate_user:
   - text: Would you like to give us some information about yourself?
   utter_explain_requirement:
-  - text: Requirements explain the behaviour you expect from our system. Try to be as precise as possible. We need this information to see what you expect of our system. We will check if your requirement is in conflict with other requirements.
+  - text: Features explain the behavior you expect from our system. Try to be as precise as possible. We need this information to see what you expect of our system. We will check if your feature is in conflict with other feature.
   utter_chitchat:
-  - text: This is not the purpose I am intented for. I can only help you with submitting requirements.
+  - text: This is not the purpose I am intented for. I can only help you with submitting new features.
   utter_please_rephrase:
   - text: I'm sorry, I didn't quite understand that. Could you rephrase?
 actions:
