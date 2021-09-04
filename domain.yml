@@ -678,26 +678,30 @@ responses:
       title: I want to go back to the main categories.
     text: Which of these sub categories is right for your feature?
   utter_ask_more_information_categories_needed:
-  - text: |
-      It is necessary to categorize your feature to check if it is conflicting with other features. \n
-      Here are all the categories with information about them:\n\n
-      🎵 Audio:\n
-      There are different options to share audio during a meeting: This could be your own voice or audio from screen or other sources.n
-      🎥 Video:\n
-      Similar to audio, you can share a video of yourself or your screen from different sources.\n
-      💻 Screen sharing:\n
-      A web conference tool gives you the option to share your screen during a meeting. You could, e.g., show your desktop or an application.\n
-      🎞 Recording:\n
-      Sometimes it is useful to record the meeting to save it for later.\n
-      😃 Reaction:\n
-      Participants may want to react to something a presenter was saying and they can do so by choosing an emoji that will be displayed on their video.\n
-      📊 Polling:\n
-      Another way of getting feedback from participants of a meeting is polling.\n
-      📄 Live transcript:\n
-      Live transcripts can be enabled to help your participants better understand the presenter.\n
-      💬 Chat:\n
-      It can be helpful to share information not only by audio but also written via chat. This allows for private conversations during a meeting.\n\n
-      💡 Let me know when you are finished checking the categories.
+  - buttons:
+      - payload: /finished_checking_categories
+        title: |
+          💡 Let me know when you are finished checking the categories.
+    text: >
+      It is necessary to categorize your feature to check if it is conflicting with other features.
+      Here are all the categories with information about them:
+
+      🎵 Audio:
+      There are different options to share audio during a meeting: This could be your own voice or audio from screen or other sources.
+      🎥 Video:
+      Similar to audio, you can share a video of yourself or your screen from different sources.
+      💻 Screen sharing:
+      A web conference tool gives you the option to share your screen during a meeting. You could, e.g., show your desktop or an application.
+      🎞 Recording:
+      Sometimes it is useful to record the meeting to save it for later.
+      😃 Reaction:
+      Participants may want to react to something a presenter was saying and they can do so by choosing an emoji that will be displayed on their video.
+      📊 Polling:
+      Another way of getting feedback from participants of a meeting is polling.
+      📄 Live transcript:
+      Live transcripts can be enabled to help your participants better understand the presenter.
+      💬 Chat:
+      It can be helpful to share information not only by audio but also written via chat. This allows for private conversations during a meeting.
   utter_ask_more_information:
   - text: |
           Would you like to give us additional information to help resolve the conflict?
@@ -728,17 +732,17 @@ responses:
     - payload: /first
       title: |
           I choose the first feature:
-          {first_conflict}.
+          **{first_conflict}**.
     - payload: /last
       title: |
           I choose the second feature:
-          {last_conflict}.
+          **{last_conflict}**.
     - payload: /they_do_the_same
       title: |
-          They do the same.
+          They do the **same**.
     - payload: /both
       title: |
-          Both work fine.
+          **Both** work fine.
     text: If you had to choose between the features. What would you choose?
   utter_ask_explanation_preference:
   - text: Could you explain why you prefer one over the other?
