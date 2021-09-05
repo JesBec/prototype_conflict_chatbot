@@ -487,7 +487,7 @@ responses:
     - payload: /video+screen+restriction
       title: |
              Restriction for screen sharing:
-             A restriction could limit who and what can be shared during a meeting regarding videos.
+             A restriction could limit who can share and what can be shared during a meeting regarding videos.
     - payload: /video+screen+howto+stop
       title: |
              A new option to stop sharing a video from screen:
@@ -524,7 +524,7 @@ responses:
     - payload: /screensharing+option
       title: |
              Option for screen sharing:
-             One way to share your screen is to share only an application. You would like to add another source.
+             You have an idea how a screen can be shared or another source other than an application.
     - payload: /screensharing+howto+stop
       title: |
              A new way to stop screen sharing:
