@@ -343,7 +343,7 @@ slots:
     - interruption
 responses:
   utter_greet:
-  - text: Hello! I can help you to submit a new feature. Just say "I have a new feature" if you have one.
+  - text: <b>Hello!</b> I can help you to submit a new feature. Just say "I have a new feature" if you have one.
   utter_cheer_up:
   - image: https://i.imgur.com/nGF1K8f.jpg
     text: 'Here is something to cheer you up:'
@@ -379,6 +379,7 @@ responses:
 
     - text: |
             Your feature was categorized as {categorization_info}
+
             Do you agree with the categorization of your feature?
       buttons:
       - payload: /affirm
@@ -433,43 +434,43 @@ responses:
   - buttons:
     - payload: /audio+option+microphone
       title: |
-             Audio option for microphone:
+             🎵 Audio option for microphone:
              Your requirement suggests a new option for a microphone source next to, e.g., a webcam, computer or microphone.
     - payload: /audio+option+screen
       title: |
-             Audio option for screen:
+             🎵 Audio option for screen:
              Your have a new option for audio from a screen next to, e.g., to an application.
     - payload: /audio+restriction
       title: |
-             Restriction for sharing audio:
+             🎵 Restriction for sharing audio:
              You would like to add a restriction such as "only the host can disable the participants to turn on their microphone".
     - payload: /audio+microphone+howto+start
       title: |
-             A new option to start sharing microphone:
+             🎵 A new option to start sharing microphone:
              Another way to turn on the microphone other than clicking the microphone icon.
     - payload: /audio+microphone+howto+stop
       title: |
-             A new option to stop sharing microphone:
+             🎵 A new option to stop sharing microphone:
              Another way to turn off the microphone other than clicking the microphone icon.
     - payload: /audio+screen+howto+start
       title: |
-             A new option to start sharing audio from screen:
+             🎵 A new option to start sharing audio from screen:
              Participants can share their screen including their applications during a meeting. You suggest a way of starting the sharing.
     - payload: /audio+screen+howto+stop
       title: |
-             A new option to stop sharing audio from screen:
+             🎵 A new option to stop sharing audio from screen:
              Participants can share their screen including their applications during a meeting. You suggest a way of stopping the sharing.
     - payload: /audio+default
       title: |
-             Default option for audio:
+             🎵 Default option for audio:
              A default option tells, e.g., if audio is turned on or off when the meeting is started.
     - payload: /audio+configation+option
       title: |
-             Option to configure audio:
+             🎵 Option to configure audio:
              One way to configure the audio is to click the menu icon. You have an idea for another way.
     - payload: /audio
       title: |
-            Audio:
+            🎵 Audio:
             Your requirement does not fit any of the sub categories above but belongs to the category audio.
     - payload: /goback
       title: I want to go back to the main categories.
@@ -478,43 +479,43 @@ responses:
   - buttons:
     - payload: /video+option+camera
       title: |
-             A new option for video from camera:
+             🎥 A new option for video from camera:
              One way to share video is your own camera. A source for a camera is a webcam but you would like to add another source.
     - payload: /video+option+screen
       title: |
-             A new option for video from screen:
+             🎥 A new option for video from screen:
              One way to share video is your screen, e.g., an application. You have an idea for a new source.
     - payload: /video+screen+restriction
       title: |
-             Restriction for screen sharing:
+             🎥 Restriction for screen sharing:
              A restriction could limit who can share and what can be shared during a meeting regarding videos.
     - payload: /video+screen+howto+stop
       title: |
-             A new option to stop sharing a video from screen:
+             🎥 A new option to stop sharing a video from screen:
              You have another idea on how to stop sharing video from your screen.
     - payload: /video+screen+howto+start
       title: |
-             A new option to start sharing a video from screen:
+             🎥 A new option to start sharing a video from screen:
              You have another idea on how to start sharing video from your screen.
     - payload: /video+camera+howto+stop
       title: |
-             A new option to stop sharing a video from camera:
+             🎥 A new option to stop sharing a video from camera:
              You have another idea on how to stop sharing video of your face.
     - payload: /video+camera+howto+start
       title: |
-             A new option to start sharing a video from camera:
+             🎥 A new option to start sharing a video from camera:
              You have another idea on how to start sharing video of your face.
     - payload: /video+default
       title: |
-             Default option video:
+             🎥 Default option video:
              The default option could tell if video is turned on when the meeting is starting.
     - payload: /video+configuration
       title: |
-             Configuration for video:
+             🎥 Configuration for video:
              One way to configure the video is to click the menu icon. You have an idea for another way.
     - payload: /video
       title: |
-             Video:
+             🎥 Video:
              Your requirement does not fit any of the sub categories above but belongs to the category video.
     - payload: /goback
       title: I want to go back to the main categories.
@@ -523,35 +524,35 @@ responses:
   - buttons:
     - payload: /screensharing+option
       title: |
-             Option for screen sharing:
+             💻 Option for screen sharing:
              You have an idea how a screen can be shared or another source other than an application.
     - payload: /screensharing+howto+stop
       title: |
-             A new way to stop screen sharing:
+             💻 A new way to stop screen sharing:
              You have another idea on how to stop sharing your screen.
     - payload: /screensharing+howto+start
       title: |
-             A new way to start screen sharing:
+             💻 A new way to start screen sharing:
              You have another idea on how to start sharing your screen.
     - payload: /screensharing+default
       title: |
-             Default settings for screen sharing:
+             💻 Default settings for screen sharing:
              The default option could tell if screen sharing starts when the meeting starts, for example.
     - payload: /screensharing+restriction+windows
       title: |
-             Restrictions for screen sharing regarding windows in meeting:
+             💻 Restrictions for screen sharing regarding windows in meeting:
              These restrictions concern how many people can share their screen at once and how many applications or windows a person can share.
     - payload: /screensharing+restriction+stop
       title: |
-             Restrictions for screen sharing regarding who can stop it:
+             💻 Restrictions for screen sharing regarding who can stop it:
              These type of restriction define who can stop the screen sharing of whose screen.
     - payload: /screensharing+restriction+start
       title: |
-             Restrictions for screen sharing regarding who can start it:
+             💻 Restrictions for screen sharing regarding who can start it:
              The ability to start screen sharing is described by this category.
     - payload: /screensharing
       title: |
-              Screen sharing:
+              💻 Screen sharing:
               Your feature does not fit any of the sub categories above but belongs to the category screen sharing.
     - payload: /goback
       title: I want to go back to the main categories.
@@ -560,27 +561,27 @@ responses:
   - buttons:
     - payload: /recording+restriction
       title: |
-             Restrictions for recording:
+             🎞 Restrictions for recording:
              A recording of a meeting can be, e.g., restricted by the person who is allowed to start a meeting or if the participants have to agree beforehand.
     - payload: /recording+howto+start
       title: |
-             A new option to start recording:
+             🎞 A new option to start recording:
              You have another idea on how to start recording a meeting.
     - payload: /recording+howto+stop
       title: |
-             A new option to stop recording:
+             🎞 A new option to stop recording:
              You have another idea on how to stop recording a meeting.
     - payload: /recording+option
       title: |
-             A new option what to record on meeting:
+             🎞 A new option what to record on meeting:
              You have another idea on what is recorded, e.g., only the voice or the screen.
     - payload: /recording+default
       title: |
-             Default option for recording:
+             🎞 Default option for recording:
              The default option tells if recording starts when the meeting starts, for example.
     - payload: /recording
       title: |
-            Recording:
+            🎞 Recording:
             Your feature does not fit any of the sub categories above but belongs to the category recording.
     - payload: /goback
       title: I want to go back to the main categories.
@@ -589,19 +590,19 @@ responses:
   - buttons:
     - payload: /reaction+howto+start
       title: |
-             A new option to start a reaction:
+             😃 A new option to start a reaction:
              A reaction is an emoji that you choose and is seen on your video for other participants. You have another idea on how to start a reaction.
     - payload: /reaction+howto+stop
       title: |
-             A new option to stop a reaction:
+             😃 A new option to stop a reaction:
              You have another idea on how to stop a reaction or when it stops.
     - payload: /reaction+default
       title: |
-             Default settings for reaction:
+             😃 Default settings for reaction:
              The default option tells if a reaction is shown when the meeting starts, for example.
     - payload: /reaction
       title: |
-            Reactions:
+            😃 Reactions:
             Your feature does not fit any of the sub categories above but belongs to the category reaction.
     - payload: /goback
       title: I want to go back to the main categories.
@@ -610,23 +611,23 @@ responses:
   - buttons:
     - payload: /polling+restriction
       title: |
-             Restriction for polling:
+             📊 Restriction for polling:
              Polling can be restricted, for example, regarding on who can start a poll.
     - payload: /polling+howto+start
       title: |
-             A new option to start polling:
+             📊 A new option to start polling:
              You have another idea on how to start polling.
     - payload: /polling+howto+stop
       title: |
-             A new option to stop polling:
+             📊 A new option to stop polling:
              You have another idea on how to stop polling.
     - payload: /polling+duration
       title: |
-             Duration for polling:
+             📊 Duration for polling:
              Polling can, e.g., stop after a predefined amount of time.
     - payload: /polling
       title: |
-            Polling:
+            📊 Polling:
             Your feature does not fit any of the sub categories above but belongs to the category polling.
     - payload: /goback
       title: I want to go back to the main categories.
@@ -635,23 +636,23 @@ responses:
   - buttons:
     - payload: /livetranscript+restriction
       title: |
-             Restrictions for live transcript:
+             📄 Restrictions for live transcript:
              Live transcripts can be restricted, for example, regarding on who can start it.
     - payload: /livetranscript+howto+start
       title: |
-             A new option to start a live transcript:
+             📄 A new option to start a live transcript:
              You have another idea on how to start live transcripts.
     - payload: /livetranscript+howto+stop
       title: |
-             A new option to stop a live transcript:
+             📄 A new option to stop a live transcript:
              You have another idea on how to stop live transcripts.
     - payload: /livetranscript+default
       title: |
-             Default option for live transcript:
+             📄 Default option for live transcript:
              Live transcript can, e.g., turned off when the meeting starts.
     - payload: /livetranscript
       title: |
-            Live transcript:
+            📄 Live transcript:
             Your feature does not fit any of the sub categories above but belongs to the category live transcript.
     - payload: /goback
       title: I want to go back to the main categories.
@@ -660,19 +661,19 @@ responses:
   - buttons:
     - payload: /chat+howto+start
       title: |
-             A new option to start a chat:
+             💬 A new option to start a chat:
              You have another idea on how to start a chat.
     - payload: /chat+howto+stop
       title: |
-             A new option to stop a chat:
+             💬 A new option to stop a chat:
              You have another idea on how to stop the chat.
     - payload: /chat+default
       title: |
-             Default settings for chat:
+             💬 Default settings for chat:
              An example of this category is the chat being open when the meeting starts.
     - payload: /chat
       title: |
-            Chat:
+            💬 Chat:
             Your feature does not fit any of the sub categories above but belongs to the category chat.
     - payload: /goback
       title: I want to go back to the main categories.
@@ -682,26 +683,26 @@ responses:
       - payload: /finished_checking_categories
         title: |
           💡 Let me know when you are finished checking the categories.
-    text: >
-      It is necessary to categorize your feature to check if it is conflicting with other features.
-      Here are all the categories with information about them:
+    text: "
+      It is necessary to categorize your feature to check if it is conflicting with other features.\n
+      Here are all the categories with information about them: \n\n
 
-      🎵 Audio:
-      There are different options to share audio during a meeting: This could be your own voice or audio from screen or other sources.
-      🎥 Video:
-      Similar to audio, you can share a video of yourself or your screen from different sources.
-      💻 Screen sharing:
-      A web conference tool gives you the option to share your screen during a meeting. You could, e.g., show your desktop or an application.
-      🎞 Recording:
-      Sometimes it is useful to record the meeting to save it for later.
-      😃 Reaction:
-      Participants may want to react to something a presenter was saying and they can do so by choosing an emoji that will be displayed on their video.
-      📊 Polling:
-      Another way of getting feedback from participants of a meeting is polling.
-      📄 Live transcript:
-      Live transcripts can be enabled to help your participants better understand the presenter.
-      💬 Chat:
-      It can be helpful to share information not only by audio but also written via chat. This allows for private conversations during a meeting.
+      🎵 Audio:\n
+      There are different options to share audio during a meeting: This could be your own voice or audio from screen or other sources.\n
+      🎥 Video:\n
+      Similar to audio, you can share a video of yourself or your screen from different sources.\n
+      💻 Screen sharing:\n
+      A web conference tool gives you the option to share your screen during a meeting. You could, e.g., show your desktop or an application.\n
+      🎞 Recording:\n
+      Sometimes it is useful to record the meeting to save it for later.\n
+      😃 Reaction:\n
+      Participants may want to react to something a presenter was saying and they can do so by choosing an emoji that will be displayed on their video.\n
+      📊 Polling:\n
+      Another way of getting feedback from participants of a meeting is polling.\n
+      📄 Live transcript:\n
+      Live transcripts can be enabled to help your participants better understand the presenter.\n
+      💬 Chat:\n
+      It can be helpful to share information not only by audio but also written via chat. This allows for private conversations during a meeting."
   utter_ask_more_information:
   - text: |
           Would you like to give us additional information to help resolve the conflict?
@@ -716,7 +717,9 @@ responses:
       type: slot
       value: true
     text: Would you like to help solve another conflict?
-  - text: Could you give us some information to help resolve the conflict? We are only able to implement features with resolved conflicts.
+  - text: |
+      Could you give us some information to help resolve the conflict?
+      We are only able to implement features with resolved conflicts.
   utter_ask_x_agrees_with_conflict:
   - text: |
      Do you agree with the conflict between these features?
@@ -732,20 +735,20 @@ responses:
     - payload: /first
       title: |
           I choose the first feature:
-          **{first_conflict}**.
+          {first_conflict}.
     - payload: /last
       title: |
           I choose the second feature:
-          **{last_conflict}**.
+          {last_conflict}.
     - payload: /they_do_the_same
       title: |
-          They do the **same**.
+          They do the same.
     - payload: /both
       title: |
-          **Both** work fine.
+          Both work fine.
     text: If you had to choose between the features. What would you choose?
   utter_ask_explanation_preference:
-  - text: Could you explain why you prefer one over the other?
+  - text: Please explain why you prefer one over the other?
   utter_ask_when_discovered:
   - text: When did you discover your new feature? Have you been using, e.g., a specific feature of the system?
   utter_ask_continue:

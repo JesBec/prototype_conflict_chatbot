@@ -1272,7 +1272,7 @@ class HandleDatabase:
         description = cur.fetchall()
         if description:
             #description_text = description[0][1] + ". The category is described as: " + description[0][0]
-            description_text = "{0}. The category is described as: {1}".format(description[0][1], description[0][0])
+            description_text = "{0}. \n The category is described as: {1}".format(description[0][1], description[0][0])
         mydb.close()
         return description_text
  

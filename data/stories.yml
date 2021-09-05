@@ -105,7 +105,7 @@ stories:
   - action: action_save_information
   - action: utter_thanks_for_info
 
-- story: requirement and management with changing categories
+- story: requirement and management with changing categories polling
   steps:
     - intent: request_requirement_submission
     - action: category_form
@@ -165,7 +165,6 @@ stories:
     - slot_was_set:
         - requested_slot: null
     - active_loop: null
-    #- action: action_save_information
     - action: action_save_first_conflict
     - action: user_information_form
     - active_loop: user_information_form
@@ -188,7 +187,6 @@ stories:
     - slot_was_set:
         - requested_slot: null
     - active_loop: null
-    #- action: utter_thanks_for_info
     - action: another_conflict_form
     - active_loop: another_conflict_form
     - slot_was_set:
@@ -198,9 +196,666 @@ stories:
     - slot_was_set:
         - requested_slot: null
     - active_loop: null
+    - action: action_save_information
+    - action: utter_thanks_for_info
+
+- story: change requirement audio
+  steps:
+    - intent: request_requirement_submission
+    - action: category_form
+    - active_loop: category_form
     #- slot_was_set:
-    #  - interruption: ready save
-    #- action: action_save_first_conflict
+    #  - x_agreement_on_categorization: null
+    - slot_was_set:
+        - requested_slot: new_requirement
+    # - slot_was_set:
+    #   - x_agreement_on_categorization: null
+    - slot_was_set:
+        - new_requirement: chat on by default
+    - slot_was_set:
+        - intent_new_requirement: chat+default
+    - slot_was_set:
+        - requested_slot: x_agreement_on_categorization
+    - slot_was_set:
+        - x_agreement_on_categorization: /deny
+    - slot_was_set:
+        - requested_slot: categorization_requirement_user
+    - slot_was_set:
+        - categorization_requirement_user: /audio
+    - slot_was_set:
+        - requested_slot: sub_category_audio
+    - slot_was_set:
+        - sub_category_audio: /audio+option+screen
+    - slot_was_set:
+        - requested_slot: null
+    - active_loop: null
+    - action: action_database
+    - action: manage_conflict_form
+    - active_loop: manage_conflict_form
+    - slot_was_set:
+        - requested_slot: does_participate
+    - slot_was_set:
+        - does_participate: true
+    - slot_was_set:
+        - requested_slot: x_agrees_with_conflict
+    - slot_was_set:
+        - x_agrees_with_conflict: True
+    - slot_was_set:
+        - requested_slot: explanation_conflict
+    - slot_was_set:
+        - explanation_conflict: 'they contradict each other'
+    - slot_was_set:
+        - requested_slot: preference
+    - slot_was_set:
+        - preference: 'the first one'
+    - slot_was_set:
+        - requested_slot: explanation_preference
+    - slot_was_set:
+        - explanation_preference: 'i prefer if i do not have to click it open'
+    - slot_was_set:
+        - requested_slot: when_discovered
+    - slot_was_set:
+        - when_discovered: 'i was bored in class'
+    - slot_was_set:
+        - requested_slot: null
+    - active_loop: null
+    - action: action_save_first_conflict
+    - action: user_information_form
+    - active_loop: user_information_form
+    - slot_was_set:
+        - requested_slot: does_participate_user
+    - slot_was_set:
+        - does_participate_user: yes
+    - slot_was_set:
+        - requested_slot: z_age
+    - slot_was_set:
+        - z_age: '25'
+    - slot_was_set:
+        - requested_slot: y_main_use
+    - slot_was_set:
+        - y_main_use: university
+    - slot_was_set:
+        - requested_slot: x_user_group
+    - slot_was_set:
+        - x_user_group: student
+    - slot_was_set:
+        - requested_slot: null
+    - active_loop: null
+    - action: another_conflict_form
+    - active_loop: another_conflict_form
+    - slot_was_set:
+        - requested_slot: does_participate
+    - slot_was_set:
+        - does_participate: false
+    - slot_was_set:
+        - requested_slot: null
+    - active_loop: null
+    - action: action_save_information
+    - action: utter_thanks_for_info
+
+- story: change requirement video
+  steps:
+    - intent: request_requirement_submission
+    - action: category_form
+    - active_loop: category_form
+    #- slot_was_set:
+    #  - x_agreement_on_categorization: null
+    - slot_was_set:
+        - requested_slot: new_requirement
+    # - slot_was_set:
+    #   - x_agreement_on_categorization: null
+    - slot_was_set:
+        - new_requirement: chat on by default
+    - slot_was_set:
+        - intent_new_requirement: chat+default
+    - slot_was_set:
+        - requested_slot: x_agreement_on_categorization
+    - slot_was_set:
+        - x_agreement_on_categorization: /deny
+    - slot_was_set:
+        - requested_slot: categorization_requirement_user
+    - slot_was_set:
+        - categorization_requirement_user: /video
+    - slot_was_set:
+        - requested_slot: sub_category_video
+    - slot_was_set:
+        - sub_category_video: /video+default
+    - slot_was_set:
+        - requested_slot: null
+    - active_loop: null
+    - action: action_database
+    - action: manage_conflict_form
+    - active_loop: manage_conflict_form
+    - slot_was_set:
+        - requested_slot: does_participate
+    - slot_was_set:
+        - does_participate: true
+    - slot_was_set:
+        - requested_slot: x_agrees_with_conflict
+    - slot_was_set:
+        - x_agrees_with_conflict: True
+    - slot_was_set:
+        - requested_slot: explanation_conflict
+    - slot_was_set:
+        - explanation_conflict: 'they contradict each other'
+    - slot_was_set:
+        - requested_slot: preference
+    - slot_was_set:
+        - preference: 'the first one'
+    - slot_was_set:
+        - requested_slot: explanation_preference
+    - slot_was_set:
+        - explanation_preference: 'i prefer if i do not have to click it open'
+    - slot_was_set:
+        - requested_slot: when_discovered
+    - slot_was_set:
+        - when_discovered: 'i was bored in class'
+    - slot_was_set:
+        - requested_slot: null
+    - active_loop: null
+    - action: action_save_first_conflict
+    - action: user_information_form
+    - active_loop: user_information_form
+    - slot_was_set:
+        - requested_slot: does_participate_user
+    - slot_was_set:
+        - does_participate_user: yes
+    - slot_was_set:
+        - requested_slot: z_age
+    - slot_was_set:
+        - z_age: '25'
+    - slot_was_set:
+        - requested_slot: y_main_use
+    - slot_was_set:
+        - y_main_use: university
+    - slot_was_set:
+        - requested_slot: x_user_group
+    - slot_was_set:
+        - x_user_group: student
+    - slot_was_set:
+        - requested_slot: null
+    - active_loop: null
+    - action: another_conflict_form
+    - active_loop: another_conflict_form
+    - slot_was_set:
+        - requested_slot: does_participate
+    - slot_was_set:
+        - does_participate: false
+    - slot_was_set:
+        - requested_slot: null
+    - active_loop: null
+    - action: action_save_information
+    - action: utter_thanks_for_info
+
+- story: change requirement screensharing
+  steps:
+    - intent: request_requirement_submission
+    - action: category_form
+    - active_loop: category_form
+    #- slot_was_set:
+    #  - x_agreement_on_categorization: null
+    - slot_was_set:
+        - requested_slot: new_requirement
+    # - slot_was_set:
+    #   - x_agreement_on_categorization: null
+    - slot_was_set:
+        - new_requirement: chat on by default
+    - slot_was_set:
+        - intent_new_requirement: chat+default
+    - slot_was_set:
+        - requested_slot: x_agreement_on_categorization
+    - slot_was_set:
+        - x_agreement_on_categorization: /deny
+    - slot_was_set:
+        - requested_slot: categorization_requirement_user
+    - slot_was_set:
+        - categorization_requirement_user: /screensharing
+    - slot_was_set:
+        - requested_slot: sub_category_screensharing
+    - slot_was_set:
+        - sub_category_screensharing: /screensharing+restriction+stop
+    - slot_was_set:
+        - requested_slot: null
+    - active_loop: null
+    - action: action_database
+    - action: manage_conflict_form
+    - active_loop: manage_conflict_form
+    - slot_was_set:
+        - requested_slot: does_participate
+    - slot_was_set:
+        - does_participate: true
+    - slot_was_set:
+        - requested_slot: x_agrees_with_conflict
+    - slot_was_set:
+        - x_agrees_with_conflict: True
+    - slot_was_set:
+        - requested_slot: explanation_conflict
+    - slot_was_set:
+        - explanation_conflict: 'they contradict each other'
+    - slot_was_set:
+        - requested_slot: preference
+    - slot_was_set:
+        - preference: 'the first one'
+    - slot_was_set:
+        - requested_slot: explanation_preference
+    - slot_was_set:
+        - explanation_preference: 'i prefer if i do not have to click it open'
+    - slot_was_set:
+        - requested_slot: when_discovered
+    - slot_was_set:
+        - when_discovered: 'i was bored in class'
+    - slot_was_set:
+        - requested_slot: null
+    - active_loop: null
+    - action: action_save_first_conflict
+    - action: user_information_form
+    - active_loop: user_information_form
+    - slot_was_set:
+        - requested_slot: does_participate_user
+    - slot_was_set:
+        - does_participate_user: yes
+    - slot_was_set:
+        - requested_slot: z_age
+    - slot_was_set:
+        - z_age: '25'
+    - slot_was_set:
+        - requested_slot: y_main_use
+    - slot_was_set:
+        - y_main_use: university
+    - slot_was_set:
+        - requested_slot: x_user_group
+    - slot_was_set:
+        - x_user_group: student
+    - slot_was_set:
+        - requested_slot: null
+    - active_loop: null
+    - action: another_conflict_form
+    - active_loop: another_conflict_form
+    - slot_was_set:
+        - requested_slot: does_participate
+    - slot_was_set:
+        - does_participate: false
+    - slot_was_set:
+        - requested_slot: null
+    - active_loop: null
+    - action: action_save_information
+    - action: utter_thanks_for_info
+
+- story: change requirement recording
+  steps:
+    - intent: request_requirement_submission
+    - action: category_form
+    - active_loop: category_form
+    #- slot_was_set:
+    #  - x_agreement_on_categorization: null
+    - slot_was_set:
+        - requested_slot: new_requirement
+    # - slot_was_set:
+    #   - x_agreement_on_categorization: null
+    - slot_was_set:
+        - new_requirement: chat on by default
+    - slot_was_set:
+        - intent_new_requirement: chat+default
+    - slot_was_set:
+        - requested_slot: x_agreement_on_categorization
+    - slot_was_set:
+        - x_agreement_on_categorization: /deny
+    - slot_was_set:
+        - requested_slot: categorization_requirement_user
+    - slot_was_set:
+        - categorization_requirement_user: /recording
+    - slot_was_set:
+        - requested_slot: sub_category_recording
+    - slot_was_set:
+        - sub_category_recording: /recording+howto+stop
+    - slot_was_set:
+        - requested_slot: null
+    - active_loop: null
+    - action: action_database
+    - action: manage_conflict_form
+    - active_loop: manage_conflict_form
+    - slot_was_set:
+        - requested_slot: does_participate
+    - slot_was_set:
+        - does_participate: true
+    - slot_was_set:
+        - requested_slot: x_agrees_with_conflict
+    - slot_was_set:
+        - x_agrees_with_conflict: True
+    - slot_was_set:
+        - requested_slot: explanation_conflict
+    - slot_was_set:
+        - explanation_conflict: 'they contradict each other'
+    - slot_was_set:
+        - requested_slot: preference
+    - slot_was_set:
+        - preference: 'the first one'
+    - slot_was_set:
+        - requested_slot: explanation_preference
+    - slot_was_set:
+        - explanation_preference: 'i prefer if i do not have to click it open'
+    - slot_was_set:
+        - requested_slot: when_discovered
+    - slot_was_set:
+        - when_discovered: 'i was bored in class'
+    - slot_was_set:
+        - requested_slot: null
+    - active_loop: null
+    - action: action_save_first_conflict
+    - action: user_information_form
+    - active_loop: user_information_form
+    - slot_was_set:
+        - requested_slot: does_participate_user
+    - slot_was_set:
+        - does_participate_user: yes
+    - slot_was_set:
+        - requested_slot: z_age
+    - slot_was_set:
+        - z_age: '25'
+    - slot_was_set:
+        - requested_slot: y_main_use
+    - slot_was_set:
+        - y_main_use: university
+    - slot_was_set:
+        - requested_slot: x_user_group
+    - slot_was_set:
+        - x_user_group: student
+    - slot_was_set:
+        - requested_slot: null
+    - active_loop: null
+    - action: another_conflict_form
+    - active_loop: another_conflict_form
+    - slot_was_set:
+        - requested_slot: does_participate
+    - slot_was_set:
+        - does_participate: false
+    - slot_was_set:
+        - requested_slot: null
+    - active_loop: null
+    - action: action_save_information
+    - action: utter_thanks_for_info
+
+
+- story: change requirement reaction
+  steps:
+    - intent: request_requirement_submission
+    - action: category_form
+    - active_loop: category_form
+    #- slot_was_set:
+    #  - x_agreement_on_categorization: null
+    - slot_was_set:
+        - requested_slot: new_requirement
+    # - slot_was_set:
+    #   - x_agreement_on_categorization: null
+    - slot_was_set:
+        - new_requirement: chat on by default
+    - slot_was_set:
+        - intent_new_requirement: chat+default
+    - slot_was_set:
+        - requested_slot: x_agreement_on_categorization
+    - slot_was_set:
+        - x_agreement_on_categorization: /deny
+    - slot_was_set:
+        - requested_slot: categorization_requirement_user
+    - slot_was_set:
+        - categorization_requirement_user: /reaction
+    - slot_was_set:
+        - requested_slot: sub_category_reaction
+    - slot_was_set:
+        - sub_category_reaction: /reaction+howto+start
+    - slot_was_set:
+        - requested_slot: null
+    - active_loop: null
+    - action: action_database
+    - action: manage_conflict_form
+    - active_loop: manage_conflict_form
+    - slot_was_set:
+        - requested_slot: does_participate
+    - slot_was_set:
+        - does_participate: true
+    - slot_was_set:
+        - requested_slot: x_agrees_with_conflict
+    - slot_was_set:
+        - x_agrees_with_conflict: True
+    - slot_was_set:
+        - requested_slot: explanation_conflict
+    - slot_was_set:
+        - explanation_conflict: 'they contradict each other'
+    - slot_was_set:
+        - requested_slot: preference
+    - slot_was_set:
+        - preference: 'the first one'
+    - slot_was_set:
+        - requested_slot: explanation_preference
+    - slot_was_set:
+        - explanation_preference: 'i prefer if i do not have to click it open'
+    - slot_was_set:
+        - requested_slot: when_discovered
+    - slot_was_set:
+        - when_discovered: 'i was bored in class'
+    - slot_was_set:
+        - requested_slot: null
+    - active_loop: null
+    - action: action_save_first_conflict
+    - action: user_information_form
+    - active_loop: user_information_form
+    - slot_was_set:
+        - requested_slot: does_participate_user
+    - slot_was_set:
+        - does_participate_user: yes
+    - slot_was_set:
+        - requested_slot: z_age
+    - slot_was_set:
+        - z_age: '25'
+    - slot_was_set:
+        - requested_slot: y_main_use
+    - slot_was_set:
+        - y_main_use: university
+    - slot_was_set:
+        - requested_slot: x_user_group
+    - slot_was_set:
+        - x_user_group: student
+    - slot_was_set:
+        - requested_slot: null
+    - active_loop: null
+    - action: another_conflict_form
+    - active_loop: another_conflict_form
+    - slot_was_set:
+        - requested_slot: does_participate
+    - slot_was_set:
+        - does_participate: false
+    - slot_was_set:
+        - requested_slot: null
+    - active_loop: null
+    - action: action_save_information
+    - action: utter_thanks_for_info
+
+- story: change requirement livetranscript
+  steps:
+    - intent: request_requirement_submission
+    - action: category_form
+    - active_loop: category_form
+    #- slot_was_set:
+    #  - x_agreement_on_categorization: null
+    - slot_was_set:
+        - requested_slot: new_requirement
+    # - slot_was_set:
+    #   - x_agreement_on_categorization: null
+    - slot_was_set:
+        - new_requirement: chat on by default
+    - slot_was_set:
+        - intent_new_requirement: chat+default
+    - slot_was_set:
+        - requested_slot: x_agreement_on_categorization
+    - slot_was_set:
+        - x_agreement_on_categorization: /deny
+    - slot_was_set:
+        - requested_slot: categorization_requirement_user
+    - slot_was_set:
+        - categorization_requirement_user: /livetranscript
+    - slot_was_set:
+        - requested_slot: sub_category_livetranscript
+    - slot_was_set:
+        - sub_category_livetranscript: /livetranscript+default
+    - slot_was_set:
+        - requested_slot: null
+    - active_loop: null
+    - action: action_database
+    - action: manage_conflict_form
+    - active_loop: manage_conflict_form
+    - slot_was_set:
+         - requested_slot: does_participate
+    - slot_was_set:
+         - does_participate: true
+    - slot_was_set:
+         - requested_slot: x_agrees_with_conflict
+    - slot_was_set:
+         - x_agrees_with_conflict: True
+    - slot_was_set:
+         - requested_slot: explanation_conflict
+    - slot_was_set:
+         - explanation_conflict: 'they contradict each other'
+    - slot_was_set:
+         - requested_slot: preference
+    - slot_was_set:
+         - preference: 'the first one'
+    - slot_was_set:
+         - requested_slot: explanation_preference
+    - slot_was_set:
+         - explanation_preference: 'i prefer if i do not have to click it open'
+    - slot_was_set:
+         - requested_slot: when_discovered
+    - slot_was_set:
+         - when_discovered: 'i was bored in class'
+    - slot_was_set:
+         - requested_slot: null
+    - active_loop: null
+    - action: action_save_first_conflict
+    - action: user_information_form
+    - active_loop: user_information_form
+    - slot_was_set:
+         - requested_slot: does_participate_user
+    - slot_was_set:
+         - does_participate_user: yes
+    - slot_was_set:
+         - requested_slot: z_age
+    - slot_was_set:
+         - z_age: '25'
+    - slot_was_set:
+         - requested_slot: y_main_use
+    - slot_was_set:
+         - y_main_use: university
+    - slot_was_set:
+         - requested_slot: x_user_group
+    - slot_was_set:
+         - x_user_group: student
+    - slot_was_set:
+         - requested_slot: null
+    - active_loop: null
+    - action: another_conflict_form
+    - active_loop: another_conflict_form
+    - slot_was_set:
+         - requested_slot: does_participate
+    - slot_was_set:
+         - does_participate: false
+    - slot_was_set:
+         - requested_slot: null
+    - active_loop: null
+    - action: action_save_information
+    - action: utter_thanks_for_info
+
+
+- story: change requirement chat
+  steps:
+    - intent: request_requirement_submission
+    - action: category_form
+    - active_loop: category_form
+    #- slot_was_set:
+    #  - x_agreement_on_categorization: null
+    - slot_was_set:
+        - requested_slot: new_requirement
+    # - slot_was_set:
+    #   - x_agreement_on_categorization: null
+    - slot_was_set:
+        - new_requirement: chat on by default
+    - slot_was_set:
+        - intent_new_requirement: chat+default
+    - slot_was_set:
+        - requested_slot: x_agreement_on_categorization
+    - slot_was_set:
+        - x_agreement_on_categorization: /deny
+    - slot_was_set:
+        - requested_slot: categorization_requirement_user
+    - slot_was_set:
+        - categorization_requirement_user: /chat
+    - slot_was_set:
+        - requested_slot: sub_category_chat
+    - slot_was_set:
+        - sub_category_chat: /chat+howto+stop
+    - slot_was_set:
+        - requested_slot: null
+    - active_loop: null
+    - action: action_database
+    - action: manage_conflict_form
+    - active_loop: manage_conflict_form
+    - slot_was_set:
+        - requested_slot: does_participate
+    - slot_was_set:
+        - does_participate: true
+    - slot_was_set:
+        - requested_slot: x_agrees_with_conflict
+    - slot_was_set:
+        - x_agrees_with_conflict: True
+    - slot_was_set:
+        - requested_slot: explanation_conflict
+    - slot_was_set:
+        - explanation_conflict: 'they contradict each other'
+    - slot_was_set:
+        - requested_slot: preference
+    - slot_was_set:
+        - preference: 'the first one'
+    - slot_was_set:
+        - requested_slot: explanation_preference
+    - slot_was_set:
+        - explanation_preference: 'i prefer if i do not have to click it open'
+    - slot_was_set:
+        - requested_slot: when_discovered
+    - slot_was_set:
+        - when_discovered: 'i was bored in class'
+    - slot_was_set:
+        - requested_slot: null
+    - active_loop: null
+    - action: action_save_first_conflict
+    - action: user_information_form
+    - active_loop: user_information_form
+    - slot_was_set:
+        - requested_slot: does_participate_user
+    - slot_was_set:
+        - does_participate_user: yes
+    - slot_was_set:
+        - requested_slot: z_age
+    - slot_was_set:
+        - z_age: '25'
+    - slot_was_set:
+        - requested_slot: y_main_use
+    - slot_was_set:
+        - y_main_use: university
+    - slot_was_set:
+        - requested_slot: x_user_group
+    - slot_was_set:
+        - x_user_group: student
+    - slot_was_set:
+        - requested_slot: null
+    - active_loop: null
+    - action: another_conflict_form
+    - active_loop: another_conflict_form
+    - slot_was_set:
+        - requested_slot: does_participate
+    - slot_was_set:
+        - does_participate: false
+    - slot_was_set:
+        - requested_slot: null
+    - active_loop: null
     - action: action_save_information
     - action: utter_thanks_for_info
 

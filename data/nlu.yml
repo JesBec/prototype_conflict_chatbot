@@ -175,20 +175,23 @@ nlu:
     - the user can use a camera for audio
     - a source for audio should be a tablet
     - connect smartphone to desktop as a microphone
+    - another option for audio
 - intent: audio+option+screen
   examples: |
     - audio from an application should be shared
     - i want to share audio from my desktop
     - play audio from video
     - start audio from webpages
+    - an option for audio from screen
 - intent: audio+restriction
   examples: |
     - The host can disable the user to share audio.
     - sharing audio needs to be enabled by the host
     - users need to be allowed to share audio
+    - audio restricted
 - intent: audio+microphone+howto+start
   examples: |
-    - The user can start to share microphone audio by clicking the microphone icon/button.
+    - The user can start to share microphone audio by clicking the microphone icon
     - click to turn on microphone
     - start microphone
     - enable microphone by pressing button
@@ -196,20 +199,20 @@ nlu:
     - turn on microphone
 - intent: audio+microphone+howto+stop
   examples: |
-    - The user can stop to share their microphone audio by clicking the microphone icon/button.
-    - turn microphone of with clicking
+    - The user can stop to share their microphone audio by clicking the microphone icon
+    - turn microphone off with clicking
     - stop microphone by pressing
     - disable microphone
 - intent: audio+screen+howto+start
   examples: |
-    - The user can start to share audio from screen by clicking the share screen button.
+    - The user can start to share audio from screen by clicking the share screen button
     - share computer audio with pressing share screen icon
     - turn on application audio by
-    - share video sound from with
+    - share video sound from screen with
     - get sound of
 - intent: audio+screen+howto+stop
   examples: |
-    - The user can stop to share audio from screen by clicking the stop button.
+    - The user can stop to share audio from screen by clicking the stop button
     - finish desktop audio sharing with
     - mute audio of application by
     - end sound of
@@ -419,6 +422,7 @@ nlu:
   examples: |
     - The chat can be opened by clicking the chat button.
     - to start chat press chat button
+    - i want to open the chat by right clicking a user image and choose chat
 - intent: chat+howto+stop
   examples: |
     - The chat can be closed by clicking the chat icon.
