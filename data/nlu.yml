@@ -423,6 +423,7 @@ nlu:
     - The chat can be opened by clicking the chat button.
     - to start chat press chat button
     - i want to open the chat by right clicking a user image and choose chat
+    - open chat by pressing ctrl+c
 - intent: chat+howto+stop
   examples: |
     - The chat can be closed by clicking the chat icon.

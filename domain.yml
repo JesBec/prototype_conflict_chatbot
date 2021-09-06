@@ -749,7 +749,7 @@ responses:
           Both work fine.
     text: If you had to choose between the features. What would you choose?
   utter_ask_explanation_preference:
-  - text: Please explain why you prefer one over the other?
+  - text: Please explain your decision.
   utter_ask_when_discovered:
   - text: When did you discover your new feature? Have you been using, e.g., a specific feature of the system?
   utter_ask_continue:
