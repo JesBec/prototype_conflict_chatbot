@@ -343,7 +343,7 @@ slots:
     - interruption
 responses:
   utter_greet:
-  - text: <b>Hello!</b> I can help you to submit a new feature. Just say "I have a new feature" if you have one.
+  - text: Hello! I can help you to submit a new feature. Just say "I have a new feature" if you have one.
   utter_cheer_up:
   - image: https://i.imgur.com/nGF1K8f.jpg
     text: 'Here is something to cheer you up:'
@@ -377,7 +377,7 @@ responses:
         - payload: /changereq
           title: I want to change my feature.
 
-    - text: |
+    - text: |-
             Your feature was categorized as {categorization_info}
 
             Do you agree with the categorization of your feature?
@@ -682,27 +682,27 @@ responses:
   - buttons:
       - payload: /finished_checking_categories
         title: |
-          💡 Let me know when you are finished checking the categories.
-    text: "
-      It is necessary to categorize your feature to check if it is conflicting with other features.\n
-      Here are all the categories with information about them: \n\n
+          💡 I am finished checking the categories.
+    text: |-
+            It is necessary to categorize your feature to check if it is conflicting with other features.
+            Here are all the categories with information about them:
 
-      🎵 Audio:\n
-      There are different options to share audio during a meeting: This could be your own voice or audio from screen or other sources.\n
-      🎥 Video:\n
-      Similar to audio, you can share a video of yourself or your screen from different sources.\n
-      💻 Screen sharing:\n
-      A web conference tool gives you the option to share your screen during a meeting. You could, e.g., show your desktop or an application.\n
-      🎞 Recording:\n
-      Sometimes it is useful to record the meeting to save it for later.\n
-      😃 Reaction:\n
-      Participants may want to react to something a presenter was saying and they can do so by choosing an emoji that will be displayed on their video.\n
-      📊 Polling:\n
-      Another way of getting feedback from participants of a meeting is polling.\n
-      📄 Live transcript:\n
-      Live transcripts can be enabled to help your participants better understand the presenter.\n
-      💬 Chat:\n
-      It can be helpful to share information not only by audio but also written via chat. This allows for private conversations during a meeting."
+            🎵 Audio:
+            There are different options to share audio during a meeting: This could be your own voice or audio from screen or other sources.
+            🎥 Video:
+            Similar to audio, you can share a video of yourself or your screen from different sources.
+            💻 Screen sharing:
+            A web conference tool gives you the option to share your screen during a meeting. You could, e.g., show your desktop or an application.
+            🎞 Recording:
+            Sometimes it is useful to record the meeting to save it for later.
+            😃 Reaction:
+            Participants may want to react to something a presenter was saying and they can do so by choosing an emoji that will be displayed on their video.
+            📊 Polling:
+            Another way of getting feedback from participants of a meeting is polling.
+            📄 Live transcript:
+            Live transcripts can be enabled to help your participants better understand the presenter.
+            💬 Chat:
+            It can be helpful to share information not only by audio but also written via chat. This allows for private conversations during a meeting.
   utter_ask_more_information:
   - text: |
           Would you like to give us additional information to help resolve the conflict?
@@ -722,12 +722,13 @@ responses:
       We are only able to implement features with resolved conflicts.
   utter_ask_x_agrees_with_conflict:
   - text: |
-     Do you agree with the conflict between these features?
-     First feature:
-     "{first_conflict}".
+           Do you agree with the conflict between these features?
 
-     Second feature:
-     "{last_conflict}".
+           First feature:
+           "{first_conflict}".
+
+           Second feature:
+           "{last_conflict}".
   utter_ask_explanation_conflict:
   - text: Please tell me why do you think so? You could also propose an idea on how to handle a conflict if one exists.
   utter_ask_preference:
