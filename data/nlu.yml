@@ -255,6 +255,7 @@ nlu:
   examples: |
     - The user can share their screen by clicking the share screen button/icon.
     - start application sharing through pressing screen sharing icon
+    - start sharing a video by pressing ctrl+v
     - show desktop with
     - sharing video via
 - intent: video+camera+howto+stop

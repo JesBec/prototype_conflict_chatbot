@@ -755,7 +755,7 @@ responses:
   utter_ask_continue:
   - text: Do you want to stop submitting information?
   utter_ask_z_age:
-  - text: This is the last personal question. I promise. May I ask you how old you are?
+  - text: This is the last personal question. I promise. How old are you?
   utter_ask_y_main_use:
   - text: For what purpose do you use the system mainly? For example, do you use it for work, school or with friends?
   utter_ask_x_user_group:
