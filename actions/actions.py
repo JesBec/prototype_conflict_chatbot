@@ -1015,6 +1015,9 @@ class ActionSaveFirstConflict(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        message_conflict = "no conflict"
+        conflict_1 = "no conflict"
+        conflict_2 = "no conflict"
 
         if tracker.get_slot("new_requirement") and tracker.get_slot("intent_new_requirement") and ActionSaveFirstConflict.second_round == False:
 
@@ -1063,20 +1066,17 @@ class ActionSaveFirstConflict(Action):
             else:
                 message_conflict = "No conflict found."
 
-            return [SlotSet("does_participate", None),
-                    SlotSet("x_agrees_with_conflict", None),
-                    SlotSet("explanation_conflict", None),
-                    SlotSet("preference", None),
-                    SlotSet("explanation_preference", None),
-                    SlotSet("when_discovered", None),
-                    SlotSet("ask_another_conflict", True),
-                    SlotSet("conflicting_requirements", message_conflict),
-                    SlotSet("first_conflict", conflict_1),
-                    SlotSet("last_conflict", conflict_2)]
+        return [SlotSet("does_participate", None),
+                SlotSet("x_agrees_with_conflict", None),
+                SlotSet("explanation_conflict", None),
+                SlotSet("preference", None),
+                SlotSet("explanation_preference", None),
+                SlotSet("when_discovered", None),
+                SlotSet("ask_another_conflict", True),
+                SlotSet("conflicting_requirements", message_conflict),
+                SlotSet("first_conflict", conflict_1),
+                SlotSet("last_conflict", conflict_2)]
 
-
-        print("First requirement NOT saved.")
-        #return
 
     
 
