@@ -285,8 +285,8 @@ nlu:
     - These options to share screen exist desktop, application, whiteboard.
     - desktop can be used via screen sharing
     - through screen sharing a whiteboard can be shared
-    - screen shaing should allow applications to be shown
-    - starting screen sharing should always be enabled
+    - screen sharing should allow applications to be shown
+    - to start screen sharing should always be enabled
 - intent: screensharing+restriction+start
   examples: |
     - The screen sharing option can be disabled by the host.

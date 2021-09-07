@@ -343,7 +343,9 @@ slots:
     - interruption
 responses:
   utter_greet:
-  - text: Hello! I can help you to submit a new feature. Just say "I have a new feature" if you have one.
+  - text: |
+          Hello! 👋
+          I can help you to submit a new functionality. We call them features. If you have a new idea for a feature, just say "I got one.".
   utter_cheer_up:
   - image: https://i.imgur.com/nGF1K8f.jpg
     text: 'Here is something to cheer you up:'
@@ -710,7 +712,9 @@ responses:
   utter_requirement_information:
   - text: Great that you are asking. The better your feature is formulated, the better it can be considered and even actually implemented.
   utter_thanks_for_info:
-  - text: Thank you for your information.
+  - text: |
+          Thank you for your information. A developer will look into your feedback as soon as possible.
+          Goodbye. 👋
   utter_ask_does_participate:
   - condition:
     - name: ask_another_conflict

@@ -1065,7 +1065,34 @@ class ActionSaveFirstConflict(Action):
                 conflict_2 = selected_conflict[1][1]
             else:
                 message_conflict = "No conflict found."
+                conflict_1 = "No conflict found"
+                conflict_2 = "No conflict found"
 
+            return [SlotSet("does_participate", None),
+                    SlotSet("x_agrees_with_conflict", None),
+                    SlotSet("explanation_conflict", None),
+                    SlotSet("preference", None),
+                    SlotSet("explanation_preference", None),
+                    SlotSet("when_discovered", None),
+                    SlotSet("ask_another_conflict", True),
+                    SlotSet("conflicting_requirements", message_conflict),
+                    SlotSet("first_conflict", conflict_1),
+                    SlotSet("last_conflict", conflict_2)]
+
+        else:
+            HandleDatabase.conflict_detected = False
+            ActionSaveFirstConflict.second_round = True
+
+            selected_conflict = HandleConflictManagement.select_conflict(ActionDatabase.categories_requirement,
+                                                                         tracker.get_slot("new_requirement"))
+            if selected_conflict:
+                message_conflict = "\"" + selected_conflict[0][1] + "\"" + " and \"" + selected_conflict[1][1] + "\""
+                conflict_1 = selected_conflict[0][1]
+                conflict_2 = selected_conflict[1][1]
+            else:
+                message_conflict = "No conflict found."
+                conflict_1 = "No conflict found"
+                conflict_2 = "No conflict found"
         return [SlotSet("does_participate", None),
                 SlotSet("x_agrees_with_conflict", None),
                 SlotSet("explanation_conflict", None),
