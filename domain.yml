@@ -720,10 +720,10 @@ responses:
     - name: ask_another_conflict
       type: slot
       value: true
-    text: Would you like to help solve another conflict?
+    text: Do you like to answer some questions again to help us resolve another conflict?
   - text: |
-      Could you give us some information to help resolve the conflict?
       We are only able to implement features with resolved conflicts.
+      Do you like to answer some questions that help us to resolve the conflict?
   utter_ask_x_agrees_with_conflict:
   - text: |
            Do you agree with the conflict between these features?

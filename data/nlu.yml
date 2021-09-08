@@ -43,6 +43,7 @@ nlu:
     - i will
     - i do
     - i want to
+    - what questions?
 - intent: deny
   examples: |
     - no
