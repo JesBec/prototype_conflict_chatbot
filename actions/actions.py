@@ -717,7 +717,7 @@ class ValidateAnotherConflictForm(FormValidationAction):
             elif tracker.get_intent_of_latest_message() == "they_do_the_same":
                 return {"preference" : "they do the same", "explanation_preference" : "they do the same"}
             elif tracker.get_intent_of_latest_message() == "both":
-                dispatcher.utter_message(text="I am sorry. You can only choose one.")
+                #dispatcher.utter_message(text="I am sorry. You can only choose one.")
                 return {"preference" : None}
         return {"preference" : tracker.get_slot("preference")}
 
